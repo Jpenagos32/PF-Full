@@ -1,10 +1,11 @@
-import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
-import Landing from "./components/views/Landing";
-import Home from "./components/views/Home";
-import PayView from "./components/views/PayView";
+import Landing from "./views/Landing/Landing";
+import Home from "./views/Home/Home";
+import PayView from "./views/Payview/PayView";
 import { useDispatch, useSelector } from "react-redux";
 import roomsSlice from "./redux/store.js";
+import NavBar from "./components/NavBar/NavBar";
+
 
 const App = () => {
     const location = useLocation();
@@ -12,8 +13,9 @@ const App = () => {
     const rooms = useSelector((state) => state.rooms);
     return (
         <>
-            <h3>Reservas PRO</h3>
+            
             <section>
+                {location.pathname !== "/" && <NavBar />}
                 <Routes>
                     <Route
                         path="/"
