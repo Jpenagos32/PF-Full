@@ -1,9 +1,9 @@
-const express = require('express');
-const app = express();
+require('dotenv').config()
+const { PORT } = process.env || 3001
+const app = require('./app')
+const { mongoose } = require('./db')
 
-const PORT = process.env.PORT || 3001;
-
-app.listen(PORT,'0.0.0.0', () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server raised in port: ${PORT}`);
 });
 
