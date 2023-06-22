@@ -1,13 +1,12 @@
 import React from "react";
-import Sidebar from "../Sidebar";
+import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import { NavLink } from "react-router-dom";
 
 const Home = () => {
   return (
     <div>
-      Home
+      <CardsContainer />
       <section>
-        <Sidebar />
         <NavLink to="/">Landing</NavLink>;<NavLink to="/pay">PayView</NavLink>;
       </section>
     </div>
