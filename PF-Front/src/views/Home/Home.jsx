@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import Calendar from "../../components/Calendar/Calendar"
 
 const Home = () => {
     return (
@@ -9,6 +10,7 @@ const Home = () => {
                 <NavLink to="/">Landing</NavLink>;
                 <NavLink to="/pay">PayView</NavLink>;
             </section>
+            <Calendar/>
         </div>
     );
 };
