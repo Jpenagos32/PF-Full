@@ -8,6 +8,7 @@ const Home = () => {
             <section>
                 <NavLink to="/">Landing</NavLink>;
                 <NavLink to="/pay">PayView</NavLink>;
+                <NavLink to="/detail">Detail</NavLink>;
             </section>
         </div>
     );
