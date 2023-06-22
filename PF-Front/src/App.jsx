@@ -1,11 +1,11 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import Landing from "./views/Landing/Landing";
 import Home from "./views/Home/Home";
-import PayView from "./views/Payview/PayView";
+import Pay from "./views/Pay/Pay";
+import Detail from "./views/Detail/Detail";
 import { useDispatch, useSelector } from "react-redux";
 import roomsSlice from "./redux/store.js";
 import NavBar from "./components/NavBar/NavBar";
-
 
 const App = () => {
     const location = useLocation();
@@ -13,7 +13,6 @@ const App = () => {
     const rooms = useSelector((state) => state.rooms);
     return (
         <>
-            
             <section>
                 {location.pathname !== "/" && <NavBar />}
                 <Routes>
@@ -26,8 +25,12 @@ const App = () => {
                         element={<Home />}
                     />
                     <Route
+                        path="/detail"
+                        element={<Detail />}
+                    />
+                    <Route
                         path="/pay"
-                        element={<PayView />}
+                        element={<Pay />}
                     />
                 </Routes>
             </section>
