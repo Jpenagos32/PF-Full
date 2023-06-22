@@ -1,14 +1,13 @@
 import React from "react";
 import CardsContainer from "../../components/CardsContainer/CardsContainer";
-import { NavLink } from "react-router-dom";
+import Calendar from "../../components/Calendar/Calendar"
 
 const Home = () => {
+  
   return (
     <div>
       <CardsContainer />
-      <section>
-        <NavLink to="/">Landing</NavLink>;<NavLink to="/pay">PayView</NavLink>;
-      </section>
+      <Calendar/>
     </div>
   );
 };
