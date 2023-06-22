@@ -1,19 +1,15 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import Calendar from "../../components/Calendar/Calendar"
 
 const Home = () => {
-    return (
-        <div>
-            Home
-            <section>
-                <NavLink to="/">Landing</NavLink>;
-                <NavLink to="/pay">PayView</NavLink>;
-                <NavLink to="/detail">Detail</NavLink>;
-            </section>
-            <Calendar/>
-        </div>
-    );
+  
+  return (
+    <div>
+      <CardsContainer />
+      <Calendar/>
+    </div>
+  );
 };
 
 export default Home;
