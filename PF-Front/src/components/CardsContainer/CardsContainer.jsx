@@ -1,164 +1,127 @@
+/**
+ * JavascripFile: CardContainer.js
+ * Objetivo:  El componente CardsContainer es responsable de renderizar una
+ * colección de tarjetas de habitaciones. Cada tarjeta representa una habitación con diferentes atributos como nombre, imagen, rating, price, room service, queen bed y hd tv.
+ * Autor: Hernando Rey
+ * Fecha de creación: 21 de junio 2023
+ *
+ *
+ *   - CardsContainer: La función principal del componente que renderiza el
+ * contenedor de tarjetas de habitaciones.
+ *   - map(): Una función de Array utilizada para iterar sobre la lista de habitaciones
+ *(cardsRooms) y generar las tarjetas correspondientes.
+ *   - CardsContainer: No tiene parámetros de entrada ni salida.
+ */
+
 import React from "react";
 import CardRoom from "../CardRoom/CardRoom";
-import { Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 
 export default function CardsContainer() {
   const cardsRooms = [
     {
       id: 1,
-      name: "bulbasaur",
+      name: "Habitación Estándar",
       hp: 45,
       attack: 49,
-      defense: 49,
-      speed: 45,
+      defense: "Queen Bed",
+      speed: "HD Tv",
       height: 0.7,
-      weight: 6.9,
+      weight: "Room Service",
       types: ["grass", "poison"],
       image:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1.png",
+        "https://cdn.domestika.org/c_fill,dpr_auto,f_auto,q_auto/v1403264758/content-items/000/610/961/IMG_7824-original.jpg?1403264758",
       created: "false",
     },
     {
       id: 2,
-      name: "ivysaur",
+      name: "Habitación Familiar",
       hp: 60,
       attack: 62,
-      defense: 63,
-      speed: 60,
+      defense: "Queen Bed",
+      speed: "HD Tv",
       height: 1,
-      weight: 13,
+      weight: "Room Service",
       types: ["grass", "poison"],
       image:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/2.png",
+        "https://cdn.domestika.org/c_fill,dpr_auto,f_auto,q_auto/v1403264883/content-items/000/610/963/Detalle_4-original.jpg?1403264883",
       created: "false",
     },
     {
       id: 3,
-      name: "venusaur",
+      name: "Suite Presidencial",
       hp: 80,
       attack: 82,
-      defense: 83,
-      speed: 80,
+      defense: "Queen Bed",
+      speed: "HD Tv",
       height: 2,
-      weight: 100,
+      weight: "Room Service",
       types: ["grass", "poison"],
       image:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/3.png",
+        "https://cdn.domestika.org/c_fill,dpr_auto,f_auto,q_auto/v1403264914/content-items/000/610/964/Detalle_5-original.jpg?1403264914",
       created: "false",
     },
     {
       id: 4,
-      name: "charmander",
+      name: "Suite Ejecutiva",
       hp: 39,
       attack: 52,
-      defense: 43,
-      speed: 65,
+      defense: "Queen Bed",
+      speed: "HD Tv",
       height: 0.6,
-      weight: 8.5,
+      weight: "Room Service",
       types: ["fire"],
       image:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/4.png",
+        "https://i.pinimg.com/originals/d2/26/9e/d2269e5391590ad832f880e2594e95d7.jpg",
       created: "false",
     },
     {
       id: 5,
-      name: "charmeleon",
+      name: "Habitación Deluxe",
       hp: 58,
       attack: 64,
-      defense: 58,
-      speed: 80,
+      defense: "Queen Bed",
+      speed: "HD Tv",
       height: 1.1,
-      weight: 19,
+      weight: "Room Service",
       types: ["fire"],
       image:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/5.png",
+        "https://i.pinimg.com/originals/44/fb/b2/44fbb2ef2537a77940d26002b2b36b0d.jpg",
       created: "false",
     },
     {
       id: 6,
-      name: "charizard",
+      name: "Habitación Superior",
       hp: 78,
       attack: 84,
-      defense: 78,
-      speed: 100,
+      defense: "Queen Bed",
+      speed: "HD Tv",
       height: 1.7,
-      weight: 90.5,
+      weight: "Room Service",
       types: ["fire", "flying"],
       image:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/6.png",
-      created: "false",
-    },
-    {
-      id: 7,
-      name: "squirtle",
-      hp: 44,
-      attack: 48,
-      defense: 65,
-      speed: 43,
-      height: 0.5,
-      weight: 9,
-      types: ["water"],
-      image:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/7.png",
-      created: "false",
-    },
-    {
-      id: 8,
-      name: "wartortle",
-      hp: 59,
-      attack: 63,
-      defense: 80,
-      speed: 58,
-      height: 1,
-      weight: 22.5,
-      types: ["water"],
-      image:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/8.png",
-      created: "false",
-    },
-    {
-      id: 9,
-      name: "blastoise",
-      hp: 79,
-      attack: 83,
-      defense: 100,
-      speed: 78,
-      height: 1.6,
-      weight: 85.5,
-      types: ["water"],
-      image:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/9.png",
-      created: "false",
-    },
-    {
-      id: 10,
-      name: "caterpie",
-      hp: 45,
-      attack: 30,
-      defense: 35,
-      speed: 45,
-      height: 0.3,
-      weight: 2.9,
-      types: ["bug"],
-      image:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/10.png",
+        "https://i.pinimg.com/originals/87/18/b3/8718b3da6d7194a5293d5a5fb52973c8.jpg",
       created: "false",
     },
   ];
   return (
-    <Grid container spacing={2} direction="row">
-      {cardsRooms &&
-        cardsRooms.map((room) => (
-          <Grid item xs={4} key={room.id}>
-            <CardRoom
-              name={room.name}
-              image={room.image}
-              speed={room.speed}
-              height={room.height}
-              weight={room.weight}
-            />
-          </Grid>
-        ))}
-    </Grid>
+    <Container maxWidth="md">
+      <Grid container rowSpacing={6} columnSpacing={{ xs: 1, sm: 2, md: 8 }}>
+        {cardsRooms &&
+          cardsRooms.map((room) => (
+            <Grid item xs={6} md={4} key={room.id}>
+              <CardRoom
+                name={room.name}
+                image={room.image}
+                speed={room.speed}
+                height={room.height}
+                weight={room.weight}
+                defense={room.defense}
+                attack={room.attack}
+              />
+            </Grid>
+          ))}
+      </Grid>
+    </Container>
   );
 }
