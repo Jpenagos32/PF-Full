@@ -10,19 +10,37 @@ Manifiesto de funciones:
     1-putHotel= Metodo encargado de actualizar los datos básicos del Hotel.
 ===============================================================================================================================
 */
+
 const Hotel = require('../../models/Hotel');
 
 const putHotel = async (req, res) => {
 	try {
-		const dataUpdated = req.body;
-		const { niu } = req.query;
+		const { niu, father, son, grandSon, value } = req.query;
 
-		// const hotel = await Hotel.findOneAndUpdate({ niu }, dataUpdated);
-		const hotel = await Hotel.findOneAndUpdate({ niu }, dataUpdated);
-		// console.log(hotel);
-		if (hotel.length === 0) {
+		if (!father) {
+			return res.status(400).json('Must provide valid query parameters');
+		}
+
+		let query;
+
+		if (grandSon) {
+			query = { $set: { [`${father}.${son}.${grandSon}`]: value } };
+		} else if (son) {
+			query = { $set: { [`${father}.${son}`]: value } };
+		} else {
+			query = { $set: { [father]: value } };
+		}
+
+		const hotel = await Hotel.updateOne({ niu }, query);
+
+		if (!hotel) {
 			return res.status(404).json({ error: 'Hotel not found' });
 		}
+		if (!hotel.acknowledged)
+			return res
+				.status(405)
+				.json('Query parameter not found in database');
+
 		res.status(200).json({ message: 'Hotel updated', hotel });
 	} catch (error) {
 		res.status(400).json({ error: error.message });
