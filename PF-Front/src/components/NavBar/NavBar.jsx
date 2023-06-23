@@ -64,12 +64,14 @@ const NavBar = () => {
           >
             <MenuIcon />
           </IconButton>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <Logo
-              src="https://i.ibb.co/fFXPtrC/logo-removebg-preview.png"
-              alt="logo"
-            />
-          </div>
+          <NavLinkStyled to="/home">
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Logo
+                src="https://i.ibb.co/fFXPtrC/logo-removebg-preview.png"
+                alt="logo"
+              />
+            </div>
+          </NavLinkStyled>
           <SocialIconsContainer>
             <NavLinkStyled to="/account">My Account</NavLinkStyled>
             <SocialIcon>
@@ -119,10 +121,14 @@ const NavBar = () => {
         }}
       >
         <div style={{ marginRight: "10px" }}>
-          <Button>Login</Button>
+          <NavLinkStyled to="/signin">
+            <Button>Login</Button>
+          </NavLinkStyled>
         </div>
         <div>
-          <Button>Register</Button>
+          <NavLinkStyled to="/signup">
+            <Button>Register</Button>
+          </NavLinkStyled>
         </div>
       </div>
     </div>
