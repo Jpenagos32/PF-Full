@@ -1,14 +1,15 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
+const Room = require('./Room')
 
 const HostsSchema = new Schema({
-    user_id: {
-        type: Number,
-        required: true,
-    },
     identification: {
         type: String,
         required: true,
+    },
+    active: {
+        type: Boolean,
+        default: true,
     },
     first_name: {
         type: String,
@@ -80,13 +81,17 @@ const HostsSchema = new Schema({
     },
     rooms: {
         room_id: {
-            type: Number,
-            required: true,
+            type: Schema.Types.ObjectId,
+            ref: 'Room',
         },
-        name: {
-            type: String,
-            required: true,
-        },
+        // room_name: {
+        //     type: String,
+        //     required: true,
+        // },
+        // active_reservation: {
+        //     type: Boolean,
+        //     default: true,
+        // }
     },
 });
 

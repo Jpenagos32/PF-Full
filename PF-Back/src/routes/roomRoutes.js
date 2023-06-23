@@ -6,9 +6,9 @@ const getRoomsAvailable = require('../controllers/getRoomsAvailable')
 const getRoomsDetail = require('../controllers/getRoomsDetail')
 const getRooms = require('../controllers/getRooms')
 
-roomRoutes.get('/rooms',getRooms)
-roomRoutes.get('/roomsDetail',getRoomsDetail)
-roomRoutes.get('/roomsAvailable',getRoomsAvailable)
-roomRoutes.put('/putRooms', putRooms)
+roomRoutes.get('/', getRooms)
+roomRoutes.get('/roomsDetail', getRoomsDetail)
+roomRoutes.get('/roomsAvailable', getRoomsAvailable)
+roomRoutes.put('/', putRooms)
 
-module.exports =roomRoutes
+module.exports = roomRoutes

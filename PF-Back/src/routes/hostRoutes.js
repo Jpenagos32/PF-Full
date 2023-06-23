@@ -9,12 +9,12 @@ const putHost = require('../controllers/putHost')
 const putReservation = require('../controllers/putReservation')
 const postHost = require('../controllers/postHost')
 
-hostRoutes.delete('/deleteReservation',deleteReservation)
-hostRoutes.put('/putReservation', putReservation)
+hostRoutes.delete('/reservation/:id', deleteReservation)
+hostRoutes.put('/reservation', putReservation)
 hostRoutes.post('/reservation', postReservation)
-hostRoutes.get('/getHostById', getHostById)
-hostRoutes.post('/postHost', postHost)
-hostRoutes.delete('/deleteHost', deleteHost)
-hostRoutes.put('/putHost', putHost)
+hostRoutes.get('/:id', getHostById)
+hostRoutes.post('/', postHost)
+hostRoutes.delete('/:id', deleteHost)
+hostRoutes.put('/', putHost)
 
 module.exports = hostRoutes
