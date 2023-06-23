@@ -22,7 +22,7 @@ const Landing = () => {
     >
       <Container>
         <Content>
-          <Title>Reservas PRO</Title>
+          <Title>SUNSET SANDS HOTEL</Title>
           <Link to="/home">
             <Button variant="contained">Home</Button>
           </Link>
