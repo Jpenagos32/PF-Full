@@ -37,29 +37,24 @@ const Gallery = () => {
     };
 
     return (
-        <main className={styles.main}>
-            <div className={styles.container}>
-                {panels.map((panel, index) => (
-                    <div
-                        key={index}
-                        className={`${styles.panel} ${
-                            activePanel === index ? styles.active : ""
-                        }`}
-                        style={{
-                            backgroundImage: panel.backgroundImage,
-                            height: activePanel === index ? "90vh" : "40px",
-                            backgroundSize:
-                                activePanel === index ? "70vw 100%" : "cover",
-                        }}
-                        onClick={() => handlePanelClick(index)}>
-                        <h3>{panel.title}</h3>
-                    </div>
-                ))}
-            </div>
-            <aside className={styles.sidebar}>SideBar</aside>
-            <section className={styles.reviews}>reviews</section>
-            <footer className={styles.footer}>footer</footer>
-        </main>
+        <div className={styles.container}>
+            {panels.map((panel, index) => (
+                <div
+                    key={index}
+                    className={`${styles.panel} ${
+                        activePanel === index ? styles.active : ""
+                    }`}
+                    style={{
+                        backgroundImage: panel.backgroundImage,
+                        height: activePanel === index ? "90vh" : "40px",
+                        backgroundSize:
+                            activePanel === index ? "70vw 100%" : "cover",
+                    }}
+                    onClick={() => handlePanelClick(index)}>
+                    <h3>{panel.title}</h3>
+                </div>
+            ))}
+        </div>
     );
 };
 
