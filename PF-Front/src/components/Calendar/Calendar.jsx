@@ -11,6 +11,7 @@ import Grid from '@mui/material/Grid';
 import ChildCareIcon from '@mui/icons-material/ChildCare';
 import Person2Icon from '@mui/icons-material/Person2';
 import BedIcon from '@mui/icons-material/Bed';
+import Filters from "../Filters/Filters";
 
 
 
@@ -22,6 +23,7 @@ export default function Calendar() {
   const [adult, setAdult] = useState(0);
   const [room, setRoom] = useState(0);
 
+
   const countSelectedDays = () => {
     if (startDate && endDate) {
       const start = dayjs(startDate);
@@ -32,6 +34,7 @@ export default function Calendar() {
     return 0;
   };
 
+
   const handlerChangeChild = (event) => {
     const { value } = event.target
     setChild(Number(value))
@@ -41,6 +44,7 @@ export default function Calendar() {
     const { value } = event.target
     setAdult(Number(value))
   };
+
   const handlerChangeRoom = (event) => {
     const { value } = event.target
     setRoom(Number(value))
@@ -189,7 +193,7 @@ export default function Calendar() {
           padding: '15px',
           margin: '20px',
           marginBottom: '-22px'
-          
+
 
         }
       }>
@@ -199,8 +203,8 @@ export default function Calendar() {
             fontWeight: 'bold',
             color: '#FAFAFF',
             textAlign: 'center',
-            
-           
+
+
 
           }
         }> Choose your Date
@@ -300,7 +304,7 @@ export default function Calendar() {
           margin: '20px'
         }
       }>
-
+        <Filters/>
 
       </Card>
 
