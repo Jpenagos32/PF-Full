@@ -23,15 +23,15 @@ Clase: Ais
    11-fxSaveConceptosReformado = Metodo que permite registrar los coneptos para un reformado.
 ===============================================================================================================================
 */
-const Rooms = require('../models/Room')
+const Rooms = require('../../models/Room');
 
-const putRooms = async (req, res) => {
-    try {
-        const rooms = await Rooms.find()
-        res.status(200).send('Succesfull')    
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-}
+const getRoomsAvailable = async (req, res) => {
+	try {
+		const rooms = await Rooms.find();
+		res.status(200).json(rooms);
+	} catch (error) {
+		res.status(400).json({ error: error.message });
+	}
+};
 
-module.exports = putRooms;
+module.exports = getRoomsAvailable;
