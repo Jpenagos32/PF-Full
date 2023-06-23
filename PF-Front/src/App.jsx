@@ -6,6 +6,8 @@ import Detail from "./views/Detail/Detail";
 import { useDispatch, useSelector } from "react-redux";
 import roomsSlice from "./redux/store.js";
 import NavBar from "./components/NavBar/NavBar";
+import Login from "./views/Login/Login";
+import Register from "./views/Register/Register";
 
 const App = () => {
     const location = useLocation();
@@ -31,6 +33,16 @@ const App = () => {
                     <Route
                         path="/pay"
                         element={<Pay />}
+                    />
+
+                    <Route
+                        path="/signin"
+                        element={<Login />}
+                    />
+
+                    <Route
+                        path="/signup"
+                        element={<Register />}
                     />
                 </Routes>
             </section>
