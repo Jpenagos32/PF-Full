@@ -17,16 +17,18 @@ const Room = require('../../models/Room');
 const putRooms = async (req, res) => {
     try {
         const { room_number } = req.params
-        const roomExists = await Room.findOne({ room_number })
+        const roomExists = await Room.findOne({ room_number });
         if (!roomExists) {
-            return res.status(404).json({ error: 'Room not found' })
+            return res.status(404).json({ error: 'Room not found' });
         }
-        if (roomExists.available === true) {
-            await Room.updateOne({ room_number }, { available: false })
-        } else {
-            await Room.updateOne({ room_number }, { available: true })
-        }
-        res.status(200).json({ message: 'room update', roomExists })
+
+        const updatedRoom = await Room.findOneAndUpdate(
+            { room_number },
+            { available: !roomExists.available },
+            { new: true }
+        );
+
+        return res.status(200).json({ message: 'Room updated', room: updatedRoom });
 
     } catch (error) {
         res.status(400).json({ error: error.message });
