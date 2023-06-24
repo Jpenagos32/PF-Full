@@ -1,32 +1,38 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    height: 95vh;
-}
-
-.panel {
-    background-size: auto 110%;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 30px;
-    height: 80vh;
-    color: white;
-    text-shadow: 2px 2px 4px black;
-    margin: 0.33rem;
+    margin: 1rem 1rem 3rem 1rem;
+    width: 100%;
+    text-align: center;
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    text-indent: 0.5rem;
 }
 
-.panel.active {
-    flex: 1;
-    object-fit: contain;
+.image {
+    width: 100%;
+    aspect-ratio: 4.5/3;
+    object-fit: cover;
+    border-radius: 5px;
 }
 
-.panel h3 {
-    font-size: 2rem;
+.dotContainer {
+    padding: 1rem;
+    border-radius: 10rem;
+    background-color: #ededed80;
     position: absolute;
+    bottom: 4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0 1rem 0 1rem;
+    cursor: pointer;
+    background-color: #ffffff;
+}
+
+.dot.active {
+    background-color: rgb(176, 111, 206);
 }
