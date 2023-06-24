@@ -10,7 +10,7 @@ const postRooms = require('../controllers/RoomsControllers/postRooms');
 roomRoutes.get('/', getRooms);
 roomRoutes.get('/roomsDetail', getRoomsDetail);
 roomRoutes.get('/roomsAvailable', getRoomsAvailable);
-roomRoutes.put('/', putRooms);
+roomRoutes.put('/:room_number', putRooms);
 roomRoutes.post('/', postRooms);
 
 module.exports = roomRoutes;
