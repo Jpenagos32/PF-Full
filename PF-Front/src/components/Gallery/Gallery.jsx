@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Gallery.module.css";
+import { useLocation } from "react-router-dom";
 
 const Gallery = () => {
+    const location = useLocation();
+    const path = location.pathname;
     const [currentImage, setCurrentImage] = useState(0);
 
     const images = {
@@ -11,7 +14,24 @@ const Gallery = () => {
         d: "https://images.pexels.com/photos/2507016/pexels-photo-2507016.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         e: "https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?auto=compress&cs=tinysrgb&w=600",
     };
-    const image = Object.values(images).filter((value) => value !== null);
+
+    function getImgUrl(images) {
+        const image = [];
+
+        for (let key in images) {
+            const value = images[key];
+
+            if (typeof value === "string") {
+                image.push(value);
+            } else if (typeof value === "object" && value !== null) {
+                image.push(...getImgUrl(value));
+            }
+        }
+
+        return image;
+    }
+
+    let image = getImgUrl(images);
 
     const handleChangeImage = () => {
         setCurrentImage((prevImage) =>

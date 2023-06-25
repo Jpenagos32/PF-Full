@@ -85,7 +85,7 @@ const Detail = () => {
                             backgroundColor: "#efeeff",
                             p: 2,
                         }}>
-                        <Calendar />
+                        <Reviews />
                     </Grid>
                 </Grid>
                 <Grid

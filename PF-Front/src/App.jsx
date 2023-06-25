@@ -8,6 +8,7 @@ import roomsSlice from "./redux/store.js";
 import NavBar from "./components/NavBar/NavBar";
 import Login from "./views/Login/Login";
 import Register from "./views/Register/Register";
+import Error from "./components/Error/Error";
 
 const App = () => {
     const location = useLocation();
@@ -45,6 +46,12 @@ const App = () => {
                         element={<Register />}
                     />
                 </Routes>
+                {path !== "/" &&
+                    path !== "/home" &&
+                    path !== "/pay" &&
+                    path !== "/signin" &&
+                    path !== "/signup" &&
+                    !path.startsWith("/detail") && <Error />}
             </section>
         </>
     );
