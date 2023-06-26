@@ -27,7 +27,7 @@ const Footer = (props) => {
                     fontFamily:
                         'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif',
                     overflow: "hidden",
-                    background: "#ededed",
+                    background: "#efeeff",
                     flexWrap: "nowrap",
                 }}>
                 <Grid

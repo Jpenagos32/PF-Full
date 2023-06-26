@@ -1,10 +1,10 @@
 import { Box, Button } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import { Container, Content, Title } from "./LandingStyles";
+import { Container, Content, Title } from "./ErrorStyles";
 import Gallery from "../../components/Gallery/Gallery";
 
-const Landing = () => {
+const Error = () => {
     return (
         <Box
             sx={{
@@ -19,9 +19,9 @@ const Landing = () => {
             }}>
             <Container>
                 <Content>
-                    <Title>SUNSET SANDS HOTEL</Title>
+                    <Title>LOOKS LIKE NOTHING HERE</Title>
                     <Link to="/home">
-                        <Button variant="contained">Home</Button>
+                        <Button variant="contained">Back To Home</Button>
                     </Link>
                 </Content>
             </Container>
@@ -30,4 +30,4 @@ const Landing = () => {
     );
 };
 
-export default Landing;
+export default Error;
