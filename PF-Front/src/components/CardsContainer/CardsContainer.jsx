@@ -91,7 +91,7 @@ export default function CardsContainer() {
     },
     {
       id: 6,
-      name: "Habitación Superior",
+      name: "Habitación Superior ",
       hp: 78,
       attack: 84,
       defense: "Queen Bed",
@@ -105,11 +105,15 @@ export default function CardsContainer() {
     },
   ];
   return (
-    <Container maxWidth="md">
-      <Grid container rowSpacing={6} columnSpacing={{ xs: 1, sm: 2, md: 8 }}>
+    <Container>
+      <Grid
+        container
+        rowSpacing={{ xs: 2, sm: 6, md: 8 }}
+        columnSpacing={{ xs: 2, sm: 6, md: 8 }}
+      >
         {cardsRooms &&
           cardsRooms.map((room) => (
-            <Grid item xs={6} md={4} key={room.id}>
+            <Grid item xs={12} sm={6} md={4} key={room.id}>
               <CardRoom
                 name={room.name}
                 image={room.image}
