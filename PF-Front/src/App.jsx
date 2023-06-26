@@ -11,50 +11,31 @@ import Register from "./views/Register/Register";
 import Error from "./components/Error/Error";
 
 const App = () => {
-    const location = useLocation();
-    const path = location.pathname;
-    const rooms = useSelector((state) => state.rooms);
-    return (
-        <>
-            <section>
-                {location.pathname !== "/" && <NavBar />}
-                <Routes>
-                    <Route
-                        path="/"
-                        element={<Landing />}
-                    />
-                    <Route
-                        path="/home"
-                        element={<Home />}
-                    />
-                    <Route
-                        path="/detail/"
-                        element={<Detail />}
-                    />
-                    <Route
-                        path="/pay"
-                        element={<Pay />}
-                    />
-
-                    <Route
-                        path="/signin"
-                        element={<Login />}
-                    />
-
-                    <Route
-                        path="/signup"
-                        element={<Register />}
-                    />
-                </Routes>
-                {path !== "/" &&
+  const location = useLocation();
+  const path = location.pathname;
+  const rooms = useSelector((state) => state.rooms);
+  return (
+    <>
+      <section>
+        {location.pathname !== "/" && <NavBar />}
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/detail" element={<Detail />} />
+          <Route path="/pay" element={<Pay />} />
+          <Route path="/signin" element={<Login />} />
+          <Route path="/signup" element={<Register />} />
+        </Routes>
+          {path !== "/" &&
                     path !== "/home" &&
                     path !== "/pay" &&
                     path !== "/signin" &&
                     path !== "/signup" &&
                     !path.startsWith("/detail") && <Error />}
-            </section>
-        </>
-    );
+      </section>
+    </>
+  );
 };
 
 export default App;
+
