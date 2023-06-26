@@ -11,7 +11,7 @@ import Grid from '@mui/material/Grid';
 import ChildCareIcon from '@mui/icons-material/ChildCare';
 import Person2Icon from '@mui/icons-material/Person2';
 import BedIcon from '@mui/icons-material/Bed';
-import Filters from "../Filters/Filters";
+
 
 
 
@@ -281,33 +281,15 @@ export default function Calendar() {
                 variant="standard"
                 onChange={handlerChangeRoom}
               />
+             
             </Grid>
+            
           </Grid>
+          
         </LocalizationProvider>
+        
       </Card>
-      <Typography variant="h1" sx={
-        {
-          fontSize: '20px',
-          fontWeight: 'bold',
-          color: '#868688',
-          marginTop: '20px',
-          marginLeft: '30px'
-        }
-      }> Filter By
-
-      </Typography>
-      <Card elevation={0} sx={
-        {
-          backgroundColor: "#F3F3F7",
-          height: 'auto',
-          padding: '15px',
-          margin: '20px'
-        }
-      }>
-        <Filters/>
-
-      </Card>
-
+      
 
     </div>
   );
