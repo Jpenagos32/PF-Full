@@ -1,5 +1,6 @@
+import { Grid } from "@mui/material";
 import React from "react";
-import Grid from "@mui/material/Unstable_Grid2";
+
 
 const Footer = () => {
     return (

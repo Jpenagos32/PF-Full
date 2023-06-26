@@ -1,14 +1,13 @@
 import React from "react";
-import Grid from "@mui/material/Unstable_Grid2";
 import Gallery from "../../components/Gallery/Gallery";
 import Footer from "../../components/DetailFooter/Footer";
 import Calendar from "../../components/Calendar/Calendar";
-
 import Reviews from "../../components/Reviews/Reviews";
+import { Grid } from "@mui/material";
 
 const Detail = () => {
     return (
-        <main style={{ margin: "0 1rem 1rem 0" }}>
+        <main style={{ margin: "0 1rem 2rem 0" }}>
             <Grid
                 container
                 spacing={1}
@@ -52,7 +51,7 @@ const Detail = () => {
                             margin: "1rem 0 0.1rem 0",
                             borderRadius: "5px",
                             height: "100vh",
-                            backgroundColor: "rgb(225, 202, 252)",
+                            backgroundColor: "#ededed",
                             p: 2,
                         }}>
                         <Calendar />
@@ -72,7 +71,7 @@ const Detail = () => {
                             margin: "0.1rem",
                             borderRadius: "5px",
                             height: "40vh",
-                            backgroundColor: "rgb(225, 202, 252)",
+                            backgroundColor: "#ededed",
                             p: 2,
                         }}>
                         <Footer>footer</Footer>
@@ -92,7 +91,7 @@ const Detail = () => {
                             margin: "0.1rem",
                             borderRadius: "5px",
                             height: "40vh",
-                            backgroundColor: "rgb(225, 202, 252)",
+                            backgroundColor: "#ededed",
                             p: 2,
                         }}>
                         <Reviews />
