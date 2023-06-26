@@ -9,6 +9,7 @@ const roomSchema = new Schema({
 	room_number: {
 		type: Number,
 		required: true,
+		unique:true,
 	},
 	room_type: {
 		type: String,
@@ -106,20 +107,7 @@ const roomSchema = new Schema({
 			default: false,
 		},
 	},
-	review: {
-		description: {
-			type: String,
-			required: true,
-		},
-		score: [
-			{ cleanliness: Number },
-			{ communication: Number },
-			{ check_in: Number },
-			{ accuracy: Number },
-			{ location: Number },
-			{ value: Number },
-		],
-	},
+	room_description: { type: String, required: true },
 });
 
 module.exports = mongoose.model('Room', roomSchema);
