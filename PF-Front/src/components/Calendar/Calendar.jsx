@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import dayjs from "dayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
@@ -6,15 +6,13 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import TextField from '@mui/material/TextField';
-import { Typography, Card } from "@mui/material";
+import { Typography, Card  } from "@mui/material";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import Grid from '@mui/material/Grid';
 import ChildCareIcon from '@mui/icons-material/ChildCare';
 import Person2Icon from '@mui/icons-material/Person2';
 import BedIcon from '@mui/icons-material/Bed';
-import { countAdult, countChild, countRooms } from "../../redux/bookingSlice";
-
-
+import { countAdult, countChild, countNights, countRooms } from "../../redux/bookingSlice";
 
 
 export default function Calendar() {
@@ -43,7 +41,12 @@ export default function Calendar() {
     dispatch(countRooms(value))
   };
 
-
+  useEffect(() => {
+    if (startDate && endDate) {
+      const total = countSelectedDays();
+      dispatch(countNights(total));
+    }
+  }, [startDate, endDate, dispatch]);
 
   const countSelectedDays = () => {
     if (startDate && endDate) {
@@ -93,6 +96,7 @@ export default function Calendar() {
             "No dates selected"
           )} )
         </Typography>
+
         <Typography sx={
           {
             fontSize: '15px',
@@ -112,7 +116,7 @@ export default function Calendar() {
           } />
 
 
-          {countSelectedDays()}
+            {countSelectedDays()}
 
           Nights
 
@@ -163,6 +167,7 @@ export default function Calendar() {
               {child}
 
             </Typography>
+
           </Grid>
           <Grid item xs={12} sm={4}>
             <Typography sx={
