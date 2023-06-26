@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import dayjs from "dayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -11,6 +12,7 @@ import Grid from '@mui/material/Grid';
 import ChildCareIcon from '@mui/icons-material/ChildCare';
 import Person2Icon from '@mui/icons-material/Person2';
 import BedIcon from '@mui/icons-material/Bed';
+import { countAdult, countChild, countRooms } from "../../redux/bookingSlice";
 
 
 
@@ -19,9 +21,28 @@ export default function Calendar() {
 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [child, setChild] = useState(0);
-  const [adult, setAdult] = useState(0);
-  const [room, setRoom] = useState(0);
+
+  const dispatch = useDispatch()
+  const adult = useSelector((state) => state.booking.adult)
+  const child = useSelector((state) => state.booking.child)
+  const rooms = useSelector((state) => state.booking.rooms)
+
+
+  const handleAdultChange = (event) => {
+    const { value } = event.target
+    dispatch(countAdult(value))
+  };
+
+  const handleChildChange = (event) => {
+    const { value } = event.target
+    dispatch(countChild(value))
+  };
+
+  const handleRoomsChange = (event) => {
+    const { value } = event.target
+    dispatch(countRooms(value))
+  };
+
 
 
   const countSelectedDays = () => {
@@ -33,22 +54,6 @@ export default function Calendar() {
     }
     return 0;
   };
-
-
-  const handlerChangeChild = (event) => {
-    const { value } = event.target
-    setChild(Number(value))
-  };
-
-  const handlerChangeAdult = (event) => {
-    const { value } = event.target
-    setAdult(Number(value))
-  };
-
-  const handlerChangeRoom = (event) => {
-    const { value } = event.target
-    setRoom(Number(value))
-  }
 
 
   return (
@@ -177,7 +182,7 @@ export default function Calendar() {
                 }
               } />
 
-              {room}
+              {rooms}
 
             </Typography>
           </Grid>
@@ -245,7 +250,7 @@ export default function Calendar() {
           <Grid container spacing={2} marginTop={2} marginBottom={3}>
             <Grid item xs={12} sm={6}>
               <TextField
-                id="standard-number"
+                id="valueAdult"
                 label="Adult"
                 type="number"
                 value={adult}
@@ -253,12 +258,12 @@ export default function Calendar() {
                   shrink: true,
                 }}
                 variant="standard"
-                onChange={handlerChangeAdult}
+                onChange={handleAdultChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                id="standard-number"
+                id="ValueChild"
                 label="Child"
                 type="number"
                 value={child}
@@ -266,30 +271,30 @@ export default function Calendar() {
                   shrink: true,
                 }}
                 variant="standard"
-                onChange={handlerChangeChild}
+                onChange={handleChildChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                id="standard-number"
-                label="Room"
+                id="valueRooms"
+                label="Rooms"
                 type="number"
-                value={room}
+                value={rooms}
                 InputLabelProps={{
                   shrink: true,
                 }}
                 variant="standard"
-                onChange={handlerChangeRoom}
+                onChange={handleRoomsChange}
               />
-             
+
             </Grid>
-            
+
           </Grid>
-          
+
         </LocalizationProvider>
-        
+
       </Card>
-      
+
 
     </div>
   );
