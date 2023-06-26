@@ -22,9 +22,7 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/detail" element={<Detail />} />
           <Route path="/pay" element={<Pay />} />
-
           <Route path="/signin" element={<Login />} />
-
           <Route path="/signup" element={<Register />} />
         </Routes>
       </section>
@@ -33,3 +31,4 @@ const App = () => {
 };
 
 export default App;
+

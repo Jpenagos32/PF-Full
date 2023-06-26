@@ -10,15 +10,15 @@ Manifiesto de funciones:
     1-putHost= Metodo encargado de realizar la busqueda de huspedes por identificacion.
 ===============================================================================================================================
 */
-const Hosts = require('../models/Hosts')
+const Hosts = require('../../models/Hosts');
 
 const putHost = async (req, res) => {
-    try {
-        const hosts = await Hosts.find()
-        res.status(200).json(hosts)
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-}
+	try {
+		const hosts = await Hosts.find();
+		res.status(200).json(hosts);
+	} catch (error) {
+		res.status(400).json({ error: error.message });
+	}
+};
 
 module.exports = putHost;

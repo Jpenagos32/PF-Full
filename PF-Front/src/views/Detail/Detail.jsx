@@ -1,14 +1,42 @@
-import React from "react";
-import Grid from "@mui/material/Unstable_Grid2";
+import React, { useState, useEffect } from "react";
+import Grid from "@mui/material/Grid";
 import Gallery from "../../components/Gallery/Gallery";
 import Footer from "../../components/DetailFooter/Footer";
 import Calendar from "../../components/Calendar/Calendar";
-
 import Reviews from "../../components/Reviews/Reviews";
+import { NavLink, useParams } from "react-router-dom";
 
 const Detail = () => {
+    const params = useParams();
+    const [room, setRoom] = useState({});
+    const URL = "http://localhost:3001";
+
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                const apiData = await axios(
+                    `${URL}/rooms/type/${params.room_type}`
+                );
+                const data = apiData.data;
+
+                if (data.name) {
+                    setRoom(data);
+                }
+            } catch (error) {
+                console.error(error);
+                window.alert("Ocurrió un error al cargar los datos");
+            }
+        };
+
+        getData();
+
+        return () => {
+            setRoom({});
+        };
+    }, [params.id]);
+
     return (
-        <main style={{ margin: "0 1rem 1rem 0" }}>
+        <main style={{ margin: "0 1rem 2rem 0" }}>
             <Grid
                 container
                 spacing={1}
@@ -16,7 +44,7 @@ const Detail = () => {
                     fontFamily:
                         'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif',
                     overflow: "hidden",
-                    background: "#ffffff",
+                    background: "#efeeff",
                     height: "140vh",
                     flexWrap: "wrap",
                 }}>
@@ -31,11 +59,13 @@ const Detail = () => {
                         container
                         spacing={1}
                         sx={{
+                            margin: "1rem 1rem 0.1rem 1rem",
                             height: "100vh",
                             width: "100%",
                             p: 2,
+                            backgroundColor: "#efeeff",
                         }}>
-                        <Gallery />
+                        <Gallery image={room.image} />
                     </Grid>
                 </Grid>
                 <Grid
@@ -52,7 +82,7 @@ const Detail = () => {
                             margin: "1rem 0 0.1rem 0",
                             borderRadius: "5px",
                             height: "100vh",
-                            backgroundColor: "rgb(225, 202, 252)",
+                            backgroundColor: "#efeeff",
                             p: 2,
                         }}>
                         <Calendar />
@@ -72,10 +102,15 @@ const Detail = () => {
                             margin: "0.1rem",
                             borderRadius: "5px",
                             height: "40vh",
-                            backgroundColor: "rgb(225, 202, 252)",
+                            backgroundColor: "#efeeff",
                             p: 2,
                         }}>
-                        <Footer>footer</Footer>
+                        <Footer
+                            name={room.name}
+                            facilities={room.facilities}
+                            price={room.price}
+                            description={room.room_description}
+                        />
                     </Grid>
                 </Grid>
                 <Grid
@@ -92,7 +127,7 @@ const Detail = () => {
                             margin: "0.1rem",
                             borderRadius: "5px",
                             height: "40vh",
-                            backgroundColor: "rgb(225, 202, 252)",
+                            backgroundColor: "#efeeff",
                             p: 2,
                         }}>
                         <Reviews />
