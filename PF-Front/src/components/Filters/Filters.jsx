@@ -1,53 +1,40 @@
 import React from 'react';
-import Box from '@mui/joy/Box';
 import Checkbox from '@mui/joy/Checkbox';
 import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
-import Typography from '@mui/joy/Typography';
+import { Typography, Card } from "@mui/material";
 
 
 export default function Filters() {
 
     return (
-        <Box sx={{ width: 343 }}>
-            <Typography id="stars" level="body2" fontWeight="lg" mb={2}>
-                Stars rating
+        <>
+            <Typography variant="h1" sx={
+                {
+                    fontSize: '20px',
+                    fontWeight: 'bold',
+                    color: '#868688',
+                    marginTop: '20px',
+                    marginLeft: '30px'
+                }
+            }> Filter By
+
             </Typography>
-            <Box role="group" aria-labelledby="stars">
-                <List
-                    orientation="vertical"
-                    wrap
-                    sx={{
-                        '--List-gap': '8px',
-                        '--ListItem-radius': '20px',
-                    }}
-                >
-                    {[
-                        '5 stars',
-                        '4 stars',
-                        '3 stars',
-                        '2 stars',
-                        '1 stars',
 
-                    ].map((item, index) => (
-                        <ListItem key={item}>
-                            <Checkbox
-                                disabled={index === 0}
-                                overlay
-                                disableIcon
-                                variant="soft"
-                                label={item}
-                            />
-                        </ListItem>
-                    ))}
-                </List>
-            </Box>
+            <Card elevation={0} sx={
+                {
+                    backgroundColor: "#F3F3F7",
+                    height: 'auto',
+                    padding: '15px',
+                    margin: '20px'
+                }
+            }>
+
+                <Typography id="type_room" level="body2" fontWeight="lg" mb={1}>
+                    Acomodation Type
+                </Typography>
 
 
-            <Typography id="sandwich-group" level="body2" fontWeight="lg" mb={1}>
-                Acomodation Type
-            </Typography>
-            <Box role="group" aria-labelledby="sandwich-group">
                 <List size="sm">
                     <ListItem>
                         <Checkbox label="Standar Room" defaultChecked />
@@ -59,12 +46,12 @@ export default function Filters() {
                         <Checkbox label="Suite" />
                     </ListItem>
                 </List>
-            </Box>
 
-            <Typography id="sandwich-group" level="body2" fontWeight="lg" mb={1}>
-                Facilities
-            </Typography>
-            <Box role="group" aria-labelledby="sandwich-group">
+
+                <Typography id="facilities" level="body2" fontWeight="lg" mb={1}>
+                    Facilities
+                </Typography>
+
                 <List size="sm">
                     <ListItem>
                         <Checkbox label="HD-TV" defaultChecked />
@@ -76,8 +63,9 @@ export default function Filters() {
                         <Checkbox label="Parking" />
                     </ListItem>
                 </List>
-            </Box>
-        </Box>
+
+            </Card>
+        </>
 
     )
 }
