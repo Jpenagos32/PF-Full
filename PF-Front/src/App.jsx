@@ -10,44 +10,25 @@ import Login from "./views/Login/Login";
 import Register from "./views/Register/Register";
 
 const App = () => {
-    const location = useLocation();
-    const path = location.pathname;
-    const rooms = useSelector((state) => state.rooms);
-    return (
-        <>
-            <section>
-                {location.pathname !== "/" && <NavBar />}
-                <Routes>
-                    <Route
-                        path="/"
-                        element={<Landing />}
-                    />
-                    <Route
-                        path="/home"
-                        element={<Home />}
-                    />
-                    <Route
-                        path="/detail/"
-                        element={<Detail />}
-                    />
-                    <Route
-                        path="/pay"
-                        element={<Pay />}
-                    />
-
-                    <Route
-                        path="/signin"
-                        element={<Login />}
-                    />
-
-                    <Route
-                        path="/signup"
-                        element={<Register />}
-                    />
-                </Routes>
-            </section>
-        </>
-    );
+  const location = useLocation();
+  const path = location.pathname;
+  const rooms = useSelector((state) => state.rooms);
+  return (
+    <>
+      <section>
+        {location.pathname !== "/" && <NavBar />}
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/detail" element={<Detail />} />
+          <Route path="/pay" element={<Pay />} />
+          <Route path="/signin" element={<Login />} />
+          <Route path="/signup" element={<Register />} />
+        </Routes>
+      </section>
+    </>
+  );
 };
 
 export default App;
+
