@@ -8,7 +8,7 @@ import Filters from "../../components/Filters/Filters";
 
 const Home = () => {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, backgroundColor:'#FAFAFF' }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={3}>
           <Calendar />
