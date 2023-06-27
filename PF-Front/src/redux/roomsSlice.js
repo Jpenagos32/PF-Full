@@ -2,15 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const roomsSlice = createSlice({
   name: "rooms",
-  initialState: {
-    rooms: [],
-    detail: {},
-  },
+  initialState,
+
   reducers: {
     getAllRooms: (state, action) => {
       state.rooms = action.payload;
     },
     getRoomById: (state, action) => {
+      state.rooms = action.payload;
+    },
+    fetchData(state, action) {
       state.rooms = action.payload;
     },
   },

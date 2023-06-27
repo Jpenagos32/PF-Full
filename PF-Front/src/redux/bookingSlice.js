@@ -30,11 +30,8 @@ export const bookingSlice = createSlice({
         chooseEndDate: (state, action) => {
             state.endDate = action.payload;
         },
-        countNights: (state, action) => {
-            state.nights = action.payload;
-        },
     },
 });
 
-export const { countAdult, countChild, countRooms, chooseStartDate, chooseEndDate, countNights } = bookingSlice.actions;
+export const { countAdult, countChild, countRooms, chooseStartDate, chooseEndDate } = bookingSlice.actions;
 export default bookingSlice.reducer;
