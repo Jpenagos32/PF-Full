@@ -47,7 +47,6 @@ export default function Filters() {
                     </ListItem>
                 </List>
 
-
                 <Typography id="facilities" level="body2" fontWeight="lg" mb={1}>
                     Facilities
                 </Typography>

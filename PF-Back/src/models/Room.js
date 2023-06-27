@@ -9,7 +9,7 @@ const roomSchema = new Schema({
 	room_number: {
 		type: Number,
 		required: true,
-		unique:true,
+		unique: true,
 	},
 	room_type: {
 		type: String,
@@ -42,72 +42,13 @@ const roomSchema = new Schema({
 		extra: { type: String, required: false },
 	},
 	facilities: {
-		kitchen: {
-			type: Boolean,
-			default: false,
-		},
-		tv: {
-			type: Boolean,
-			default: false,
-		},
-		free_parking: {
-			type: Boolean,
-			default: false,
-		},
-		wifi: {
-			type: Boolean,
-			default: false,
-		},
-		refrigerator: {
-			type: Boolean,
-			default: false,
-		},
-		pets_allowed: {
-			type: Boolean,
-			default: false,
-		},
-		air_conditioning: {
-			type: Boolean,
-			default: false,
-		},
-		heat: {
-			type: Boolean,
-			default: false,
-		},
-		safe_deposit_box: {
-			type: Boolean,
-			default: false,
-		},
-		jacuzzi: {
-			type: Boolean,
-			default: false,
-		},
-		hair_dryer: {
-			type: Boolean,
-			default: false,
-		},
-		breakfast: {
-			type: Boolean,
-			default: false,
-		},
-		clothes_iron: {
-			type: Boolean,
-			default: false,
-		},
-		desk: {
-			type: Boolean,
-			default: false,
-		},
-		room_service: {
-			type: Boolean,
-			default: false,
-		},
-		accesibility: {
-			type: Boolean,
-			default: false,
-		},
+		type: [String],
+		required: true
 	},
-	room_description: { type: String, required: true },
+	room_description: {
+		type: String,
+		required: true
+	},
 });
 
 module.exports = mongoose.model('Room', roomSchema);

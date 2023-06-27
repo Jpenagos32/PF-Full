@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAllRoomTypes, getRoomTypeById } from "./roomTypesSlice";
+import { getAllRoomTypes } from "../slices/roomTypesSlice";
 
 export const getRoomTypes = () => async (dispatch) => {
     const URL = "mongo.db";
