@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
 
     rooms: [],
+    
 }
 
 export const roomsSlice = createSlice({
@@ -10,12 +11,6 @@ export const roomsSlice = createSlice({
     initialState,
 
     reducers: {
-        getAllRooms: (state, action) => {
-            state.rooms = action.payload;
-        },
-        getRoomById: (state, action) => {
-            state.rooms = action.payload;
-        },
         fetchData(state, action) {
             state.rooms = action.payload;
         },

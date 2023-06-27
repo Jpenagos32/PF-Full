@@ -22,9 +22,12 @@ export default function Calendar() {
 
   const dispatch = useDispatch()
   const { adult } = useSelector((state) => state.booking)
-  const child = useSelector((state) => state.booking.child)
-  const rooms = useSelector((state) => state.booking.rooms)
+  const { child } = useSelector((state) => state.booking)
+  const { rooms } = useSelector((state) => state.booking)
+  const id = useSelector ((state) => state.rooms.rooms)
   
+
+
   const handleAdultChange = (event) => {
     const { value } = event.target
     dispatch(countAdult(value))
@@ -59,10 +62,10 @@ export default function Calendar() {
   };
 
   const caculateSubtotal = () => {
-    if (id) {
+    if (idDetail && detail === true) {
 
     }
-  }
+  };
 
 
   return (
