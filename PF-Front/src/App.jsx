@@ -9,6 +9,7 @@ import NavBar from "./components/NavBar/NavBar";
 import Login from "./views/Login/Login";
 import Register from "./views/Register/Register";
 import Error from "./components/Error/Error";
+import ResetPassword from "./components/ResetPassword/ResetPassword";
 
 const App = () => {
   const location = useLocation();
@@ -25,12 +26,14 @@ const App = () => {
           <Route path="/pay" element={<Pay />} />
           <Route path="/signin" element={<Login />} />
           <Route path="/signup" element={<Register />} />
+          <Route path="/ResetPassword" element={<ResetPassword />} />
         </Routes>
           {path !== "/" &&
                     path !== "/home" &&
                     path !== "/pay" &&
                     path !== "/signin" &&
                     path !== "/signup" &&
+                    path !== "/ResetPassword" &&
                     !path.startsWith("/detail") && <Error />}
       </section>
     </>
