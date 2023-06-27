@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import dayjs from "dayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
@@ -12,9 +12,7 @@ import Grid from '@mui/material/Grid';
 import ChildCareIcon from '@mui/icons-material/ChildCare';
 import Person2Icon from '@mui/icons-material/Person2';
 import BedIcon from '@mui/icons-material/Bed';
-import { countAdult, countChild, countRooms } from "../../redux/bookingSlice";
-
-
+import { countAdult, countChild, countNights, countRooms } from "../../redux/slices/bookingSlice";
 
 
 export default function Calendar() {
@@ -23,11 +21,10 @@ export default function Calendar() {
   const [endDate, setEndDate] = useState(null);
 
   const dispatch = useDispatch()
-  const adult = useSelector((state) => state.booking.adult)
+  const { adult } = useSelector((state) => state.booking)
   const child = useSelector((state) => state.booking.child)
   const rooms = useSelector((state) => state.booking.rooms)
-
-
+  
   const handleAdultChange = (event) => {
     const { value } = event.target
     dispatch(countAdult(value))
@@ -43,6 +40,12 @@ export default function Calendar() {
     dispatch(countRooms(value))
   };
 
+  useEffect(() => {
+    if (startDate && endDate) {
+      const total = countSelectedDays();
+      dispatch(countNights(total));
+    }
+  }, [startDate, endDate, dispatch]);
 
 
   const countSelectedDays = () => {
@@ -54,6 +57,12 @@ export default function Calendar() {
     }
     return 0;
   };
+
+  const caculateSubtotal = () => {
+    if (id) {
+
+    }
+  }
 
 
   return (
@@ -93,6 +102,7 @@ export default function Calendar() {
             "No dates selected"
           )} )
         </Typography>
+
         <Typography sx={
           {
             fontSize: '15px',
@@ -163,6 +173,7 @@ export default function Calendar() {
               {child}
 
             </Typography>
+
           </Grid>
           <Grid item xs={12} sm={4}>
             <Typography sx={

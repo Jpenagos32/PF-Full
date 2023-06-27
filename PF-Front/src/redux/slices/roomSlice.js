@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+
+    rooms: [],
+}
+
 export const roomsSlice = createSlice({
     name: "rooms",
-    initialState: {
-        rooms: [],
-        detail: {},
-    },
+    initialState,
+
     reducers: {
         getAllRooms: (state, action) => {
             state.rooms = action.payload;
@@ -13,8 +16,12 @@ export const roomsSlice = createSlice({
         getRoomById: (state, action) => {
             state.rooms = action.payload;
         },
+        fetchData(state, action) {
+            state.rooms = action.payload;
+        },
     },
+
 });
 
-export const { getAllRooms, getRoomById } = roomsSlice.actions;
+export const { getAllRooms, getRoomById, fetchData } = roomsSlice.actions;
 export default roomsSlice.reducer;
