@@ -6,13 +6,13 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import TextField from '@mui/material/TextField';
-import { Typography, Card  } from "@mui/material";
+import { Typography, Card } from "@mui/material";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import Grid from '@mui/material/Grid';
 import ChildCareIcon from '@mui/icons-material/ChildCare';
 import Person2Icon from '@mui/icons-material/Person2';
 import BedIcon from '@mui/icons-material/Bed';
-import { countAdult, countChild, countNights, countRooms } from "../../redux/bookingSlice";
+import { countAdult, countChild, countNights, countRooms } from "../../redux/slices/bookingSlice";
 
 
 export default function Calendar() {
@@ -21,11 +21,10 @@ export default function Calendar() {
   const [endDate, setEndDate] = useState(null);
 
   const dispatch = useDispatch()
-  const adult = useSelector((state) => state.booking.adult)
+  const { adult } = useSelector((state) => state.booking)
   const child = useSelector((state) => state.booking.child)
   const rooms = useSelector((state) => state.booking.rooms)
-
-
+  
   const handleAdultChange = (event) => {
     const { value } = event.target
     dispatch(countAdult(value))
@@ -48,6 +47,7 @@ export default function Calendar() {
     }
   }, [startDate, endDate, dispatch]);
 
+
   const countSelectedDays = () => {
     if (startDate && endDate) {
       const start = dayjs(startDate);
@@ -57,6 +57,12 @@ export default function Calendar() {
     }
     return 0;
   };
+
+  const caculateSubtotal = () => {
+    if (id) {
+
+    }
+  }
 
 
   return (
@@ -116,7 +122,7 @@ export default function Calendar() {
           } />
 
 
-            {countSelectedDays()}
+          {countSelectedDays()}
 
           Nights
 
