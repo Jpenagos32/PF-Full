@@ -10,11 +10,10 @@ import {
   List,
   ListItem,
   ListItemText,
+  Typography,
+  Divider,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import TwitterIcon from "@mui/icons-material/Twitter";
 
 const NavLinkStyled = styled(NavLink)(({ theme }) => ({
   textDecoration: "none",
@@ -32,11 +31,6 @@ const SocialIconsContainer = styled("div")({
   marginLeft: "auto",
 });
 
-const SocialIcon = styled("div")({
-  marginLeft: "10px",
-  color: "white",
-});
-
 const Logo = styled("img")({
   height: "75px",
 });
@@ -45,7 +39,7 @@ const NavBar = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
 
   const handleDrawerOpen = () => {
-    setOpenDrawer(true);
+    setOpenDrawer(!openDrawer);
   };
 
   const handleDrawerClose = () => {
@@ -54,16 +48,8 @@ const NavBar = () => {
 
   return (
     <div style={{ marginBottom: "20px" }}>
-      <AppBar position="fixed">
+      <AppBar position="fixed" sx={{ backgroundColor: "#9A98FE" }}>
         <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={handleDrawerOpen}
-          >
-            <MenuIcon />
-          </IconButton>
           <NavLinkStyled to="/home">
             <div style={{ display: "flex", alignItems: "center" }}>
               <Logo
@@ -73,64 +59,127 @@ const NavBar = () => {
             </div>
           </NavLinkStyled>
           <SocialIconsContainer>
-            <NavLinkStyled to="/account">My Account</NavLinkStyled>
-            <SocialIcon>
-              <FacebookIcon />
-            </SocialIcon>
-            <SocialIcon>
-              <InstagramIcon />
-            </SocialIcon>
-            <SocialIcon>
-              <TwitterIcon />
-            </SocialIcon>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={handleDrawerOpen}
+            >
+              <MenuIcon />
+            </IconButton>
           </SocialIconsContainer>
         </Toolbar>
       </AppBar>
 
-      <Drawer anchor="right" open={openDrawer} onClose={handleDrawerClose}>
-        <List>
+      <Drawer
+        anchor="right"
+        open={openDrawer}
+        onClose={handleDrawerClose}
+        ModalProps={{
+          disableScrollLock: true,
+          hideBackdrop: true,
+        }}
+        sx={{
+          zIndex: 0,
+          ".MuiDrawer-paper": {
+            width: "300px",
+            height: "200px",
+            top: "80px",
+            borderTopRightRadius: "0",
+            borderTopLeftRadius: "10px",
+            borderBottomRightRadius: "0",
+            borderBottomLeftRadius: "10px",
+          },
+        }}
+      >
+        <List
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100%",
+          }}
+        >
           <ListItem
-            button
-            component={NavLink}
-            to="/home"
-            onClick={handleDrawerClose}
+            sx={{
+              justifyContent: "center",
+              marginBottom: "1px",
+            }}
           >
-            <ListItemText primary="Home" />
+            <Button
+              component={NavLink}
+              to="/signin"
+              onClick={handleDrawerClose}
+              variant="contained"
+              sx={{
+                width: "80%",
+                borderRadius: "30px",
+                height: "45px",
+                color: "#868688",
+                backgroundColor: "#9A98FE",
+                "&:hover": {
+                  backgroundColor: "#c2c1fe",
+                },
+              }}
+            >
+              Sign In
+            </Button>
+          </ListItem>
+          <Typography
+            variant="h6"
+            sx={{
+              marginBottom: "1px",
+              color: "#9A98FE",
+            }}
+          >
+            ¿Are You New?
+          </Typography>
+          <ListItem
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: "1px",
+              "&:hover": {
+                backgroundColor: "#c2c1fe",
+              },
+            }}
+            component={NavLink}
+            to="/signup"
+          >
+            <ListItemText
+              primary="Register"
+              sx={{
+                textAlign: "center",
+                color: "#9A98FE",
+                marginBottom: "1px",
+              }}
+            />
           </ListItem>
           <ListItem
-            button
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              "&:hover": {
+                backgroundColor: "#c2c1fe",
+              },
+            }}
             component={NavLink}
-            to="/account"
-            onClick={handleDrawerClose}
+            to="/manage-booking"
           >
-            <ListItemText primary="My Account" />
+            <ListItemText
+              primary="Manager Your Booking"
+              sx={{
+                textAlign: "center",
+                color: "#9A98FE",
+                marginTop: "-5px",
+              }}
+            />
           </ListItem>
         </List>
       </Drawer>
 
       <Toolbar />
-
-      <div
-        style={{
-          position: "fixed",
-          top: 60,
-          right: 0,
-          display: "flex",
-          alignItems: "center",
-          padding: "10px",
-        }}
-      >
-        <div style={{ marginRight: "10px" }}>
-          <NavLinkStyled to="/signin">
-            <Button>Login</Button>
-          </NavLinkStyled>
-        </div>
-        <div>
-          <NavLinkStyled to="/signup">
-            <Button>Register</Button>
-          </NavLinkStyled>
-        </div>
-      </div>
     </div>
   );
 };

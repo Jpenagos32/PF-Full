@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Box, Button, FormControl, Grid, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Select from "react-select";
 import CountryList from "react-select-country-list";
 import { auth, firestore } from "../../Firebase/Firebase.config";
@@ -112,18 +119,32 @@ const Register = () => {
   return (
     <Box
       sx={{
-        maxWidth: 500,
+        maxWidth: {
+          xs: "90%",
+          sm: 500,
+        },
         margin: "0 auto",
-        marginTop: "40px",
-        padding: "20px",
+        marginTop: "10px",
+        padding: "40px",
         paddingLeft: "25px",
         border: "1px solid #ccc",
         borderRadius: "5px",
       }}
     >
       <form onSubmit={handleSubmit}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={5.9}>
+        <Typography
+          variant="h6"
+          sx={{
+            marginTop: "5px",
+            marginLeft: "2px",
+            marginBottom: "2px",
+            color: "#9A98FE",
+          }}
+        >
+          Create An Account
+        </Typography>
+        <Grid container spacing={1}>
+          <Grid item xs={11.8} sm={6}>
             <TextField
               name="firstName"
               label="First Name"
@@ -133,7 +154,7 @@ const Register = () => {
               fullWidth
             />
           </Grid>
-          <Grid item xs={12} sm={5.9}>
+          <Grid item xs={11.8} sm={5.8}>
             <TextField
               name="lastName"
               label="Last Name"
@@ -218,28 +239,47 @@ const Register = () => {
           </Grid>
         </Grid>
         <Box sx={{ textAlign: "center", marginTop: "20px" }}>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            style={{ marginRight: "18px" }}
-          >
-            SIGN UP
-          </Button>
-
-          <Button
-            type="button"
-            onClick={handleGoogleSignIn}
-            variant="contained"
-            color="primary"
-          >
-            <img
-              src="https://i.ibb.co/tbN3WSH/pngwing-com.png"
-              alt="logogoogle"
-              style={{ width: "24px", height: "24px", marginRight: "8px" }}
-            />
-            CONTINUE with google
-          </Button>
+          <Grid>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              style={{
+                marginRight: "18px",
+                marginBottom: "15px",
+                borderRadius: "20px",
+              }}
+              sx={{
+                backgroundColor: "#9A98FE",
+                "&:hover": {
+                  backgroundColor: "#c2c1fe",
+                },
+              }}
+            >
+              SIGN UP
+            </Button>
+          </Grid>
+          <Grid>
+            <Button
+              type="button"
+              onClick={handleGoogleSignIn}
+              variant="contained"
+              sx={{
+                backgroundColor: "#9A98FE",
+                borderRadius: "20px",
+                "&:hover": {
+                  backgroundColor: "#c2c1fe",
+                },
+              }}
+            >
+              <img
+                src="https://i.ibb.co/tbN3WSH/pngwing-com.png"
+                alt="logogoogle"
+                style={{ width: "24px", height: "24px", marginRight: "8px" }}
+              />
+              CONTINUE with google
+            </Button>
+          </Grid>
         </Box>
       </form>
     </Box>
