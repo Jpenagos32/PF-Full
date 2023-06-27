@@ -62,7 +62,7 @@ export default function CardRoom(props) {
                     </StyleNameTypography>
                     <Rating
                       name="rating"
-                      value={props.height}
+                      value={props.room_type}
                       readOnly
                       emptyIcon={<StyledStarBorderIcon />}
                       icon={<StyledStarIcon />}
@@ -73,7 +73,7 @@ export default function CardRoom(props) {
                 </Grid>
                 <Grid item xs={12}>
                   <StyledRoomPriceTypography sx={{ mt: 2 }}>
-                    {`$${props.attack}`}
+                    {`$${props.price}`}
                     <StyledUSD>USD</StyledUSD>
                   </StyledRoomPriceTypography>
                 </Grid>
@@ -81,13 +81,13 @@ export default function CardRoom(props) {
               <StyledDivider />
               <StyleTypography sx={{ mt: 1.5 }}>Facilities</StyleTypography>
               <StyleFacilitiesTypography>
-                {props.speed}
+                {props.number_of_beds}
               </StyleFacilitiesTypography>
               <StyleFacilitiesTypography>
-                {props.defense}
+                {props.capacity}
               </StyleFacilitiesTypography>
               <StyleFacilitiesTypography>
-                {props.weight}
+                {props.room_description}
               </StyleFacilitiesTypography>
             </StyledCardContent>
           </CardActionArea>

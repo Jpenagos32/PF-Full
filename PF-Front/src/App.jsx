@@ -4,7 +4,7 @@ import Home from "./views/Home/Home";
 import Pay from "./views/Pay/Pay";
 import Detail from "./views/Detail/Detail";
 import { useDispatch, useSelector } from "react-redux";
-import roomsSlice from "./redux/store.js";
+// import roomsSlice from "./redux/store.js";
 import NavBar from "./components/NavBar/NavBar";
 import Login from "./views/Login/Login";
 import Register from "./views/Register/Register";
@@ -26,16 +26,15 @@ const App = () => {
           <Route path="/signin" element={<Login />} />
           <Route path="/signup" element={<Register />} />
         </Routes>
-          {path !== "/" &&
-                    path !== "/home" &&
-                    path !== "/pay" &&
-                    path !== "/signin" &&
-                    path !== "/signup" &&
-                    !path.startsWith("/detail") && <Error />}
+        {path !== "/" &&
+          path !== "/home" &&
+          path !== "/pay" &&
+          path !== "/signin" &&
+          path !== "/signup" &&
+          !path.startsWith("/detail") && <Error />}
       </section>
     </>
   );
 };
 
 export default App;
-
