@@ -7,19 +7,10 @@ Creation: 22 de junio 2023
 ==================================================================
 Manifiesto de funciones:
 =============================
-    1-putHost= Permite actualizar los datos de un hueped
+    1-putHost= Permite actualizar los datos de un huesped
 ===============================================================================================================================
 */
-/* 
-	TODO puede cambiar 
-	- first_name
-	- last_name
-	- contact.email
-	- contact.phone
-	- check_in_date
-	- check_out_date
-	- special_requirements
-*/
+
 const Hosts = require('../../models/Hosts');
 
 const putHost = async (req, res) => {
