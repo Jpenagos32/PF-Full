@@ -44,7 +44,7 @@ export default function CardRoom(props) {
         >
           <CardActionArea>
             <Grid item xs>
-              <Link to={`/card/${id}`}>
+              <Link to="/detail">
                 <CardMedia
                   component="img"
                   height="200"
