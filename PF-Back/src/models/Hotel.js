@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const hotelSchema = new Schema({
 	name: { type: String, required: true },
-	niu: { type: String, required: true },
+	niu: { type: String, required: true, unique: true },
 	images: {
 		reception: String,
 		pool: String,
