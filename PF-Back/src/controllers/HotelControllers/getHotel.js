@@ -1,7 +1,7 @@
 /*
 ===============================================================================================================================
 JavaScripFile: getHotel.js
-Objetivo:  Archivo que contiene la busqueda de huespedes.
+Objetivo:  Archivo que contiene la busqueda de datos del hotel.
 Autor: Sofia Vila + Juan Pablo Delgado + Juan Esteban Valencia + Julian Penagos
 Creation: 23 de junio 2023
 ==================================================================
