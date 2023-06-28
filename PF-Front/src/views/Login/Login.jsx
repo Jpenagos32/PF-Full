@@ -7,12 +7,15 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { NavLink } from "react-router-dom";
+import { validation } from "./LoginValidation";
 
 const Login = () => {
   const [formData, setFormData] = useState({
     emailAddress: "",
     password: "",
   });
+
+  const [errors, setErrors] = useState({});
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -24,21 +27,27 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const { emailAddress, password } = formData;
-      const response = await signInWithEmailAndPassword(
-        auth,
-        emailAddress,
-        password
-      );
-      console.log(response);
+    const { emailAddress, password } = formData;
 
-      setFormData({
-        emailAddress: "",
-        password: "",
-      });
-    } catch (error) {
-      console.log("Error al iniciar sesión:");
+    const validationErrors = validation(formData);
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length === 0) {
+      try {
+        const response = await signInWithEmailAndPassword(
+          auth,
+          emailAddress,
+          password
+        );
+        console.log(response);
+
+        setFormData({
+          emailAddress: "",
+          password: "",
+        });
+      } catch (error) {
+        console.log("Error al iniciar sesión:", error);
+      }
     }
   };
 
@@ -69,7 +78,7 @@ const Login = () => {
     >
       <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
-          <Grid>
+          <Grid item xs={12}>
             <Typography
               variant="h6"
               sx={{
@@ -81,7 +90,7 @@ const Login = () => {
               Login To MyAccount
             </Typography>
           </Grid>
-          <Grid item xs={11.8}>
+          <Grid item xs={12}>
             <TextField
               name="emailAddress"
               label="Email Address"
@@ -89,9 +98,11 @@ const Login = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.emailAddress}
+              helperText={errors.emailAddress}
             />
           </Grid>
-          <Grid item xs={11.8}>
+          <Grid item xs={12}>
             <TextField
               name="password"
               label="Password"
@@ -100,9 +111,11 @@ const Login = () => {
               required
               fullWidth
               type="password"
+              error={!!errors.password}
+              helperText={errors.password}
             />
           </Grid>
-          <Grid display="flex" alignItems="center">
+          <Grid item xs={12} display="flex" alignItems="center">
             <Typography
               variant="h6"
               sx={{
@@ -112,13 +125,13 @@ const Login = () => {
                 color: "#868688",
               }}
             >
-              ¿Did you forget your password?
+              Did you forget your password?
             </Typography>
             <NavLink to="/ResetPassword">Reset It!</NavLink>
           </Grid>
         </Grid>
         <Box sx={{ textAlign: "center", marginTop: "20px" }}>
-          <Grid>
+          <Grid item xs={12}>
             <Button
               type="submit"
               variant="contained"
@@ -138,7 +151,7 @@ const Login = () => {
               SIGN IN
             </Button>
           </Grid>
-          <Grid>
+          <Grid item xs={12}>
             <Button
               type="button"
               onClick={handleGoogleSignIn}
@@ -156,7 +169,7 @@ const Login = () => {
                 alt="logogoogle"
                 style={{ width: "24px", height: "24px", marginRight: "8px" }}
               />
-              SIGN IN with google Account
+              SIGN IN with Google Account
             </Button>
           </Grid>
         </Box>

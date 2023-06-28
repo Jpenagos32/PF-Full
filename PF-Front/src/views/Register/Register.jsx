@@ -17,6 +17,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { validation } from "./RegisterValidation";
 
 const countryOptions = CountryList().getData();
 
@@ -32,6 +33,8 @@ const Register = () => {
     country: "",
     zipCode: "",
   });
+
+  const [errors, setErrors] = useState({});
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -51,58 +54,65 @@ const Register = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    try {
-      const {
-        firstName,
-        lastName,
-        billingAddress,
-        emailAddress,
-        password,
-        phone,
-        city,
-        zipCode,
-        country,
-      } = formData;
+    // Validación del formulario
+    const validationErrors = validation(formData);
+    setErrors(validationErrors);
 
-      // Crear el usuario en Firebase Authentication
-      const response = await createUserWithEmailAndPassword(
-        auth,
-        emailAddress,
-        password
-      );
-      const user = response.user;
+    // Comprobar si hay errores
+    if (Object.keys(validationErrors).length === 0) {
+      try {
+        const {
+          firstName,
+          lastName,
+          billingAddress,
+          emailAddress,
+          password,
+          phone,
+          city,
+          zipCode,
+          country,
+        } = formData;
 
-      // Guardar los datos en Firestore
-      const usersRef = doc(firestore, "users", user.uid);
-      await setDoc(usersRef, {
-        emailAddress,
-        firstName,
-        lastName,
-        billingAddress,
-        city,
-        phone,
-        country,
-        zipCode,
-      });
+        // Crear el usuario en Firebase Authentication
+        const response = await createUserWithEmailAndPassword(
+          auth,
+          emailAddress,
+          password
+        );
+        const user = response.user;
 
-      // Registro exitoso, realiza las acciones necesarias aquí
-      console.log("Registro exitoso");
-      await sendEmailVerification(user);
-      // Restablecer el formulario
-      setFormData({
-        firstName: "",
-        lastName: "",
-        emailAddress: "",
-        password: "",
-        phone: "",
-        billingAddress: "",
-        city: "",
-        country: "",
-        zipCode: "",
-      });
-    } catch (error) {
-      // Manejo de errores de registro
-      console.error("Error de registro:", error);
+        // Guardar los datos en Firestore
+        const usersRef = doc(firestore, "users", user.uid);
+        await setDoc(usersRef, {
+          emailAddress,
+          firstName,
+          lastName,
+          billingAddress,
+          city,
+          phone,
+          country,
+          zipCode,
+        });
+
+        // Registro exitoso, realiza las acciones necesarias aquí
+        console.log("Registro exitoso");
+        await sendEmailVerification(user);
+        // Restablecer el formulario
+        setFormData({
+          firstName: "",
+          lastName: "",
+          emailAddress: "",
+          password: "",
+          phone: "",
+          billingAddress: "",
+          city: "",
+          country: "",
+          zipCode: "",
+        });
+      } catch (error) {
+        // Manejo de errores de registro
+        console.error("Error de registro:", error);
+      }
     }
   };
 
@@ -126,7 +136,7 @@ const Register = () => {
         margin: "0 auto",
         marginTop: "10px",
         padding: "40px",
-        paddingLeft: "25px",
+        paddingLeft: "40px",
         border: "1px solid #ccc",
         borderRadius: "5px",
       }}
@@ -135,7 +145,7 @@ const Register = () => {
         <Typography
           variant="h6"
           sx={{
-            marginTop: "5px",
+            marginTop: "-20px",
             marginLeft: "2px",
             marginBottom: "2px",
             color: "#9A98FE",
@@ -152,6 +162,8 @@ const Register = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.firstName}
+              helperText={errors.firstName}
             />
           </Grid>
           <Grid item xs={11.8} sm={5.8}>
@@ -162,6 +174,8 @@ const Register = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.lastName}
+              helperText={errors.lastName}
             />
           </Grid>
           <Grid item xs={11.8}>
@@ -172,6 +186,8 @@ const Register = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.emailAddress}
+              helperText={errors.emailAddress}
             />
           </Grid>
           <Grid item xs={11.8}>
@@ -183,6 +199,8 @@ const Register = () => {
               required
               fullWidth
               type="password"
+              error={!!errors.password}
+              helperText={errors.password}
             />
           </Grid>
           <Grid item xs={11.8}>
@@ -193,6 +211,8 @@ const Register = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.phone}
+              helperText={errors.phone}
             />
           </Grid>
           <Grid item xs={11.8}>
@@ -203,6 +223,8 @@ const Register = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.billingAddress}
+              helperText={errors.billingAddress}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -213,6 +235,8 @@ const Register = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.city}
+              helperText={errors.city}
             />
           </Grid>
           <Grid item xs={5.8}>
@@ -223,6 +247,8 @@ const Register = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.zipCode}
+              helperText={errors.zipCode}
             />
           </Grid>
           <Grid item xs={10} sm={11.8}>
@@ -234,8 +260,16 @@ const Register = () => {
                 options={countryOptions}
                 placeholder="Country"
                 required
+                isClearable
+                isSearchable
+                error={!!errors.country}
               />
             </FormControl>
+            {errors.country && (
+              <Typography variant="caption" color="error">
+                {errors.country}
+              </Typography>
+            )}
           </Grid>
         </Grid>
         <Box sx={{ textAlign: "center", marginTop: "20px" }}>
