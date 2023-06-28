@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import dayjs from "dayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
@@ -13,20 +13,23 @@ import ChildCareIcon from '@mui/icons-material/ChildCare';
 import Person2Icon from '@mui/icons-material/Person2';
 import BedIcon from '@mui/icons-material/Bed';
 import { countAdult, countChild, countNights, countRooms } from "../../redux/slices/bookingSlice";
+import { DateContext } from "../../Context/DateContex";
 
 
 export default function Calendar() {
 
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const { startDate, endDate, setDateRange } = useContext(DateContext)
 
   const dispatch = useDispatch()
-  const { adult } = useSelector((state) => state.booking)
-  const { child } = useSelector((state) => state.booking)
-  const { rooms } = useSelector((state) => state.booking)
-  const id = useSelector ((state) => state.rooms.rooms)
-  
+  const { adult, child, rooms } = useSelector((state) => state.booking)
 
+  const handleStartDateChange = (date) => {
+    setDateRange(date, endDate);
+  };
+
+  const handleEndDateChange = (date) => {
+    setDateRange(startDate, date);
+  };
 
   const handleAdultChange = (event) => {
     const { value } = event.target
@@ -59,12 +62,6 @@ export default function Calendar() {
       return diff;
     }
     return 0;
-  };
-
-  const caculateSubtotal = () => {
-    if (idDetail && detail === true) {
-
-    }
   };
 
 
@@ -247,7 +244,7 @@ export default function Calendar() {
             <DatePicker
               label='Check In'
               value={startDate}
-              onChange={(date) => setStartDate(date)}
+              onChange={handleStartDateChange}
             />
 
           </DemoContainer>
@@ -255,7 +252,7 @@ export default function Calendar() {
             <DatePicker
               label="Check Out"
               value={endDate}
-              onChange={(date) => setEndDate(date)}
+              onChange={handleEndDateChange}
             />
 
           </DemoContainer>
@@ -288,10 +285,10 @@ export default function Calendar() {
                 onChange={handleChildChange}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={17}>
               <TextField
                 id="valueRooms"
-                label="Rooms"
+                label="How many rooms"
                 type="number"
                 value={rooms}
                 InputLabelProps={{
