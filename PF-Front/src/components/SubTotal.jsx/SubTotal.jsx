@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DateContext } from '../../Context/DateContex';
 import { countAdult, countChild, countRooms } from "../../redux/slices/bookingSlice";
 import dayjs from 'dayjs';
+import { Link } from 'react-router-dom';
 
 
 
@@ -20,6 +21,15 @@ export default function SubTotal() {
     const { child, adult, room, nights } = useSelector((state) => state.booking)
     const { rooms } = useSelector(state => state.rooms)
     const today = dayjs()
+
+    const handlePayment = () => {
+        const isConfirmed = window.confirm('¿Estás seguro de realizar el pago?');
+        if (isConfirmed) {
+          // Lógica para realizar el pago
+        } else {
+          // Lógica para cancelar el pago
+        }
+      };
 
     const handleStartDateChange = (date) => {
         setDateRange(date, endDate);
@@ -174,12 +184,17 @@ export default function SubTotal() {
                         </Typography>
 
                         <Typography variant="h1" sx={{
-                            fontSize: '12px',
+                            fontSize: '13px',
                             fontWeight: 'bold',
-                            color: '#0400CB',
+                            color: '#C2C2C2',
                             marginTop: '10px',
+                            marginLeft: '10px'
+                        
                         }}>
-                            ({nights}Nights-{adult}Adult-{child}Child)
+                            {nights}Nights<br/>
+                            {adult}Adult<br/>
+                            {child}Child<br/>
+
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -204,28 +219,29 @@ export default function SubTotal() {
 
                     </Grid>
                     <Grid container justifyContent="center" style={{ marginTop: "20px" }}>
-
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            style={{
-                                marginTop: '30px',
-                                marginBottom: "10px",
-                                borderRadius: "20px",
-                                fontSize: "17px",
-                                width: '150px',
-                            }}
-                            sx={{
-                                backgroundColor: "#9A98FE",
-                                "&:hover": {
-                                    backgroundColor: "#c2c1fe",
-                                },
-                            }}
-                        >
-                            PAY
-                        </Button>
-                        
+                        <Link to='/pay'>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                                style={{
+                                    marginTop: '30px',
+                                    marginBottom: "10px",
+                                    borderRadius: "20px",
+                                    fontSize: "17px",
+                                    width: '150px',
+                                }}
+                                sx={{
+                                    backgroundColor: "#9A98FE",
+                                    "&:hover": {
+                                        backgroundColor: "#c2c1fe",
+                                    },
+                                }}
+                                onClick={handlePayment}
+                            >
+                                PAY
+                            </Button>
+                        </Link>
                         <Typography variant="h1" sx={{
                             fontSize: '10px',
                             fontWeight: 'bold',

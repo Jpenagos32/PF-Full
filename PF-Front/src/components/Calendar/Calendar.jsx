@@ -76,7 +76,7 @@ export default function Calendar() {
 
       <Card elevation={0} sx={
         {
-          backgroundColor: "#F3F3F7",
+          backgroundColor: "#DFDFFF",
           height: 'auto',
           padding: '15px',
           margin: '20px'
@@ -88,33 +88,20 @@ export default function Calendar() {
             fontSize: '20px',
             fontWeight: 'bold',
             color: '#868688',
-            marginTop: '20px',
+            marginTop: '10px',
 
           }
         }> Your Search Details
 
         </Typography>
-        <Typography sx={
-          {
-            fontSize: '15px',
-            marginTop: '20px',
-            color: '#9A98FE',
-            marginLeft: '10px'
-          }
-        }>
-          ( {startDate && endDate ? (
-            `${startDate.format('YYYY-MM-DD')} to ${endDate.format('YYYY-MM-DD')}`
-          ) : (
-            "No dates selected"
-          )} )
-        </Typography>
+       
 
         <Typography sx={
           {
             fontSize: '15px',
             marginTop: '20px',
             color: '#C2C2C2',
-            marginLeft: '10px'
+            marginLeft: '10px' 
           }
         }>
           <CalendarMonthIcon sx={
@@ -133,9 +120,21 @@ export default function Calendar() {
           Nights
 
         </Typography>
+        <Typography sx={
+          {
+            fontSize: '15px',
+            color: '#9A98FE',
+            marginLeft: '10px'
+          }
+        }>
+          ( {startDate && endDate ? (
+            `${startDate.format('YYYY-MM-DD')} to ${endDate.format('YYYY-MM-DD')}`
+          ) : (
+            "No dates selected"
+          )} )
+        </Typography>
 
-
-        <Grid container spacing={2} marginTop={2} marginBottom={3}>
+        <Grid container spacing={2} justifyContent="center" marginTop={2} marginBottom={3}>
           <Grid item xs={12} sm={4}>
             <Typography sx={
               {
@@ -266,8 +265,8 @@ export default function Calendar() {
           </DemoContainer>
 
 
-          <Grid container spacing={2} marginTop={2} marginBottom={3}>
-            <Grid item xs={12} sm={6}>
+          <Grid container justifyContent="center" spacing={2} marginTop={1} marginBottom={3}>
+            <Grid item xs={12} sm={3}>
               <TextField
                 id="valueAdult"
                 label="Adult"
@@ -280,7 +279,7 @@ export default function Calendar() {
                 onChange={handleAdultChange}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={3}>
               <TextField
                 id="ValueChild"
                 label="Child"
@@ -293,10 +292,10 @@ export default function Calendar() {
                 onChange={handleChildChange}
               />
             </Grid>
-            <Grid item xs={12} sm={17}>
+            <Grid item xs={12} sm={3}>
               <TextField
                 id="valueRooms"
-                label="How many rooms"
+                label="Rooms "
                 type="number"
                 value={room}
                 InputLabelProps={{
