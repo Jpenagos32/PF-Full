@@ -7,7 +7,7 @@ const getRooms = require('../controllers/RoomsControllers/getRooms');
 const postRooms = require('../controllers/RoomsControllers/postRooms');
 
 roomRoutes.get('/', getRooms);
-roomRoutes.get('/:room_number', getRoomsDetail);
+roomRoutes.get('/:room_type', getRoomsDetail);
 roomRoutes.put('/:room_number', putRooms);
 roomRoutes.post('/', postRooms);
 
