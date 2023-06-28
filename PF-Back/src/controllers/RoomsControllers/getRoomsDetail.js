@@ -9,18 +9,22 @@ Manifiesto de funciones:
 =============================
 ==Metodos:
 =============================
- getRoomsDetail
+ getRoomsDetail obtiene una habitacion por tipo
 ===============================================================================================================================
 */
 const Rooms = require('../../models/Room');
 
 const getRoomsDetail = async (req, res) => {
 	try {
-        const {room_number} = req.params
-		const rooms = await Rooms.findOne({room_number});
-        if(!rooms){
-            return res.status(404).json({error:'Room not found'})
-        }
+		const { room_type } = req.params;
+
+		if (!room_type) throw new Error('Must provide a room type');
+
+		const rooms = await Rooms.findOne({ room_type });
+		if (!rooms) {
+			return res.status(404).json({ error: 'Room not found' });
+		}
+
 		res.status(200).json(rooms);
 	} catch (error) {
 		res.status(400).json({ error: error.message });
