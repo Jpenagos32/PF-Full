@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import {
@@ -37,6 +37,16 @@ const Logo = styled("img")({
 
 const NavBar = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
+
+  useEffect(() => {
+    let timer;
+    if (openDrawer) {
+      timer = setTimeout(() => {
+        setOpenDrawer(false);
+      }, 3000);
+    }
+    return () => clearTimeout(timer);
+  }, [openDrawer]);
 
   const handleDrawerOpen = () => {
     setOpenDrawer(!openDrawer);
@@ -165,7 +175,7 @@ const NavBar = () => {
               },
             }}
             component={NavLink}
-            to="/manage-booking"
+            to="/managerbooking"
           >
             <ListItemText
               primary="Manager Your Booking"
