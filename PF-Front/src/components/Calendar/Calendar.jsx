@@ -18,10 +18,10 @@ import { DateContext } from "../../Context/DateContex";
 
 export default function Calendar() {
 
-  const { startDate, endDate, setDateRange } = useContext(DateContext)
-
   const dispatch = useDispatch()
-  const { adult, child, rooms } = useSelector((state) => state.booking)
+  const { adult, child, room } = useSelector((state) => state.booking)
+  const { startDate, endDate, setDateRange } = useContext(DateContext)
+  const today = dayjs()
 
   const handleStartDateChange = (date) => {
     setDateRange(date, endDate);
@@ -33,17 +33,23 @@ export default function Calendar() {
 
   const handleAdultChange = (event) => {
     const { value } = event.target
-    dispatch(countAdult(value))
+    if (value === '' || (Number(value) > 0 && !value.includes('-'))) {
+      dispatch(countAdult(value))
+    }
   };
 
   const handleChildChange = (event) => {
     const { value } = event.target
-    dispatch(countChild(value))
+    if (value === '' || (Number(value) > 0 && !value.includes('-'))) {
+      dispatch(countChild(value))
+    }
   };
 
   const handleRoomsChange = (event) => {
     const { value } = event.target
-    dispatch(countRooms(value))
+    if (value === '' || (Number(value) > 0 && !value.includes('-'))) {
+      dispatch(countRooms(value))
+    }
   };
 
   useEffect(() => {
@@ -193,7 +199,7 @@ export default function Calendar() {
                 }
               } />
 
-              {rooms}
+              {room}
 
             </Typography>
           </Grid>
@@ -244,6 +250,7 @@ export default function Calendar() {
             <DatePicker
               label='Check In'
               value={startDate}
+              minDate={today}
               onChange={handleStartDateChange}
             />
 
@@ -252,6 +259,7 @@ export default function Calendar() {
             <DatePicker
               label="Check Out"
               value={endDate}
+              minDate={today}
               onChange={handleEndDateChange}
             />
 
@@ -290,7 +298,7 @@ export default function Calendar() {
                 id="valueRooms"
                 label="How many rooms"
                 type="number"
-                value={rooms}
+                value={room}
                 InputLabelProps={{
                   shrink: true,
                 }}

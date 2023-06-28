@@ -9,14 +9,17 @@ import { StyledDivider } from './SubTotalStyled';
 import { useDispatch, useSelector } from 'react-redux';
 import { DateContext } from '../../Context/DateContex';
 import { countAdult, countChild, countRooms } from "../../redux/slices/bookingSlice";
+import dayjs from 'dayjs';
 
 
 
 export default function SubTotal() {
+
     const dispatch = useDispatch()
     const { startDate, endDate, setDateRange } = useContext(DateContext)
-    const { child, adult, rooms, nights } = useSelector((state) => state.booking)
-
+    const { child, adult, room, nights } = useSelector((state) => state.booking)
+    const { rooms } = useSelector(state => state.rooms)
+    const today = dayjs()
 
     const handleStartDateChange = (date) => {
         setDateRange(date, endDate);
@@ -27,19 +30,32 @@ export default function SubTotal() {
     };
     const handleAdultChange = (event) => {
         const { value } = event.target
-        dispatch(countAdult(value))
+        if (value === '' || (Number(value) > 0 && !value.includes('-'))) {
+            dispatch(countAdult(value))
+        }
     };
 
     const handleChildChange = (event) => {
         const { value } = event.target
-        dispatch(countChild(value))
+        if (value === '' || (Number(value) > 0 && !value.includes('-'))) {
+            dispatch(countChild(value))
+        }
     };
 
     const handleRoomsChange = (event) => {
         const { value } = event.target
-        dispatch(countRooms(value))
+        if (value === '' || (Number(value) > 0 && !value.includes('-'))) {
+            dispatch(countRooms(value))
+        }
     };
 
+    // const calculateSubTotal = () => {
+
+    //   rooms.filter(id === id.rooms){
+    //    const total= price*nights*rooms
+    //   }
+
+    // }
 
     return (
 
@@ -81,6 +97,7 @@ export default function SubTotal() {
                         <DatePicker
                             label='Check In'
                             value={startDate}
+                            minDate={today}
                             onChange={handleStartDateChange}
 
                         />
@@ -90,6 +107,7 @@ export default function SubTotal() {
                         <DatePicker
                             label="Check Out"
                             value={endDate}
+                            minDate={today}
                             onChange={handleEndDateChange}
 
                         />
@@ -130,7 +148,7 @@ export default function SubTotal() {
                                 id="subRooms"
                                 label="How many rooms"
                                 type="number"
-                                value={rooms}
+                                value={room}
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
@@ -207,6 +225,7 @@ export default function SubTotal() {
                         >
                             PAY
                         </Button>
+                        
                         <Typography variant="h1" sx={{
                             fontSize: '10px',
                             fontWeight: 'bold',
