@@ -1,5 +1,4 @@
 const nodemailer = require('nodemailer');
-const admin = require('firebase-admin');
 require('dotenv').config();
 const { USER, PASS } = process.env;
 
@@ -28,7 +27,7 @@ const notification = async (usrData) => {
 };
 
 // const userData = {
-// 	to: 'jpenagos32@gmail.com',
+// 	to: 'correo@gmail.com',
 // 	subject: 'Reservation created',
 // 	text: 'Su reservación ha sido creada porfavor dirijase al siguiente enlace para pagar',
 // };
