@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const registeredUsers = new Schema({
-	user_name: {
+	user_first_name: {
 		type: String,
 		required: true,
 		maxlength: 50,
@@ -20,6 +20,31 @@ const registeredUsers = new Schema({
 			/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/,
 			'Please enter a valid email address',
 		],
+	},
+	phone:{
+		type: Number,
+		unique: true,
+		required: true,
+		min:5
+	},
+	billing:{
+		billing_adress:{
+			type: String,
+			required:true
+		},
+		city:{
+			type: String,
+			required: true
+		},
+		zip_code:{
+			type: Number,
+			required: true,
+			min:2
+		},
+		country:{
+			type:String,
+			required:true
+		}
 	},
 	user_type: {
 		type: [

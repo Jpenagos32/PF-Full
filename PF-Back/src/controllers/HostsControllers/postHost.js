@@ -46,7 +46,7 @@ const postHost = async (req, res) => {
 			);
 			await createHost.save();
 
-			return res.status(200).json({ status: 'host created' });
+			return res.status(200).json({ createHost });
 		} else {
 			return res.status(400).json({ status: 'host exist' });
 		}
