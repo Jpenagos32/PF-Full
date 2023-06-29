@@ -39,56 +39,68 @@ const roomSchema = new Schema({
 	},
 	discount_start: Date,
 	discount_end: Date,
-	image: {
-		bed: {
-			type: String,
-			required: true,
-			match: [
-				/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/,
-				'Please Enter a valid URL',
-			],
+	image: [
+		{
+			bed: {
+				type: String,
+				required: true,
+				match: [
+					/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/,
+					'Please Enter a valid URL',
+				],
+			},
 		},
-		bed2: {
-			type: String,
-			rquired: false,
-			match: [
-				/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/,
-				'Please Enter a valid URL',
-			],
+		{
+			bed2: {
+				type: String,
+				rquired: false,
+				match: [
+					/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/,
+					'Please Enter a valid URL',
+				],
+			},
 		},
-		bed3: {
-			type: String,
-			required: false,
-			match: [
-				/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/,
-				'Please Enter a valid URL',
-			],
+		{
+			bed3: {
+				type: String,
+				required: false,
+				match: [
+					/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/,
+					'Please Enter a valid URL',
+				],
+			},
 		},
-		bathroom: {
-			type: String,
-			required: true,
-			match: [
-				/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/,
-				'Please Enter a valid URL',
-			],
+		{
+			bathroom: {
+				type: String,
+				required: true,
+				match: [
+					/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/,
+					'Please Enter a valid URL',
+				],
+			},
 		},
-		bathroom2: {
-			type: String,
-			required: true,
-			match: [
-				/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/,
-				'Please Enter a valid URL',
-			],
+		{
+			bathroom2: {
+				type: String,
+				required: true,
+				match: [
+					/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/,
+					'Please Enter a valid URL',
+				],
+			},
 		},
-		extra: {
-			type: String,
-			required: false,
-			match: [
-				/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/,
-				'Please Enter a valid URL',
-			],
+		{
+			extra: {
+				type: String,
+				required: false,
+				match: [
+					/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/,
+					'Please Enter a valid URL',
+				],
+			},
 		},
-	},
+	],
 	facilities: {
 		type: [String],
 		required: true,
