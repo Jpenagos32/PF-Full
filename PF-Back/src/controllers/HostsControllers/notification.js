@@ -4,7 +4,7 @@ require('dotenv').config()
 const { USER, PASS } = process.env
 
 const transporter = nodemailer.createTransport({
-    service: 'Mailgun',
+    service: 'Gmail',
     auth: {
         user: USER,
         pass: PASS,
@@ -15,7 +15,7 @@ const notification = async (req, res) => {
     try {
         // const email = req.body
         // const to = email;
-        const to = "user@gmail.com";
+        const to = "jpdelgado9641@gmail.com";
         const subject = 'Correo de prueba';
         const body = 'Contenido del correo de prueba';
         const mailOptions = {
