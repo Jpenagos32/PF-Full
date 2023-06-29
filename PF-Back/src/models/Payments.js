@@ -24,7 +24,17 @@ const paymentsSchema = new Schema({
     _id: {
         type: Schema.Types.ObjectId,
         ref: 'Room',
-    }
+    },
+    price: {
+        type: Number,
+        ref: 'Room',
+    },
+    room_description: {
+        type: String,
+        minlength: [25, 'Room description must be greater than 25 chars'],
+        maxlength: [500, 'Room description must be less than 500 chars'],
+        ref: 'Room',
+    },
 });
 
 module.exports = mongoose.model('Payments', paymentsSchema);
