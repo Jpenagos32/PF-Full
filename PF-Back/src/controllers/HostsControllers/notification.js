@@ -15,7 +15,7 @@ const notification = async (req, res) => {
     try {
         // const email = req.body
         // const to = email;
-        const to = "svilapalomo@gmail.com";
+        const to = "user@gmail.com";
         const subject = 'Correo de prueba';
         const body = 'Contenido del correo de prueba';
         const mailOptions = {
