@@ -6,7 +6,7 @@ export const validation = (formData) => {
 
   if (formData.firstName.trim() === "") {
     errors.firstName = "The Name Field is Required";
-  } else if (!/^[a-zA-Z]+$/.test(formData.firstName.trim())) {
+  } else if (!/^[a-zA-Z\s]+$/.test(formData.firstName.trim())) {
     errors.firstName = "The Name field can only contain letters";
   } else if (formData.firstName.trim().length > 30) {
     errors.firstName = "The Name field cannot exceed 30 characters";
@@ -14,9 +14,9 @@ export const validation = (formData) => {
 
   if (formData.lastName.trim() === "") {
     errors.lastName = "The Last Name Field is Required";
-  } else if (!/^[a-zA-Z]+$/.test(formData.lastName.trim())) {
+  } else if (!/^[a-zA-Z\s]+$/.test(formData.lastName.trim())) {
     errors.lastName = "The Last Name field can only contain letters";
-  } else if (formData.firstName.trim().length > 30) {
+  } else if (formData.lastName.trim().length > 30) {
     errors.lastName = "The Last Name field cannot exceed 30 characters";
   }
 

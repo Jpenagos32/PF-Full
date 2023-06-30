@@ -4,7 +4,7 @@ const initialState = {
 
     adult: 0,
     child: 0,
-    rooms: 0,
+    room: 0,
     nights: 0,
     startDate: null,
     endDate: null,
@@ -22,7 +22,7 @@ export const bookingSlice = createSlice({
             state.child = action.payload;
         },
         countRooms: (state, action) => {
-            state.rooms = action.payload;
+            state.room = action.payload;
         },
         chooseStartDate: (state, action) => {
             state.startDate = action.payload;

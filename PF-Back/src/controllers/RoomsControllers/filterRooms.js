@@ -40,9 +40,9 @@ const filterRooms = async (req, res) => {
 		if (check_in_date || check_out_date) {
 			filteredHost = await Host.find(hostQuery);
 		}
-		const filteredRooms = await Room.find(query);
+		const allRooms = await Room.find(query);
 
-		res.status(200).json({ filteredRooms, filteredHost });
+		res.status(200).json({ allRooms, filteredHost });
 	} catch (error) {
 		res.status(400).json({ error: error.message });
 	}

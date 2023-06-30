@@ -1,6 +1,19 @@
+/*
+===============================================================================================================================
+JavaScripFile: Hosts.js
+Objetivo:  Archivo que Contiene el modelo de Hosts
+Autor: Julian Penagos, Juan Valencia
+Creation: 28 de junio 2023
+==================================================================
+Manifiesto de funciones:
+=============================
+==Metodos:
+=============================
+===============================================================================================================================
+*/
+
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const Room = require('./Room');
 
 const HostsSchema = new Schema({
 	identification: {
@@ -14,20 +27,27 @@ const HostsSchema = new Schema({
 	first_name: {
 		type: String,
 		required: true,
+		maxlength: 50,
 	},
 	last_name: {
 		type: String,
 		required: true,
+		maxlength: 50,
 	},
 	contact: {
 		email: {
 			type: String,
 			required: true,
 			unique: true,
+			match: [
+				/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/,
+				'Please enter a valid email address',
+			],
 		},
 		phone: {
 			type: Number,
 			required: true,
+			min: 0,
 		},
 		address: {
 			type: String,
@@ -57,11 +77,13 @@ const HostsSchema = new Schema({
 	amount_of_people: {
 		type: Number,
 		required: true,
+		min: 1,
 	},
 	type_of_guest: {
 		adult: {
 			type: Number,
 			required: true,
+			min: 1,
 		},
 		children: {
 			type: Number,

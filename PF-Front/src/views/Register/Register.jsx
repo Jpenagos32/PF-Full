@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import axios from "axios";
 import {
+  Alert,
   Box,
   Button,
   FormControl,
   Grid,
+  Snackbar,
   TextField,
   Typography,
 } from "@mui/material";
@@ -18,10 +21,18 @@ import {
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { validation } from "./RegisterValidation";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/slices/authSlice";
 
 const countryOptions = CountryList().getData();
 
 const Register = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [openAlert, setOpenAlert] = useState(false);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -47,7 +58,7 @@ const Register = () => {
   const handleCountryChange = (selectedOption) => {
     setFormData((prevData) => ({
       ...prevData,
-      country: selectedOption,
+      country: selectedOption.label,
     }));
   };
 
@@ -73,44 +84,69 @@ const Register = () => {
           country,
         } = formData;
 
+        // Realizar solicitud POST a la API
+        const apiResponse = await axios.post("http://localhost:3001/users", {
+          user_first_name: firstName,
+          user_last_name: lastName,
+          user_email: emailAddress,
+          // user_type: ["user"],
+          user_type: ["admin"],
+          phone: phone,
+          billing: {
+            billing_adress: billingAddress,
+            city: city,
+            zip_code: zipCode,
+            country: country,
+          },
+        });
+
+        console.log("Registro exitoso en la API:", apiResponse.data);
+
         // Crear el usuario en Firebase Authentication
-        const response = await createUserWithEmailAndPassword(
-          auth,
-          emailAddress,
-          password
-        );
-        const user = response.user;
+        if (apiResponse.data.status === "User created") {
+          const response = await createUserWithEmailAndPassword(
+            auth,
+            emailAddress,
+            password
+          );
+          const user = response.user;
 
-        // Guardar los datos en Firestore
-        const usersRef = doc(firestore, "users", user.uid);
-        await setDoc(usersRef, {
-          emailAddress,
-          firstName,
-          lastName,
-          billingAddress,
-          city,
-          phone,
-          country,
-          zipCode,
-        });
+          // Guardar los datos en Firestore
+          // const usersRef = doc(firestore, "users", user.uid);
+          // await setDoc(usersRef, {
+          //   emailAddress,
+          //   firstName,
+          //   lastName,
+          //   billingAddress,
+          //   city,
+          //   phone,
+          //   country,
+          //   zipCode,
+          // });
 
-        // Registro exitoso, realiza las acciones necesarias aquí
-        console.log("Registro exitoso");
-        await sendEmailVerification(user);
-        // Restablecer el formulario
-        setFormData({
-          firstName: "",
-          lastName: "",
-          emailAddress: "",
-          password: "",
-          phone: "",
-          billingAddress: "",
-          city: "",
-          country: "",
-          zipCode: "",
-        });
+          console.log("Registro exitoso");
+          setOpenAlert(true);
+          await sendEmailVerification(user);
+
+          // Restablecer el formulario
+          setFormData({
+            firstName: "",
+            lastName: "",
+            emailAddress: "",
+            password: "",
+            phone: "",
+            billingAddress: "",
+            city: "",
+            country: "",
+            zipCode: "",
+          });
+          setTimeout(() => {
+            navigate("/home");
+          }, 4000);
+        } else {
+          console.log("Registro fallido en la API");
+        }
       } catch (error) {
-        // Manejo de errores de registro
         console.error("Error de registro:", error);
       }
     }
@@ -120,10 +156,22 @@ const Register = () => {
     const provider = new GoogleAuthProvider();
     try {
       const response = await signInWithPopup(auth, provider);
-      console.log(response);
+
+      let userEmail = "";
+      if (response.operationType === "signIn") {
+        userEmail = response.user.email;
+        dispatch(setUser(userEmail));
+
+        localStorage.setItem("user", userEmail);
+        navigate("/myaccount");
+      }
     } catch (error) {
       console.log("Error al iniciar sesión con Google:", error);
     }
+  };
+
+  const handleCloseAlert = () => {
+    setOpenAlert(false);
   };
 
   return (
@@ -255,7 +303,11 @@ const Register = () => {
             <FormControl fullWidth>
               <Select
                 name="country"
-                value={formData.country}
+                value={
+                  formData.country
+                    ? { value: formData.country, label: formData.country }
+                    : null
+                } // Establecer el valor con un objeto en el formato { value: "código", label: "nombre" }
                 onChange={handleCountryChange}
                 options={countryOptions}
                 placeholder="Country"
@@ -316,6 +368,20 @@ const Register = () => {
           </Grid>
         </Box>
       </form>
+      <Snackbar
+        open={openAlert}
+        autoHideDuration={9000}
+        onClose={handleCloseAlert}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleCloseAlert}
+          severity="success"
+          sx={{ width: "80%", backgroundColor: "#A5D6A7" }}
+        >
+          Check your inbox for Confirm Your Account. Email sent successfully!
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import dayjs from "dayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
@@ -13,34 +13,43 @@ import ChildCareIcon from '@mui/icons-material/ChildCare';
 import Person2Icon from '@mui/icons-material/Person2';
 import BedIcon from '@mui/icons-material/Bed';
 import { countAdult, countChild, countNights, countRooms } from "../../redux/slices/bookingSlice";
+import { DateContext } from "../../Context/DateContex";
 
 
 export default function Calendar() {
 
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-
   const dispatch = useDispatch()
-  const { adult } = useSelector((state) => state.booking)
-  const { child } = useSelector((state) => state.booking)
-  const { rooms } = useSelector((state) => state.booking)
-  const id = useSelector ((state) => state.rooms.rooms)
-  
+  const { adult, child, room } = useSelector((state) => state.booking)
+  const { startDate, endDate, setDateRange } = useContext(DateContext)
+  const today = dayjs()
 
+  const handleStartDateChange = (date) => {
+    setDateRange(date, endDate);
+  };
+
+  const handleEndDateChange = (date) => {
+    setDateRange(startDate, date);
+  };
 
   const handleAdultChange = (event) => {
     const { value } = event.target
-    dispatch(countAdult(value))
+    if (value === '' || (Number(value) > 0 && !value.includes('-'))) {
+      dispatch(countAdult(value))
+    }
   };
 
   const handleChildChange = (event) => {
     const { value } = event.target
-    dispatch(countChild(value))
+    if (value === '' || (Number(value) > 0 && !value.includes('-'))) {
+      dispatch(countChild(value))
+    }
   };
 
   const handleRoomsChange = (event) => {
     const { value } = event.target
-    dispatch(countRooms(value))
+    if (value === '' || (Number(value) > 0 && !value.includes('-'))) {
+      dispatch(countRooms(value))
+    }
   };
 
   useEffect(() => {
@@ -61,19 +70,13 @@ export default function Calendar() {
     return 0;
   };
 
-  const caculateSubtotal = () => {
-    if (idDetail && detail === true) {
-
-    }
-  };
-
 
   return (
     <div>
 
       <Card elevation={0} sx={
         {
-          backgroundColor: "#F3F3F7",
+          backgroundColor: "#DFDFFF",
           height: 'auto',
           padding: '15px',
           margin: '20px'
@@ -85,33 +88,20 @@ export default function Calendar() {
             fontSize: '20px',
             fontWeight: 'bold',
             color: '#868688',
-            marginTop: '20px',
+            marginTop: '10px',
 
           }
         }> Your Search Details
 
         </Typography>
-        <Typography sx={
-          {
-            fontSize: '15px',
-            marginTop: '20px',
-            color: '#9A98FE',
-            marginLeft: '10px'
-          }
-        }>
-          ( {startDate && endDate ? (
-            `${startDate.format('YYYY-MM-DD')} to ${endDate.format('YYYY-MM-DD')}`
-          ) : (
-            "No dates selected"
-          )} )
-        </Typography>
+       
 
         <Typography sx={
           {
             fontSize: '15px',
             marginTop: '20px',
             color: '#C2C2C2',
-            marginLeft: '10px'
+            marginLeft: '10px' 
           }
         }>
           <CalendarMonthIcon sx={
@@ -130,9 +120,21 @@ export default function Calendar() {
           Nights
 
         </Typography>
+        <Typography sx={
+          {
+            fontSize: '15px',
+            color: '#9A98FE',
+            marginLeft: '10px'
+          }
+        }>
+          ( {startDate && endDate ? (
+            `${startDate.format('YYYY-MM-DD')} to ${endDate.format('YYYY-MM-DD')}`
+          ) : (
+            "No dates selected"
+          )} )
+        </Typography>
 
-
-        <Grid container spacing={2} marginTop={2} marginBottom={3}>
+        <Grid container spacing={2} justifyContent="center" marginTop={2} marginBottom={3}>
           <Grid item xs={12} sm={4}>
             <Typography sx={
               {
@@ -196,7 +198,7 @@ export default function Calendar() {
                 }
               } />
 
-              {rooms}
+              {room}
 
             </Typography>
           </Grid>
@@ -247,7 +249,8 @@ export default function Calendar() {
             <DatePicker
               label='Check In'
               value={startDate}
-              onChange={(date) => setStartDate(date)}
+              minDate={today}
+              onChange={handleStartDateChange}
             />
 
           </DemoContainer>
@@ -255,14 +258,15 @@ export default function Calendar() {
             <DatePicker
               label="Check Out"
               value={endDate}
-              onChange={(date) => setEndDate(date)}
+              minDate={today}
+              onChange={handleEndDateChange}
             />
 
           </DemoContainer>
 
 
-          <Grid container spacing={2} marginTop={2} marginBottom={3}>
-            <Grid item xs={12} sm={6}>
+          <Grid container justifyContent="center" spacing={2} marginTop={1} marginBottom={3}>
+            <Grid item xs={12} sm={3}>
               <TextField
                 id="valueAdult"
                 label="Adult"
@@ -275,7 +279,7 @@ export default function Calendar() {
                 onChange={handleAdultChange}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={3}>
               <TextField
                 id="ValueChild"
                 label="Child"
@@ -288,12 +292,12 @@ export default function Calendar() {
                 onChange={handleChildChange}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={3}>
               <TextField
                 id="valueRooms"
-                label="Rooms"
+                label="Rooms "
                 type="number"
-                value={rooms}
+                value={room}
                 InputLabelProps={{
                   shrink: true,
                 }}
