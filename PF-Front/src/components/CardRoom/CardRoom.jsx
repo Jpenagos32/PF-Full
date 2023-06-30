@@ -17,6 +17,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+import { linkStyle } from "./CardRoomStyled";
 import {
   Box,
   Card,
@@ -39,9 +40,9 @@ import {
 
 export default function CardRoom(props) {
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} sx={{ marginTop: "8px" }}>
       <Grid item xs={12}>
-        <Link to={`/detail/${props._id}`}>
+        <Link to={`/detail/${props.room_type}`} style={linkStyle}>
           <Card
             sx={{
               transition: "0.2s",
@@ -54,11 +55,12 @@ export default function CardRoom(props) {
               <Grid item xs>
                 <CardMedia
                   component="img"
-                  height="200"
+                  height="215"
                   image={props.image}
                   alt="img not found"
                 />
               </Grid>
+
               <StyledCardContent>
                 <Grid item xs={12} sm container>
                   <Grid item xs={12} container direction="column" spacing={2}>

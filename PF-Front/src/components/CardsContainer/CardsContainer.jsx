@@ -35,7 +35,7 @@ export default function CardsContainer() {
                 <CardRoom
                   _id={room._id}
                   name={room.name}
-                  image={room.image.bed}
+                  image={room.image[0].bed}
                   price={room.price}
                   number_of_beds={room.number_of_beds}
                   capacity={room.capacity}
