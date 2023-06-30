@@ -1,9 +1,8 @@
-import React from 'react'
-
+import React from "react";
+import Availability from "../Availability/Availability";
 const Admin = ({ userData }) => {
   return (
     <div>
-    
       <h2>My Account</h2>
       <h2>soy un admin</h2>
       {userData ? (
@@ -16,12 +15,13 @@ const Admin = ({ userData }) => {
           <p>City: {userData.billing.city}</p>
           <p>Country: {userData.billing.country}</p>
           <p>Zip Code: {userData.billing.zip_code}</p>
+          <Availability />
         </div>
       ) : (
         <p>Loading...</p>
       )}
-      </div>
-  )
-}
+    </div>
+  );
+};
 
 export default Admin;

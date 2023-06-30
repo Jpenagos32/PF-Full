@@ -12,6 +12,7 @@ import ManagerBooking from "./components/ManagerBooking/ManagerBooking";
 import MyAccount from "./views/MyAccount/MyAccount";
 import { useEffect } from "react";
 import { setUser } from "./redux/slices/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const App = () => {
   const dispatch = useDispatch();
