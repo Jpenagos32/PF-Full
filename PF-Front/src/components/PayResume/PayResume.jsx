@@ -19,7 +19,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { Card, CardMedia, Grid, Rating } from "@mui/material";
+import { Card, CardMedia, Grid } from "@mui/material";
 import {
   StyleNameTypography,
   StyledCardContent,
@@ -30,8 +30,38 @@ import {
   StyledPriceTypography,
   StyledFacilitiesTypography,
 } from "./PayResumeStyled";
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 
 export default function PayResume() {
+
+  const [preferenceId, setPreferenceId] = useState(null);
+
+  initMercadoPago("<PUBLIC_KEY>");
+
+  const createPreference = async () => {
+    try {
+      const response = await axios.post("http://localhost:8080/create_preference", {
+        name: '101010',
+        price: 100,
+
+      });
+
+      const { id } = response.data
+      return id
+
+    } catch (error) {
+      console.log(error)
+    }
+
+  };
+
+  const handleOnClikPay = async () => {
+    const id = await createPreference()
+    if (id) {
+      setPreferenceId(id)
+    }
+  }
+
   return (
     <Grid
       container

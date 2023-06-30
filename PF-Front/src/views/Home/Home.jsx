@@ -11,7 +11,7 @@ import SubTotal from "../../components/SubTotal.jsx/SubTotal";
 const Home = () => {
   const dispatch = useDispatch();
 
- useEffect(() => {
+  useEffect(() => {
     dispatch(fetchRoomsData());
   }, [dispatch]);
 
@@ -19,6 +19,7 @@ const Home = () => {
     <Box sx={{ flexGrow: 1, backgroundColor: '#FAFAFF' }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={3}>
+          <SubTotal />
           <Calendar />
           <Filters />
         </Grid>
