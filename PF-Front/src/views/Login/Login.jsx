@@ -1,21 +1,26 @@
 import React, { useState } from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
 import { auth } from "../../Firebase/Firebase.config";
 import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { validation } from "./LoginValidation";
+import { setUser } from "../../redux/slices/authSlice";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     emailAddress: "",
     password: "",
   });
 
   const [errors, setErrors] = useState({});
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -39,12 +44,23 @@ const Login = () => {
           emailAddress,
           password
         );
-        console.log(response);
+
+        let userEmail = "";
+
+        if (response.operationType === "signIn") {
+          userEmail = response.user.email;
+          dispatch(setUser(userEmail));
+        }
+
+        localStorage.setItem("user", userEmail);
 
         setFormData({
           emailAddress: "",
           password: "",
         });
+        setTimeout(() => {
+          navigate("/myaccount");
+        }, 1000);
       } catch (error) {
         console.log("Error al iniciar sesión:", error);
       }
@@ -55,7 +71,18 @@ const Login = () => {
     const provider = new GoogleAuthProvider();
     try {
       const response = await signInWithPopup(auth, provider);
-      console.log(response);
+
+      let userEmail = "";
+      if (response.operationType === "signIn") {
+        userEmail = response.user.email;
+        dispatch(setUser(userEmail));
+
+        localStorage.setItem("user", userEmail);
+        setTimeout(() => {
+          navigate("/myaccount");
+        }, 1000);
+        console.log(response)
+      }
     } catch (error) {
       console.log("Error al iniciar sesión con Google:", error);
     }

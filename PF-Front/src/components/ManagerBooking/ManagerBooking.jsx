@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 const ManagerBooking = () => {
   const [formData, setFormData] = useState({
     emailAddress: "",
     reservationNumber: "",
   });
+  const [filteredHost, setFilteredHost] = useState(null);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -15,6 +17,30 @@ const ManagerBooking = () => {
       [name]: value,
     }));
   };
+
+  const handleSearch = async () => {
+    const { emailAddress, reservationNumber } = formData;
+
+    try {
+      const response = await axios.get("http://localhost:3001/hosts");
+      const hosts = response.data.hosts;
+
+      const filteredHost = hosts.find(
+        (host) =>
+          host.contact.email === emailAddress && host._id === reservationNumber
+      );
+
+      setFilteredHost(filteredHost);
+      setFormData({
+        emailAddress: "",
+        reservationNumber: "",
+      });
+    } catch (error) {
+      console.error("Error al buscar el host:", error);
+    }
+  };
+
+  console.log(filteredHost);
 
   return (
     <div>
@@ -153,6 +179,7 @@ const ManagerBooking = () => {
                 <Button
                   type="submit"
                   variant="contained"
+                  onClick={handleSearch}
                   style={{
                     marginTop: "18px",
                     marginBottom: "15px",
@@ -179,9 +206,9 @@ const ManagerBooking = () => {
                     color: "#868688",
                   }}
                 >
-                  Don't know your confirmation number? 
-                  Your confirmation number is included in the email sent to you 
-                  at the time you made your reservation. Check your email to retrieve the number.
+                  Don't know your confirmation number? Your confirmation number
+                  is included in the email sent to you at the time you made your
+                  reservation. Check your email to retrieve the number.
                 </Typography>
               </Grid>
             </Grid>
