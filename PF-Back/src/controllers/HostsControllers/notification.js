@@ -1,39 +1,37 @@
 const nodemailer = require('nodemailer');
-const admin = require('firebase-admin');
-require('dotenv').config()
-const { USER, PASS } = process.env
+require('dotenv').config();
+const { USER, PASS } = process.env;
 
-const transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-        user: USER,
-        pass: PASS,
-    },
-});
-
-const notification = async (req, res) => {
-    try {
-        // const email = req.body
-        // const to = email;
-        const to = "jpdelgado9641@gmail.com";
-        const subject = 'Correo de prueba';
-        const body = 'Contenido del correo de prueba';
-        const mailOptions = {
-            from: USER,
-            to,
-            subject,
-            text: body,
-        };
-        await transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                res.status(500).send('Error al enviar el correo')
-            } else {
-                res.status(200).send('Correo enviado exitosamente')
-            }
-        })
-    } catch (error) {
-        res.status(500).json({ error: 'Error al enviar la notificación por correo electrónico' });
-    }
+const notification = async (usrData) => {
+	const transporter = nodemailer.createTransport({
+		service: 'Gmail',
+		auth: {
+			user: USER,
+			pass: PASS,
+		},
+	});
+	const { to, subject, text } = usrData;
+	const mailOptions = {
+		from: USER,
+		to,
+		subject,
+		text,
+	};
+	await transporter.sendMail(mailOptions, (error, info) => {
+		if (error) {
+			throw new Error('Error sending E-mail');
+		} else {
+			console.log('E-mail sent successfully');
+		}
+	});
 };
+
+// const userData = {
+// 	to: 'correo@gmail.com',
+// 	subject: 'Reservation created',
+// 	text: 'Su reservación ha sido creada porfavor dirijase al siguiente enlace para pagar',
+// };
+
+// notification(userData);
 
 module.exports = notification;
