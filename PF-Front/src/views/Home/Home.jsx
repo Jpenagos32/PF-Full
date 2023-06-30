@@ -19,6 +19,7 @@ const Home = () => {
     <Box sx={{ flexGrow: 1, backgroundColor: "#FAFAFF" }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={3}>
+          <SubTotal />
           <Calendar />
           <Filters />
         </Grid>

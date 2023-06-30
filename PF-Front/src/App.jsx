@@ -1,7 +1,7 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import Landing from "./views/Landing/Landing";
 import Home from "./views/Home/Home";
-import Pay from "./views/Pay/Pay";
+import Pay from "./views/Payment/Pay";
 import Detail from "./views/Detail/Detail";
 import Login from "./views/Login/Login";
 import Register from "./views/Register/Register";
