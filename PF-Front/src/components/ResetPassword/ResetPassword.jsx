@@ -11,12 +11,15 @@ import {
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../Firebase/Firebase.config";
 import { NavLink } from "react-router-dom";
+import { validation } from "./ResetPasswordValidation";
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
     emailAddress: "",
   });
   const [openAlert, setOpenAlert] = useState(false);
+
+  const [errors, setErrors] = useState({});
 
   const handleChange = (event) => {
     const { value } = event.target;
@@ -28,16 +31,22 @@ const ResetPassword = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const { emailAddress } = formData;
-      await sendPasswordResetEmail(auth, emailAddress);
-      setOpenAlert(true);
-      setFormData({ emailAddress: "" });
-    } catch (error) {
-      console.log(
-        "Error al enviar el correo electrónico de restablecimiento:",
-        error
-      );
+
+    const { emailAddress } = formData;
+    const validationErrors = validation(formData);
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length === 0) {
+      try {
+        await sendPasswordResetEmail(auth, emailAddress);
+        setOpenAlert(true);
+        setFormData({ emailAddress: "" });
+      } catch (error) {
+        console.log(
+          "Error al enviar el correo electrónico de restablecimiento:",
+          error
+        );
+      }
     }
   };
 
@@ -94,6 +103,8 @@ const ResetPassword = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.emailAddress}
+              helperText={errors.emailAddress}
             />
           </Grid>
         </Grid>

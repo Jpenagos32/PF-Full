@@ -17,6 +17,9 @@ const postHost = async (req, res) => {
 	try {
 		const { identification, room_type } = req.body;
 		const existHost = await Hosts.find({ identification });
+
+		if (!room_type) throw new Error('Must provide a room_type');
+
 		if (existHost.length === 0) {
 			const createHost = new Hosts(req.body);
 
@@ -43,7 +46,7 @@ const postHost = async (req, res) => {
 			);
 			await createHost.save();
 
-			return res.status(200).json({ status: 'host created' });
+			return res.status(200).json({ createHost });
 		} else {
 			return res.status(400).json({ status: 'host exist' });
 		}

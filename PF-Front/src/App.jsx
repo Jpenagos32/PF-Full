@@ -10,12 +10,24 @@ import Login from "./views/Login/Login";
 import Register from "./views/Register/Register";
 import Error from "./components/Error/Error";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
+import ManagerBooking from "./components/ManagerBooking/ManagerBooking";
+import MyAccount from "./views/MyAccount/MyAccount";
+import { useEffect } from "react";
+import { setUser } from "./redux/slices/authSlice";
 
 const App = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const path = location.pathname;
   const rooms = useSelector((state) => state.rooms);
-  
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      dispatch(setUser(storedUser));
+    }
+  }, [dispatch]);
+
   return (
     <>
       <section>
@@ -28,18 +40,13 @@ const App = () => {
           <Route path="/signin" element={<Login />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/ResetPassword" element={<ResetPassword />} />
+          <Route path="/managerBooking" element={<ManagerBooking />} />
+          <Route path="/myaccount" element={<MyAccount />} /> *
+          <Route path="*" element={<Error />} /> *
         </Routes>
-          {path !== "/" &&
-                    path !== "/home" &&
-                    path !== "/pay" &&
-                    path !== "/signin" &&
-                    path !== "/signup" &&
-                    path !== "/ResetPassword" &&
-                    !path.startsWith("/detail") && <Error />}
       </section>
     </>
   );
 };
 
 export default App;
-

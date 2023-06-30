@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import {
   AppBar,
@@ -11,9 +11,10 @@ import {
   ListItem,
   ListItemText,
   Typography,
-  Divider,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../redux/slices/authSlice";
 
 const NavLinkStyled = styled(NavLink)(({ theme }) => ({
   textDecoration: "none",
@@ -36,7 +37,22 @@ const Logo = styled("img")({
 });
 
 const NavBar = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [openDrawer, setOpenDrawer] = useState(false);
+  const user = useSelector((state) => state.loginStatus.user);
+
+  useEffect(() => {}, [user]);
+
+  useEffect(() => {
+    let timer;
+    if (openDrawer) {
+      timer = setTimeout(() => {
+        setOpenDrawer(false);
+      }, 2000);
+    }
+    return () => clearTimeout(timer);
+  }, [openDrawer]);
 
   const handleDrawerOpen = () => {
     setOpenDrawer(!openDrawer);
@@ -44,6 +60,16 @@ const NavBar = () => {
 
   const handleDrawerClose = () => {
     setOpenDrawer(false);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    dispatch(setUser(null));
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/home");
   };
 
   return (
@@ -101,81 +127,133 @@ const NavBar = () => {
             height: "100%",
           }}
         >
-          <ListItem
-            sx={{
-              justifyContent: "center",
-              marginBottom: "1px",
-            }}
-          >
-            <Button
-              component={NavLink}
-              to="/signin"
-              onClick={handleDrawerClose}
-              variant="contained"
-              sx={{
-                width: "80%",
-                borderRadius: "30px",
-                height: "45px",
-                color: "#868688",
-                backgroundColor: "#9A98FE",
-                "&:hover": {
-                  backgroundColor: "#c2c1fe",
-                },
-              }}
-            >
-              Sign In
-            </Button>
-          </ListItem>
-          <Typography
-            variant="h6"
-            sx={{
-              marginBottom: "1px",
-              color: "#9A98FE",
-            }}
-          >
-            ¿Are You New?
-          </Typography>
-          <ListItem
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              marginBottom: "1px",
-              "&:hover": {
-                backgroundColor: "#c2c1fe",
-              },
-            }}
-            component={NavLink}
-            to="/signup"
-          >
-            <ListItemText
-              primary="Register"
-              sx={{
-                textAlign: "center",
-                color: "#9A98FE",
-                marginBottom: "1px",
-              }}
-            />
-          </ListItem>
-          <ListItem
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              "&:hover": {
-                backgroundColor: "#c2c1fe",
-              },
-            }}
-            component={NavLink}
-            to="/manage-booking"
-          >
-            <ListItemText
-              primary="Manager Your Booking"
-              sx={{
-                textAlign: "center",
-                color: "#9A98FE",
-                marginTop: "-5px",
-              }}
-            />
-          </ListItem>
+          {!user && (
+            <>
+              <ListItem
+                sx={{
+                  justifyContent: "center",
+                  marginBottom: "1px",
+                }}
+              >
+                <Button
+                  component={NavLink}
+                  to="/signin"
+                  onClick={handleDrawerClose}
+                  variant="contained"
+                  sx={{
+                    width: "80%",
+                    borderRadius: "30px",
+                    height: "45px",
+                    color: "#868688",
+                    backgroundColor: "#9A98FE",
+                    "&:hover": {
+                      backgroundColor: "#c2c1fe",
+                    },
+                  }}
+                >
+                  Sign In
+                </Button>
+              </ListItem>
+              <Typography
+                variant="h6"
+                sx={{
+                  marginBottom: "1px",
+                  color: "#9A98FE",
+                }}
+              >
+                ¿Are You New?
+              </Typography>
+              <ListItem
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: "1px",
+                  "&:hover": {
+                    backgroundColor: "#c2c1fe",
+                  },
+                }}
+                component={NavLink}
+                to="/signup"
+              >
+                <ListItemText
+                  primary="Register"
+                  sx={{
+                    textAlign: "center",
+                    color: "#9A98FE",
+                    marginBottom: "1px",
+                  }}
+                />
+              </ListItem>
+              <ListItem
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  "&:hover": {
+                    backgroundColor: "#c2c1fe",
+                  },
+                }}
+                component={NavLink}
+                to="/managerbooking"
+              >
+                <ListItemText
+                  primary="Manage Your Booking"
+                  sx={{
+                    textAlign: "center",
+                    color: "#9A98FE",
+                    marginTop: "-5px",
+                  }}
+                />
+              </ListItem>
+            </>
+          )}
+
+          {user && (
+            <>
+              <ListItem
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  "&:hover": {
+                    backgroundColor: "#c2c1fe",
+                  },
+                }}
+                component={NavLink}
+                to="/myaccount"
+              >
+                <ListItemText
+                  primary="My Account"
+                  sx={{
+                    textAlign: "center",
+                    color: "#9A98FE",
+                    marginTop: "-5px",
+                  }}
+                />
+              </ListItem>
+              <ListItem
+                sx={{
+                  justifyContent: "center",
+                  marginBottom: "1px",
+                }}
+              >
+                <Button
+                  onClick={handleLogout}
+                  variant="contained"
+                  sx={{
+                    width: "80%",
+                    borderRadius: "30px",
+                    height: "45px",
+                    color: "#868688",
+                    backgroundColor: "#9A98FE",
+                    "&:hover": {
+                      backgroundColor: "#c2c1fe",
+                    },
+                  }}
+                >
+                  Sign Out
+                </Button>
+              </ListItem>
+            </>
+          )}
         </List>
       </Drawer>
 
