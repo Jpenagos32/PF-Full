@@ -9,7 +9,7 @@ Manifiesto de funciones:
 =============================
 ==Metodos:
 =============================
- getRooms
+ getRooms: Funcion que permite obtener las habitaciones si no se provee nada por req.body envia una habitación por cada tipo
 ===============================================================================================================================
 */
 const Rooms = require('../../models/Room');
