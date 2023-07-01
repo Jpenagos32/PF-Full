@@ -5,10 +5,8 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import TextField from '@mui/material/TextField';
-import { Typography, Card } from "@mui/material";
+import { Typography, Card, TextField, Grid } from "@mui/material";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import Grid from '@mui/material/Grid';
 import ChildCareIcon from '@mui/icons-material/ChildCare';
 import Person2Icon from '@mui/icons-material/Person2';
 import BedIcon from '@mui/icons-material/Bed';
@@ -19,9 +17,11 @@ import { DateContext } from "../../Context/DateContex";
 export default function Calendar() {
 
   const dispatch = useDispatch()
-  const { adult, child, room } = useSelector((state) => state.booking)
-  const { startDate, endDate, setDateRange } = useContext(DateContext)
-  const today = dayjs()
+  const { adult, child, room } = useSelector((state) => state.booking);
+  const { startDate, endDate, setDateRange } = useContext(DateContext);
+  const today = dayjs();
+  const secondDateMin = startDate ? startDate.add(1, 'day') : null;
+  const isSecondPickerDisabled = !startDate;
 
   const handleStartDateChange = (date) => {
     setDateRange(date, endDate);
@@ -258,8 +258,9 @@ export default function Calendar() {
             <DatePicker
               label="Check Out"
               value={endDate}
-              minDate={today}
+              minDate={secondDateMin}
               onChange={handleEndDateChange}
+              disabled={isSecondPickerDisabled}
             />
 
           </DemoContainer>
