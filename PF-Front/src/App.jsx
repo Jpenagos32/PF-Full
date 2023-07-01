@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { setUser } from "./redux/slices/authSlice";
 
 const App = () => {
+  
   const dispatch = useDispatch();
   const location = useLocation();
   const path = location.pathname;
