@@ -17,6 +17,7 @@ export default function Filters() {
     const dispatch = useDispatch();
 
     const [selectedFilters, setSelectedFilters] = useState({});
+    
 
     useEffect(() => {
         const URL = "https://pf-back-production-6a7d.up.railway.app";
@@ -178,30 +179,30 @@ export default function Filters() {
                     control={
                         <Checkbox
                             name="facilities"
-                            value="hdTv"
+                            value="SmartTV"
                             checked={
-                                selectedFilters.facilities?.includes("hdTv") ||
+                                selectedFilters.facilities?.includes("SmartTV") ||
                                 false
                             }
                             onChange={handleFilterChange}
                         />
                     }
-                    label="HD-TV"
+                    label="Smart TV"
                 />
                 <FormControlLabel
                     control={
                         <Checkbox
                             name="facilities"
-                            value="roomService"
+                            value="PrivatePool"
                             checked={
                                 selectedFilters.facilities?.includes(
-                                    "roomService"
+                                    "PrivatePool"
                                 ) || false
                             }
                             onChange={handleFilterChange}
                         />
                     }
-                    label="Room-service"
+                    label="Private Pool"
                 />
                 <FormControlLabel
                     control={
