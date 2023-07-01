@@ -31,7 +31,7 @@ const paymentsSchema = new Schema({
     },
     room_description: {
         type: String,
-        minlength: [25, 'Room description must be greater than 25 chars'],
+        minlethng: [25, 'Room description must be greater than 25 chars'],
         maxlength: [500, 'Room description must be less than 500 chars'],
         ref: 'Room',
     },
