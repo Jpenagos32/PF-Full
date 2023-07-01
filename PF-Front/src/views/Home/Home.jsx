@@ -6,7 +6,7 @@ import Grid from "@mui/material/Grid";
 import Filters from "../../components/Filters/Filters";
 import { useDispatch } from "react-redux";
 import { fetchRoomsData } from "../../redux/actions/roomAction";
-import SubTotal from "../../components/SubTotal.jsx/SubTotal";
+import SubTotal from "../../components/SubTotal/SubTotal";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,6 @@ const Home = () => {
     <Box sx={{ flexGrow: 1, backgroundColor: "#FAFAFF" }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={3}>
-          <SubTotal />
           <Calendar />
           <Filters />
         </Grid>
