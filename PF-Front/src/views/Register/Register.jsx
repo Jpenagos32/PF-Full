@@ -85,7 +85,7 @@ const Register = () => {
         } = formData;
 
         // Realizar solicitud POST a la API
-        const apiResponse = await axios.post("http://localhost:3001/users", {
+        const apiResponse = await axios.post("https://pf-back-production-6a7d.up.railway.app/users", {
           user_first_name: firstName,
           user_last_name: lastName,
           user_email: emailAddress,

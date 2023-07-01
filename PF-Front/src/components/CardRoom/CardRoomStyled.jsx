@@ -25,8 +25,8 @@ export const StyleFacilitiesTypography = styled(Typography)`
 `;
 
 export const StyleNameTypography = styled(Typography)`
-  color: rgba(0, 0, 0, 0.45);
-  font-size: 20px;
+  color: rgb(134, 134, 136);
+  fontweight: "bold";
 `;
 
 export const StyledRoomPriceTypography = styled(Typography)`
