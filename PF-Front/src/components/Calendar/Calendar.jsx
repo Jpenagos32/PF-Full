@@ -94,14 +94,14 @@ export default function Calendar() {
         }> Your Search Details
 
         </Typography>
-       
+
 
         <Typography sx={
           {
             fontSize: '15px',
             marginTop: '20px',
             color: '#C2C2C2',
-            marginLeft: '10px' 
+            marginLeft: '10px'
           }
         }>
           <CalendarMonthIcon sx={
