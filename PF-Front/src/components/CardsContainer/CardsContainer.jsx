@@ -32,25 +32,22 @@ export default function CardsContainer() {
       >
         {loading
           ? Array.from(new Array(9)).map((_, index) => (
-              <CardRoomSkeleton key={index} />
-            ))
+            <CardRoomSkeleton key={index} />
+          ))
           : cardsRooms &&
-            cardsRooms.map((room) => {
-              return (
-                <Grid item xs={12} sm={6} md={4} key={room._id}>
-                  <CardRoom
-                    _id={room._id}
-                    name={room.name}
-                    image={room.image.bed}
-                    price={room.price}
-                    number_of_beds={room.number_of_beds}
-                    capacity={room.capacity}
-                    room_number={room.room_number}
-                    room_type={room.room_type}
-                  />
-                </Grid>
-              );
-            })}
+          cardsRooms.map((room) => {
+            return (
+              <Grid item xs={12} sm={6} md={4} key={room._id}>
+                <CardRoom
+                  _id={room._id}
+                  name={room.name}
+                  image={room.image.bed}
+                  price={room.price}
+                  facilities={room.facilities}
+                />
+              </Grid>
+            );
+          })}
       </Grid>
     </Container>
   );

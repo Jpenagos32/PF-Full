@@ -9,6 +9,9 @@ import { fetchRoomsData } from "../../redux/actions/roomAction";
 import { setLoading } from "../../redux/slices/LodingSlice";
 
 
+
+
+
 const Home = () => {
   const dispatch = useDispatch();
 
@@ -25,6 +28,8 @@ const Home = () => {
           <Filters />
         </Grid>
         <Grid item xs={0} md={9}>
+
+
           <CardsContainer />
         </Grid>
       </Grid>
