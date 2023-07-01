@@ -9,17 +9,25 @@ Manifiesto de funciones:
 =============================
 ==Metodos:
 =============================
- postRooms
+ postRooms Función que permite crear la habitacion
 ===============================================================================================================================
 */
 const Room = require('../../models/Room');
 
 const postRooms = async (req, res) => {
 	try {
-		const createRoom = new Room(req.body);
+		facilitiesArray = ['Wifi', 'Room Service'];
+
+		if (req.body.facilities) {
+			req.body.facilities.forEach((facility) => {
+				facilitiesArray.push(facility);
+			});
+		}
+
+		const query = { ...req.body, facilities: facilitiesArray };
+		const createRoom = new Room(query);
 		await createRoom.save();
 		return res.status(201).json({ status: 'Room created' });
-
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}

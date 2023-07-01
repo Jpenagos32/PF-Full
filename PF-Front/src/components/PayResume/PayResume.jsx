@@ -68,100 +68,248 @@ export default function PayResume() {
       sx={{
         marginTop: "20px",
         padding: "20px",
+        maxWidth: "md",
       }}
     >
-      <Grid item>
+      <Grid>
         <Card>
-          <Grid item>
-            <Link to="/detail">
-              <CardMedia
-                component="img"
-                height="200"
-                image={
-                  "https://cdn.domestika.org/c_fill,dpr_auto,f_auto,q_auto/v1403264758/content-items/000/610/961/IMG_7824-original.jpg?1403264758"
-                }
-                alt="img not found"
-              />
-            </Link>
+          <Grid container>
+            <Grid item xs={12}>
+              <Link to="/detail">
+                <CardMedia
+                  component="img"
+                  height="200"
+                  image={
+                    "https://cdn.domestika.org/c_fill,dpr_auto,f_auto,q_auto/v1403264758/content-items/000/610/961/IMG_7824-original.jpg?1403264758"
+                  }
+                  alt="img not found"
+                />
+              </Link>
+            </Grid>
+            <Grid container>
+              <Grid item xs={12}>
+                <StyledCardContent>
+                  <Grid item container direction="column" spacing={2}>
+                    <Grid item sx={{ width: 100 }}>
+                      <StyleNameTypography variant="h5" sx={{ mb: 3 }}>
+                        {"Suite Ejecutiva"}
+                      </StyleNameTypography>
+                    </Grid>
+                  </Grid>
+
+                  <StyledDivider />
+
+                  <Grid container spacing={2}>
+                    <Grid
+                      item
+                      xs={6}
+                      sm={6}
+                      md={6}
+                      lg={6}
+                      xl={6}
+                      sx={{ mt: 2, mb: 2 }}
+                    >
+                      <StyleTypography sx={{ mt: 1 }}>
+                        Check In:
+                      </StyleTypography>
+                      <StyleTypography sx={{ mt: 1 }}>
+                        Check Out:
+                      </StyleTypography>
+                      <StyleTypography sx={{ mt: 1 }}>
+                        Room Type:
+                      </StyleTypography>
+                      <StyleTypography sx={{ mt: 1 }}>Rooms:</StyleTypography>
+                      <StyleTypography sx={{ mt: 1 }}>Gues:</StyleTypography>
+                      <StyleTypography sx={{ mt: 1 }}>Extras:</StyleTypography>
+                    </Grid>
+
+                    <Grid
+                      item
+                      xs={6}
+                      sm={6}
+                      md={6}
+                      lg={6}
+                      xl={6}
+                      sx={{ mt: 2, mb: 2 }}
+                    >
+                      <StyledFacilitiesTypography sx={{ mt: 1 }}>
+                        {"WED. June 13 2023"}
+                      </StyledFacilitiesTypography>
+                      <StyledFacilitiesTypography sx={{ mt: 1 }}>
+                        {"TUR. June 13 2023"}
+                      </StyledFacilitiesTypography>
+                      <StyledFacilitiesTypography sx={{ mt: 1 }}>
+                        {"Double Queen"}
+                      </StyledFacilitiesTypography>
+                      <StyledFacilitiesTypography sx={{ mt: 1 }}>
+                        {"2"}
+                      </StyledFacilitiesTypography>
+                      <StyledFacilitiesTypography sx={{ mt: 1 }}>
+                        {"2"}
+                      </StyledFacilitiesTypography>
+                      <StyledFacilitiesTypography sx={{ mt: 1 }}>
+                        {"Smoking, Lunch"}
+                      </StyledFacilitiesTypography>
+                    </Grid>
+                  </Grid>
+
+                  <StyledDivider />
+
+                  <Grid container spacing={2}>
+                    <Grid
+                      item
+                      xs={6}
+                      sm={6}
+                      md={6}
+                      lg={6}
+                      xl={6}
+                      sx={{ mt: 2, mb: 2 }}
+                    >
+                      <StyleTotalTypography sx={{ mt: 1 }}>
+                        Room price:
+                      </StyleTotalTypography>
+                      <StyledPriceTypography sx={{ mb: 2 }}>
+                        {"USD,$500"}
+                      </StyledPriceTypography>
+                      <StyleTotalTypography sx={{ mt: 1 }}>
+                        Hotel sale tax:
+                      </StyleTotalTypography>
+                      <StyledPriceTypography sx={{ mb: 2 }}>
+                        {"USD,$500"}
+                      </StyledPriceTypography>
+                      <StyleTotalTypography sx={{ mt: 1 }}>
+                        Extras fee:
+                      </StyleTotalTypography>
+                      <StyledPriceTypography>
+                        {"USD,$500"}
+                      </StyledPriceTypography>
+                    </Grid>
+
+                    <Grid
+                      item
+                      xs={6}
+                      sm={6}
+                      md={6}
+                      lg={6}
+                      xl={6}
+                      sx={{ mt: 6 }}
+                    >
+                      <StyleTotalTypography>SubTotal</StyleTotalTypography>
+                      <StyledRoomPriceTypography sx={{ mt: 2 }}>
+                        USD,
+                      </StyledRoomPriceTypography>
+                      <StyledRoomPriceTypography>
+                        {`$${500}`}
+                      </StyledRoomPriceTypography>
+                    </Grid>
+                  </Grid>
+                </StyledCardContent>
+              </Grid>
+            </Grid>
           </Grid>
-          <StyledCardContent>
-            <Grid item container direction="column" spacing={2}>
-              <Grid item sx={{ width: 100 }}>
-                <StyleNameTypography variant="h5" sx={{ mb: 3 }}>
-                  {"Suite Ejecutiva"}
-                </StyleNameTypography>
-              </Grid>
-            </Grid>
-
-            <StyledDivider />
-
-            <Grid container spacing={6}>
-              <Grid item xs={6} sx={{ mt: 2, mb: 2 }}>
-                <StyleTypography sx={{ mt: 1 }}>Check In:</StyleTypography>
-                <StyleTypography sx={{ mt: 1 }}>Check Out:</StyleTypography>
-                <StyleTypography sx={{ mt: 1 }}>Room Type:</StyleTypography>
-                <StyleTypography sx={{ mt: 1 }}>Rooms:</StyleTypography>
-                <StyleTypography sx={{ mt: 1 }}>Gues:</StyleTypography>
-                <StyleTypography sx={{ mt: 1 }}>Extras:</StyleTypography>
-              </Grid>
-
-              <Grid item xs={6} sx={{ mt: 2, mb: 2 }}>
-                <StyledFacilitiesTypography sx={{ mt: 1 }}>
-                  {"WED. June 13 2023"}
-                </StyledFacilitiesTypography>
-                <StyledFacilitiesTypography sx={{ mt: 1 }}>
-                  {"TUR. June 13 2023"}
-                </StyledFacilitiesTypography>
-                <StyledFacilitiesTypography sx={{ mt: 1 }}>
-                  {"Double Queen"}
-                </StyledFacilitiesTypography>
-                <StyledFacilitiesTypography sx={{ mt: 1 }}>
-                  {"2"}
-                </StyledFacilitiesTypography>
-                <StyledFacilitiesTypography sx={{ mt: 1 }}>
-                  {"2"}
-                </StyledFacilitiesTypography>
-                <StyledFacilitiesTypography sx={{ mt: 1 }}>
-                  {"Smoking, Lunch"}
-                </StyledFacilitiesTypography>
-              </Grid>
-            </Grid>
-
-            <StyledDivider />
-
-            <Grid container spacing={12}>
-              <Grid item xs={6} sx={{ mt: 2, mb: 2 }}>
-                <StyleTotalTypography sx={{ mt: 1 }}>
-                  Room price:
-                </StyleTotalTypography>
-                <StyledPriceTypography sx={{ mb: 2 }}>
-                  {"USD,$500"}
-                </StyledPriceTypography>
-                <StyleTotalTypography sx={{ mt: 1 }}>
-                  Hotel sale tax:
-                </StyleTotalTypography>
-                <StyledPriceTypography sx={{ mb: 2 }}>
-                  {"USD,$500"}
-                </StyledPriceTypography>
-                <StyleTotalTypography sx={{ mt: 1 }}>
-                  Extras fee:
-                </StyleTotalTypography>
-                <StyledPriceTypography>{"USD,$500"}</StyledPriceTypography>
-              </Grid>
-
-              <Grid item xs={6} sx={{ mt: 6 }}>
-                <StyleTotalTypography>SubTotal</StyleTotalTypography>
-                <StyledRoomPriceTypography sx={{ mt: 2 }}>
-                  USD,
-                </StyledRoomPriceTypography>
-                <StyledRoomPriceTypography>
-                  {`$${500}`}
-                </StyledRoomPriceTypography>
-              </Grid>
-            </Grid>
-          </StyledCardContent>
         </Card>
       </Grid>
     </Grid>
   );
 }
+
+//  <Grid
+//       container
+//       sx={{
+//         marginTop: "20px",
+//         padding: "20px",
+//       }}
+//     >
+//       <Grid item>
+//         <Card>
+//           <Grid item>
+//             <Link to="/detail">
+//               <CardMedia
+//                 component="img"
+//                 height="200"
+//                 image={
+//                   "https://cdn.domestika.org/c_fill,dpr_auto,f_auto,q_auto/v1403264758/content-items/000/610/961/IMG_7824-original.jpg?1403264758"
+//                 }
+//                 alt="img not found"
+//               />
+//             </Link>
+//           </Grid>
+//           <StyledCardContent>
+//             <Grid item container direction="column" spacing={2}>
+//               <Grid item sx={{ width: 100 }}>
+//                 <StyleNameTypography variant="h5" sx={{ mb: 3 }}>
+//                   {"Suite Ejecutiva"}
+//                 </StyleNameTypography>
+//               </Grid>
+//             </Grid>
+
+//             <StyledDivider />
+
+//             <Grid container spacing={6}>
+//               <Grid item xs={6} sx={{ mt: 2, mb: 2 }}>
+//                 <StyleTypography sx={{ mt: 1 }}>Check In:</StyleTypography>
+//                 <StyleTypography sx={{ mt: 1 }}>Check Out:</StyleTypography>
+//                 <StyleTypography sx={{ mt: 1 }}>Room Type:</StyleTypography>
+//                 <StyleTypography sx={{ mt: 1 }}>Rooms:</StyleTypography>
+//                 <StyleTypography sx={{ mt: 1 }}>Gues:</StyleTypography>
+//                 <StyleTypography sx={{ mt: 1 }}>Extras:</StyleTypography>
+//               </Grid>
+
+//               <Grid item xs={6} sx={{ mt: 2, mb: 2 }}>
+//                 <StyledFacilitiesTypography sx={{ mt: 1 }}>
+//                   {"WED. June 13 2023"}
+//                 </StyledFacilitiesTypography>
+//                 <StyledFacilitiesTypography sx={{ mt: 1 }}>
+//                   {"TUR. June 13 2023"}
+//                 </StyledFacilitiesTypography>
+//                 <StyledFacilitiesTypography sx={{ mt: 1 }}>
+//                   {"Double Queen"}
+//                 </StyledFacilitiesTypography>
+//                 <StyledFacilitiesTypography sx={{ mt: 1 }}>
+//                   {"2"}
+//                 </StyledFacilitiesTypography>
+//                 <StyledFacilitiesTypography sx={{ mt: 1 }}>
+//                   {"2"}
+//                 </StyledFacilitiesTypography>
+//                 <StyledFacilitiesTypography sx={{ mt: 1 }}>
+//                   {"Smoking, Lunch"}
+//                 </StyledFacilitiesTypography>
+//               </Grid>
+//             </Grid>
+
+//             <StyledDivider />
+
+//             <Grid container spacing={12}>
+//               <Grid item xs={6} sx={{ mt: 2, mb: 2 }}>
+//                 <StyleTotalTypography sx={{ mt: 1 }}>
+//                   Room price:
+//                 </StyleTotalTypography>
+//                 <StyledPriceTypography sx={{ mb: 2 }}>
+//                   {"USD,$500"}
+//                 </StyledPriceTypography>
+//                 <StyleTotalTypography sx={{ mt: 1 }}>
+//                   Hotel sale tax:
+//                 </StyleTotalTypography>
+//                 <StyledPriceTypography sx={{ mb: 2 }}>
+//                   {"USD,$500"}
+//                 </StyledPriceTypography>
+//                 <StyleTotalTypography sx={{ mt: 1 }}>
+//                   Extras fee:
+//                 </StyleTotalTypography>
+//                 <StyledPriceTypography>{"USD,$500"}</StyledPriceTypography>
+//               </Grid>
+
+//               <Grid item xs={6} sx={{ mt: 6 }}>
+//                 <StyleTotalTypography>SubTotal</StyleTotalTypography>
+//                 <StyledRoomPriceTypography sx={{ mt: 2 }}>
+//                   USD,
+//                 </StyledRoomPriceTypography>
+//                 <StyledRoomPriceTypography>
+//                   {`$${500}`}
+//                 </StyledRoomPriceTypography>
+//               </Grid>
+//             </Grid>
+//           </StyledCardContent>
+//         </Card>
+//       </Grid>
+//     </Grid>
