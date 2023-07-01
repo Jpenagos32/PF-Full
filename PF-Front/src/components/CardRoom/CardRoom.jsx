@@ -19,7 +19,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { linkStyle } from "./CardRoomStyled";
 import {
-  Box,
   Card,
   CardActionArea,
   CardMedia,
@@ -38,11 +37,11 @@ import {
   StyledStarBorderIcon,
 } from "./CardRoomStyled";
 
-export default function CardRoom(props) {
+export default function CardRoom({ facilities, room_type, image, name, capacity, price, }) {
   return (
     <Grid container spacing={2} sx={{ marginTop: "8px" }}>
       <Grid item xs={12}>
-        <Link to={`/detail/${props.room_type}`} style={linkStyle}>
+        <Link to={`/detail/${room_type}`} style={linkStyle}>
           <Card
             sx={{
               transition: "0.2s",
@@ -56,7 +55,7 @@ export default function CardRoom(props) {
                 <CardMedia
                   component="img"
                   height="215"
-                  image={props.image}
+                  image={image}
                   alt="img not found"
                 />
               </Grid>
@@ -66,11 +65,11 @@ export default function CardRoom(props) {
                   <Grid item xs={12} container direction="column" spacing={2}>
                     <Grid item sx={{ width: 100 }}>
                       <StyleNameTypography variant="h5">
-                        {props.name}
+                        {name}
                       </StyleNameTypography>
                       <Rating
                         name="rating"
-                        value={props.capacity}
+                        value={capacity}
                         readOnly
                         emptyIcon={<StyledStarBorderIcon />}
                         icon={<StyledStarIcon />}
@@ -81,23 +80,25 @@ export default function CardRoom(props) {
                   </Grid>
                   <Grid item xs={12}>
                     <StyledRoomPriceTypography sx={{ mt: 2 }}>
-                      {`$${props.price}`}
+                      {`$${price}`}
                       <StyledUSD>USD</StyledUSD>
                     </StyledRoomPriceTypography>
                   </Grid>
                 </Grid>
                 <StyledDivider />
+
                 <StyleTypography sx={{ mt: 1.5 }}>Facilities</StyleTypography>
-                <StyleFacilitiesTypography>
-                  {props.number_of_beds}
-                </StyleFacilitiesTypography>
-                <StyleFacilitiesTypography>
-                  {props.room_number}
-                </StyleFacilitiesTypography>
-                <StyleFacilitiesTypography>
-                  {props.room_type}
-                </StyleFacilitiesTypography>
+
+
+                {facilities.map((facility, index) => (
+
+                  <StyleFacilitiesTypography key={index}>
+                    {facility}
+                  </StyleFacilitiesTypography>
+
+                ))}
               </StyledCardContent>
+
             </CardActionArea>
           </Card>
         </Link>
