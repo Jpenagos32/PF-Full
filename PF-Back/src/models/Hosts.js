@@ -38,7 +38,7 @@ const HostsSchema = new Schema({
 		email: {
 			type: String,
 			required: true,
-			unique: true,
+			unique: false,
 			match: [
 				/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/,
 				'Please enter a valid email address',
@@ -110,7 +110,7 @@ const HostsSchema = new Schema({
 		},
 		room_number: {
 			type: Number,
-			unique: true,
+			// unique: true,
 		},
 		room_type: {
 			type: String,
