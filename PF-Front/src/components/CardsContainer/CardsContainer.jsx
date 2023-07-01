@@ -15,10 +15,12 @@
 
 import React from "react";
 import CardRoom from "../CardRoom/CardRoom";
+import CardRoomSkeleton from "../CardRommSkeleton/CardRommSkeleton";
 import { Container, Grid } from "@mui/material";
 import { useSelector } from "react-redux";
 
 export default function CardsContainer() {
+  const loading = useSelector((state) => state.loading.loading);
   const cardsRooms = useSelector((state) => state.rooms.rooms.filteredRooms);
 
   return (
@@ -28,23 +30,27 @@ export default function CardsContainer() {
         rowSpacing={{ xs: 2, sm: 6, md: 8 }}
         columnSpacing={{ xs: 2, sm: 6, md: 8 }}
       >
-        {cardsRooms &&
-          cardsRooms.map((room) => {
-            return (
-              <Grid item xs={12} sm={6} md={4} key={room._id}>
-                <CardRoom
-                  _id={room._id}
-                  name={room.name}
-                  // image={room.image[0].bed}
-                  price={room.price}
-                  number_of_beds={room.number_of_beds}
-                  capacity={room.capacity}
-                  room_number={room.room_number}
-                  room_type={room.room_type}
-                />
-              </Grid>
-            );
-          })}
+        {loading
+          ? Array.from(new Array(9)).map((_, index) => (
+              <CardRoomSkeleton key={index} />
+            ))
+          : cardsRooms &&
+            cardsRooms.map((room) => {
+              return (
+                <Grid item xs={12} sm={6} md={4} key={room._id}>
+                  <CardRoom
+                    _id={room._id}
+                    name={room.name}
+                    image={room.image.bed}
+                    price={room.price}
+                    number_of_beds={room.number_of_beds}
+                    capacity={room.capacity}
+                    room_number={room.room_number}
+                    room_type={room.room_type}
+                  />
+                </Grid>
+              );
+            })}
       </Grid>
     </Container>
   );
