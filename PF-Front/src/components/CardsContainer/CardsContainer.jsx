@@ -44,6 +44,7 @@ export default function CardsContainer() {
                   image={room.image.bed}
                   price={room.price}
                   facilities={room.facilities}
+                  room_type={room.room_type}
                 />
               </Grid>
             );

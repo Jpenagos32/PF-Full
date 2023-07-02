@@ -214,8 +214,6 @@ export default function Calendar() {
           padding: '15px',
           margin: '20px',
           marginBottom: '-22px'
-
-
         }
       }>
         <Typography variant="h1" sx={
@@ -224,9 +222,6 @@ export default function Calendar() {
             fontWeight: 'bold',
             color: '#FAFAFF',
             textAlign: 'center',
-
-
-
           }
         }> Choose your Date
 

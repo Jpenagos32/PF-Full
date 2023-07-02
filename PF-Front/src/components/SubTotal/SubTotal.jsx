@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
-import TextField from '@mui/material/TextField';
-import { Card, Typography, Button, Grid } from '@mui/material'
+import { Card, Typography, Button, Grid, TextField } from '@mui/material'
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -21,15 +20,9 @@ export default function SubTotal() {
     const { child, adult, room, nights } = useSelector((state) => state.booking)
     const { rooms } = useSelector(state => state.rooms)
     const today = dayjs()
+    const secondDateMin = startDate ? startDate.add(1, 'day') : null;
+    const isSecondPickerDisabled = !startDate;
 
-    const handlePayment = () => {
-        const isConfirmed = window.confirm('¿Estás seguro de realizar el pago?');
-        if (isConfirmed) {
-          // Lógica para realizar el pago
-        } else {
-          // Lógica para cancelar el pago
-        }
-      };
 
     const handleStartDateChange = (date) => {
         setDateRange(date, endDate);
@@ -109,7 +102,6 @@ export default function SubTotal() {
                             value={startDate}
                             minDate={today}
                             onChange={handleStartDateChange}
-
                         />
 
                     </DemoContainer>
@@ -117,15 +109,15 @@ export default function SubTotal() {
                         <DatePicker
                             label="Check Out"
                             value={endDate}
-                            minDate={today}
+                            minDate={secondDateMin}
                             onChange={handleEndDateChange}
-
+                        disabled={isSecondPickerDisabled}
                         />
 
                     </DemoContainer>
-                    <Grid container spacing={2} marginTop={2} marginBottom={3}>
+                    <Grid container justifyContent="center" spacing={2} marginTop={2} marginBottom={3}>
 
-                        <Grid item xs={12} sm={5}>
+                        <Grid item xs={12} sm={3}>
                             <TextField
                                 id="subAdult"
                                 label="Adult"
@@ -139,7 +131,7 @@ export default function SubTotal() {
 
                             />
                         </Grid>
-                        <Grid item xs={12} sm={5}>
+                        <Grid item xs={12} sm={3}>
                             <TextField
                                 id="subChild"
                                 label="Child"
@@ -153,10 +145,10 @@ export default function SubTotal() {
 
                             />
                         </Grid>
-                        <Grid item xs={12} sm={17}>
+                        <Grid item xs={12} sm={3}>
                             <TextField
                                 id="subRooms"
-                                label="How many rooms"
+                                label="Rooms"
                                 type="number"
                                 value={room}
                                 InputLabelProps={{
@@ -189,11 +181,11 @@ export default function SubTotal() {
                             color: '#C2C2C2',
                             marginTop: '10px',
                             marginLeft: '10px'
-                        
+
                         }}>
-                            {nights}Nights<br/>
-                            {adult}Adult<br/>
-                            {child}Child<br/>
+                            {nights}Nights<br />
+                            {adult}Adult<br />
+                            {child}Child<br />
 
                         </Typography>
                     </Grid>
@@ -237,9 +229,9 @@ export default function SubTotal() {
                                         backgroundColor: "#c2c1fe",
                                     },
                                 }}
-                                onClick={handlePayment}
+
                             >
-                                PAY
+                                Reserv
                             </Button>
                         </Link>
                         <Typography variant="h1" sx={{

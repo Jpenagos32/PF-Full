@@ -62,6 +62,15 @@ export default function PayResume() {
     }
   }
 
+    // const handlePayment = () => {
+    //     const isConfirmed = window.confirm('¿Estás seguro de realizar el pago?');
+    //     if (isConfirmed) {
+    //       // Lógica para realizar el pago
+    //     } else {
+    //       // Lógica para cancelar el pago
+    //     }
+    //   };
+
   return (
     <Grid
       container
