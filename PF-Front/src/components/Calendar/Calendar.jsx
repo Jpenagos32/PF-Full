@@ -40,7 +40,7 @@ export default function Calendar() {
 
   const handleChildChange = (event) => {
     const { value } = event.target
-    if (value === '' || (Number(value) > 0 && !value.includes('-'))) {
+    if (value === '' || (Number(value) >= 0 && !value.includes('-'))) {
       dispatch(countChild(value))
     }
   };

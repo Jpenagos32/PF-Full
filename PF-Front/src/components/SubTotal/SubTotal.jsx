@@ -22,8 +22,13 @@ export default function SubTotal() {
     const today = dayjs()
     const secondDateMin = startDate ? startDate.add(1, 'day') : null;
     const isSecondPickerDisabled = !startDate;
-    const subTotal = price * nights * numberooms * child + adult;
-
+    // const subTotal = price * nights * numberooms * child + adult;
+    let childSubtotal = 0;
+    if (child !== 0) {
+      childSubtotal = child;
+    }
+    
+    const subTotal = price * nights * numberooms + childSubtotal + adult;
 
 
     const handleStartDateChange = (date) => {
@@ -42,7 +47,7 @@ export default function SubTotal() {
 
     const handleChildChange = (event) => {
         const { value } = event.target
-        if (value === '' || (Number(value) > 0 && !value.includes('-'))) {
+        if (value === '' || (Number(value) >= 0 && !value.includes('-'))) {
             dispatch(countChild(value))
         }
     };
