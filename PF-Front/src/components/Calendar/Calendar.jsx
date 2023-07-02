@@ -17,7 +17,7 @@ import { DateContext } from "../../Context/DateContex";
 export default function Calendar() {
 
   const dispatch = useDispatch()
-  const { adult, child, room } = useSelector((state) => state.booking);
+  const { adult, child, numberooms } = useSelector((state) => state.booking);
   const { startDate, endDate, setDateRange } = useContext(DateContext);
   const today = dayjs();
   const secondDateMin = startDate ? startDate.add(1, 'day') : null;
@@ -40,7 +40,7 @@ export default function Calendar() {
 
   const handleChildChange = (event) => {
     const { value } = event.target
-    if (value === '' || (Number(value) > 0 && !value.includes('-'))) {
+    if (value === '' || (Number(value) >= 0 && !value.includes('-'))) {
       dispatch(countChild(value))
     }
   };
@@ -198,7 +198,7 @@ export default function Calendar() {
                 }
               } />
 
-              {room}
+              {numberooms}
 
             </Typography>
           </Grid>
@@ -290,10 +290,10 @@ export default function Calendar() {
             </Grid>
             <Grid item xs={12} sm={3}>
               <TextField
-                id="valueRooms"
+                id="value-Rooms"
                 label="Rooms "
                 type="number"
-                value={room}
+                value={numberooms}
                 InputLabelProps={{
                   shrink: true,
                 }}

@@ -7,6 +7,7 @@ const initialState = {
     persons: 0,
     numberooms: 0,
     nights: 0,
+    total: 0,
     startDate: null,
     endDate: null,
 }
@@ -23,7 +24,7 @@ export const bookingSlice = createSlice({
             state.child = action.payload;
         },
         countRooms: (state, action) => {
-            state.room = action.payload;
+            state.numberooms = action.payload;
         },
         chooseStartDate: (state, action) => {
             state.startDate = action.payload;
@@ -34,8 +35,11 @@ export const bookingSlice = createSlice({
         countNights: (state, action) => {
             state.nights = action.payload;
         },
+        calculateTotal: (state, action) => {
+            state.total = action.payload;
+        },
     },
 });
 
-export const { countAdult, countChild, countRooms, chooseStartDate, chooseEndDate, countNights } = bookingSlice.actions;
+export const { countAdult, countChild, countRooms, chooseStartDate, chooseEndDate, countNights, calculateTotal } = bookingSlice.actions;
 export default bookingSlice.reducer;
