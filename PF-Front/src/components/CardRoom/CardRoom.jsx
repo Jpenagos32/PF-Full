@@ -18,13 +18,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { linkStyle } from "./CardRoomStyled";
-import {
-  Card,
-  CardActionArea,
-  CardMedia,
-  Grid,
-  Rating,
-} from "@mui/material";
+import { Card, CardActionArea, CardMedia, Grid, Rating } from "@mui/material";
 import {
   StyleNameTypography,
   StyledCardContent,
@@ -37,9 +31,23 @@ import {
   StyledStarBorderIcon,
 } from "./CardRoomStyled";
 
-export default function CardRoom({ facilities, room_type, image, name, capacity, price, }) {
+export default function CardRoom({
+  facilities,
+  room_type,
+  image,
+  name,
+  capacity,
+  price,
+}) {
   return (
-    <Grid container spacing={2} sx={{ marginTop: "8px" }}>
+    <Grid
+      container
+      spacing={2}
+      sx={{
+        marginTop: "8px",
+        marginBottom: { xs: "-15px", sm: "-30px", md: "-70px" },
+      }}
+    >
       <Grid item xs={12}>
         <Link to={`/detail/${room_type}`} style={linkStyle}>
           <Card
@@ -63,11 +71,11 @@ export default function CardRoom({ facilities, room_type, image, name, capacity,
               <StyledCardContent>
                 <Grid item xs={12} sm container>
                   <Grid item xs={12} container direction="column" spacing={2}>
-                    <Grid item sx={{ width: 100 }}>
+                    <Grid item sx={{ width: 100, marginBottom: "-15px" }}>
                       <StyleNameTypography variant="h5">
                         {name}
                       </StyleNameTypography>
-                      <Rating
+                      {/* <Rating
                         name="rating"
                         value={capacity}
                         readOnly
@@ -75,7 +83,7 @@ export default function CardRoom({ facilities, room_type, image, name, capacity,
                         icon={<StyledStarIcon />}
                         size="large"
                         sx={{ fontSize: 15 }}
-                      />
+                      /> */}
                     </Grid>
                   </Grid>
                   <Grid item xs={12}>
@@ -89,16 +97,12 @@ export default function CardRoom({ facilities, room_type, image, name, capacity,
 
                 <StyleTypography sx={{ mt: 1.5 }}>Facilities</StyleTypography>
 
-
                 {facilities.map((facility, index) => (
-
                   <StyleFacilitiesTypography key={index}>
                     {facility}
                   </StyleFacilitiesTypography>
-
                 ))}
               </StyledCardContent>
-
             </CardActionArea>
           </Card>
         </Link>
