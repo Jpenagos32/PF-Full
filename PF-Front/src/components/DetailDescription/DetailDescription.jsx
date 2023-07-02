@@ -1,5 +1,4 @@
 import {
-  Box,
   Grid,
   Typography,
   Card
@@ -8,7 +7,6 @@ import { LoadScript } from "@react-google-maps/api";
 import React from "react";
 const apiKey = "AIzaSyCv7ZMek1DLRWJ1NZbfA2-NfeOPMbEzH2M";
 import GoogleMap from "../../components/GoogleMap/GoogleMap";
-// import { StyledDivider } from "../SubTotal/SubTotalStyled";
 import { useSelector } from "react-redux";
 
 const DetailDescription = () => {
