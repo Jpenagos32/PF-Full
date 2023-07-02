@@ -57,13 +57,7 @@ export default function SubTotal() {
         }
     };
 
-    // const calculateSubTotal = () => {
-
-        
-    //     return total
-
-    // }
-
+  
     return (
 
         <div>

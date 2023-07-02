@@ -12,7 +12,6 @@
  *(cardsRooms) y generar las tarjetas correspondientes.
  *   - CardsContainer: No tiene parámetros de entrada ni salida.
  */
-
 import React from "react";
 import CardRoom from "../CardRoom/CardRoom";
 import CardRoomSkeleton from "../CardRommSkeleton/CardRommSkeleton";
@@ -42,22 +41,23 @@ export default function CardsContainer() {
       >
         {loading
           ? Array.from(new Array(9)).map((_, index) => (
-            <CardRoomSkeleton key={index} />
-          ))
-          : cardsRooms &&
-          cardsRooms.map((room) => {
-            return (
-              <Grid item xs={12} sm={6} md={4} key={room._id}>
-                <CardRoom
-                  _id={room._id}
-                  name={room.name}
-                  image={room.image.bed}
-                  price={room.price}
-                  facilities={room.facilities}
-                />
-              </Grid>
-            );
-          })}
+              <CardRoomSkeleton key={index} />
+            ))
+          : roomsToShow &&
+            roomsToShow.map((room) => {
+              return (
+                <Grid item xs={12} sm={6} md={4} key={room._id}>
+                  <CardRoom
+                    _id={room._id}
+                    name={room.name}
+                    image={room.image.bed}
+                    price={room.price}
+                    facilities={room.facilities}
+                    room_type={room.room_type}
+                  />
+                </Grid>
+              );
+            })}
       </Grid>
     </Container>
   );

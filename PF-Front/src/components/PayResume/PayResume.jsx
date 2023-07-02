@@ -17,7 +17,7 @@
  *   - Renderizar un elemento de tipografía estilizado para el precio total de la habitación.
  */
 
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardMedia, Grid } from "@mui/material";
 import {
@@ -31,6 +31,7 @@ import {
   StyledFacilitiesTypography,
 } from "./PayResumeStyled";
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
+
 
 export default function PayResume() {
 
