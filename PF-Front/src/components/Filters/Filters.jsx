@@ -174,14 +174,12 @@ export default function Filters() {
           control={
             <Checkbox
               name="facilities"
-              value="Smart TV"
-              checked={
-                selectedFilters.facilities?.includes("Smart TV") || false
-              }
+              value="Sauna"
+              checked={selectedFilters.facilities?.includes("Sauna") || false}
               onChange={handleFilterChange}
             />
           }
-          label="Smart TV"
+          label="Sauna"
         />
         <FormControlLabel
           control={
@@ -250,14 +248,14 @@ export default function Filters() {
           control={
             <Checkbox
               name="facilities"
-              value="Room Party"
+              value="Party Room"
               checked={
-                selectedFilters.facilities?.includes("Room Party") || false
+                selectedFilters.facilities?.includes("Party Room") || false
               }
               onChange={handleFilterChange}
             />
           }
-          label="Room Party"
+          label="Party Room"
         />
         <FormControlLabel
           control={
@@ -272,16 +270,18 @@ export default function Filters() {
           }
           label="Safe Box"
         />
-        <FormControlLabel
+       <FormControlLabel
           control={
             <Checkbox
               name="facilities"
-              value="Sauna"
-              checked={selectedFilters.facilities?.includes("Sauna") || false}
+              value="Smart TV"
+              checked={
+                selectedFilters.facilities?.includes("Smart TV") || false
+              }
               onChange={handleFilterChange}
             />
           }
-          label="Sauna"
+          label="Smart TV"
         />
       </Card>
     </section>
