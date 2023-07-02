@@ -22,6 +22,16 @@ import { useSelector } from "react-redux";
 export default function CardsContainer() {
   const loading = useSelector((state) => state.loading.loading);
   const cardsRooms = useSelector((state) => state.rooms.rooms.filteredRooms);
+  const filteredrooms = useSelector((state) => state.rooms.rooms.filtered);
+  let roomsToShow = [];
+
+  if (typeof filteredrooms !== "undefined") {
+    roomsToShow = filteredrooms;
+  } else {
+    roomsToShow = cardsRooms;
+  }
+  if (filteredrooms == undefined) {
+  }
 
   return (
     <Container>
@@ -44,7 +54,6 @@ export default function CardsContainer() {
                   image={room.image.bed}
                   price={room.price}
                   facilities={room.facilities}
-                  room_type={room.room_type}
                 />
               </Grid>
             );
