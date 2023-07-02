@@ -32,17 +32,13 @@ export default function Detail() {
 
   return (
     <Box sx={{ flexGrow: 1, backgroundColor: "#FAFAFF" }}>
-      <Grid container spacing={2}>
-        <Grid item xs={0} md={9}>
-          <DetailGallery />
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <SubTotal />
-        </Grid>
-      </Grid>
       <Grid container spacing={4}>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={0} md={8}>
+          <DetailGallery />
           <DetailDescription />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <SubTotal />
         </Grid>
       </Grid>
     </Box>

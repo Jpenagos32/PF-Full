@@ -4,7 +4,8 @@ const initialState = {
 
     adult: 0,
     child: 0,
-    room: 0,
+    persons: 0,
+    numberooms: 0,
     nights: 0,
     startDate: null,
     endDate: null,

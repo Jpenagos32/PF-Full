@@ -7,9 +7,7 @@ import Filters from "../../components/Filters/Filters";
 import { useDispatch } from "react-redux";
 import { fetchRoomsData } from "../../redux/actions/roomAction";
 import { setLoading } from "../../redux/slices/LodingSlice";
-
-
-
+import SearchBar from "../../components/BarOrder/SearchBar";
 
 
 const Home = () => {
@@ -28,8 +26,7 @@ const Home = () => {
           <Filters />
         </Grid>
         <Grid item xs={0} md={9}>
-
-
+          <SearchBar />
           <CardsContainer />
         </Grid>
       </Grid>

@@ -12,7 +12,6 @@
  *(cardsRooms) y generar las tarjetas correspondientes.
  *   - CardsContainer: No tiene parámetros de entrada ni salida.
  */
-
 import React from "react";
 import CardRoom from "../CardRoom/CardRoom";
 import CardRoomSkeleton from "../CardRommSkeleton/CardRommSkeleton";
