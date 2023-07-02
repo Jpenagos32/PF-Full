@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Card, Typography, Button, Grid, TextField } from '@mui/material'
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -7,7 +7,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { StyledDivider } from './SubTotalStyled';
 import { useDispatch, useSelector } from 'react-redux';
 import { DateContext } from '../../Context/DateContex';
-import { countAdult, countChild, countRooms } from "../../redux/slices/bookingSlice";
+import { countAdult, countChild, countNights, countRooms, calculateTotal } from "../../redux/slices/bookingSlice";
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 
@@ -22,12 +22,9 @@ export default function SubTotal() {
     const today = dayjs()
     const secondDateMin = startDate ? startDate.add(1, 'day') : null;
     const isSecondPickerDisabled = !startDate;
-   
-    const total = parseInt(price) * nights * parseInt(numberooms) * (parseInt(child) + parseInt(adult));
+    const subTotal = price * nights * numberooms * child + adult;
 
-    console.log('esto es el precio', price)
-    console.log ('el total', total)
-    console.log('Este es el rooms', numberooms)
+
 
     const handleStartDateChange = (date) => {
         setDateRange(date, endDate);
@@ -56,8 +53,28 @@ export default function SubTotal() {
             dispatch(countRooms(value))
         }
     };
+    const handleTotaLClik = () => {
+        dispatch(calculateTotal(subTotal))
+    }
 
-  
+    useEffect(() => {
+        if (startDate && endDate) {
+            const count = countSelectedDays();
+            dispatch(countNights(count));
+        }
+    }, [startDate, endDate, dispatch]);
+
+
+    const countSelectedDays = () => {
+        if (startDate && endDate) {
+            const start = dayjs(startDate);
+            const end = dayjs(endDate);
+            const diff = end.diff(start, 'day');
+            return diff;
+        }
+        return 0;
+    };
+
     return (
 
         <div>
@@ -195,7 +212,7 @@ export default function SubTotal() {
                             color: '#0400CB',
                             marginTop: '20px',
                         }}>
-                            ${total}
+                            ${subTotal}
                         </Typography>
 
                         <Typography variant="h1" sx={{
@@ -227,7 +244,7 @@ export default function SubTotal() {
                                         backgroundColor: "#c2c1fe",
                                     },
                                 }}
-
+                                onClick={handleTotaLClik}
                             >
                                 Reserv
                             </Button>
