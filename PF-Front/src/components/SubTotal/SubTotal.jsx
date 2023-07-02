@@ -28,7 +28,7 @@ export default function SubTotal() {
       childSubtotal = child;
     }
     
-    const subTotal = price * nights * numberooms + childSubtotal + adult;
+    const subTotal = price * nights * numberooms * (childSubtotal + adult) 
 
 
     const handleStartDateChange = (date) => {
