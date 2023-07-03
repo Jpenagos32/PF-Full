@@ -111,7 +111,8 @@ const FormComponent = () => {
       sx={{
         maxWidth: 500,
         margin: "0 auto",
-        marginTop: "40px",
+        marginTop: "20px",
+        marginLeft: "170px",
         padding: "20px",
         paddingLeft: "25px",
         border: "1px solid #ccc",
