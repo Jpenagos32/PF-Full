@@ -32,8 +32,6 @@ export default function PayResume() {
 
 
   return (
-
-
     <Card elevation={0} sx={
       {
         backgroundColor: "#DFDFFF",
