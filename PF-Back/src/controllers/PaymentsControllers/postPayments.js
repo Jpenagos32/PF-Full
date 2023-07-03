@@ -4,7 +4,7 @@ const { mercadopago } = require('../../utils/mercadoPago')
 
 const postPayments = async (req, res) => {
     try {
-        const { identification , total } = req.body;
+        const { identification, total } = req.body;
         if (!identification) throw new Error('Must be provider identification')
         const roomPay = await NewPayments.findOne({ identification })
         if (roomPay) {
@@ -24,8 +24,8 @@ const postPayments = async (req, res) => {
                 },
             ],
             back_urls: {
-                success: 'http://localhost:3001/payments/success',
-                failure: 'http://localhost:3001/payments/failure'
+                success: 'https://pf-back-production-6a7d.up.railway.app/payments/success',
+                failure: 'https://pf-back-production-6a7d.up.railway.app/payments/failure'
             },
         };
         const response = await mercadopago.preferences.create(preference);
