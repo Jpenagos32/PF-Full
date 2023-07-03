@@ -13,8 +13,7 @@ export const Content = styled("div")({
     height: "70%",
     position: "absolute",
     zIndex: "2",
-    top: "10vh",
-    left: "30vw",
+    left: "33vw",
 });
 
 export const Title = styled("h1")(({ theme }) => ({
@@ -25,5 +24,5 @@ export const Title = styled("h1")(({ theme }) => ({
     [theme.breakpoints.down("sm")]: {
         fontSize: "28px",
     },
-    textShadow: "5px 5px 8px rgba(0, 0, 0, 0.8)",
+    textShadow: "5px 5px 8px rgba(0, 0, 0, 1)",
 }));

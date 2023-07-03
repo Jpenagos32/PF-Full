@@ -4,7 +4,7 @@ const { mercadopago } = require('../../utils/mercadoPago')
 
 const postPayments = async (req, res) => {
     try {
-        const { identification } = req.body;
+        const { identification , total } = req.body;
         if (!identification) throw new Error('Must be provider identification')
         const roomPay = await NewPayments.findOne({ identification })
         if (roomPay) {
@@ -19,7 +19,7 @@ const postPayments = async (req, res) => {
             items: [
                 {
                     title: room_details.room_name,
-                    unit_price: room_details.room_price,
+                    unit_price: total,
                     quantity: 1
                 },
             ],
