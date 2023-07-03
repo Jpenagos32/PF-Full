@@ -263,7 +263,7 @@ export default function SubTotal() {
                 }}
                 onClick={handleTotaLClik}
               >
-                Reserv
+                Reserve
               </Button>
             </Link>
             <Typography
