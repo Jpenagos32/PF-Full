@@ -7,8 +7,8 @@ import { useSelector } from "react-redux";
 import { DateContext } from "../../Context/DateContex";
 
 const FormComponent = () => {
-  const { startDate, endDate, total } = useContext(DateContext);
-  const { child, adult } = useSelector((state) => state.booking);
+  const { startDate, endDate } = useContext(DateContext);
+  const { child, adult ,total} = useSelector((state) => state.booking);
   const check_in_date = startDate ? startDate.format("YYYY-MM-DD") : "";
   const check_out_date = endDate ? endDate.format("YYYY-MM-DD") : "";
   const childNumber = +child;
@@ -16,7 +16,6 @@ const FormComponent = () => {
   const amount_of_people = childNumber + adultNumber;
   const countryOptions = CountryList().getData();
   const room = useSelector((state) => state.types.types.room_type);
-console.log(total)
 
   const [formData, setFormData] = useState({
     firstName: "",
