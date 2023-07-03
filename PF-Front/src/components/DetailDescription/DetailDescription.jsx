@@ -1,8 +1,4 @@
-import {
-  Grid,
-  Typography,
-  Card
-} from "@mui/material";
+import { Grid, Typography, Card } from "@mui/material";
 import { LoadScript } from "@react-google-maps/api";
 import React from "react";
 const apiKey = "AIzaSyCv7ZMek1DLRWJ1NZbfA2-NfeOPMbEzH2M";
@@ -11,21 +7,20 @@ import { useSelector } from "react-redux";
 
 const DetailDescription = () => {
   const room = useSelector((state) => state.types.types);
-  console.log(room);
 
   return (
     <div>
       <Card
         sx={{
           backgroundColor: "#EFEEFF",
-          height: 'auto',
-          padding: '40px',
-          margin: '20px',
-          width: '890px'
+          height: "auto",
+          padding: "40px",
+          margin: "20px",
+          width: "890px",
         }}
       >
-        <Grid container spacing={2} style={{ padding: '10px' }} >
-          <Grid item xs={12} sm={7} >
+        <Grid container spacing={2} style={{ padding: "10px" }}>
+          <Grid item xs={12} sm={7}>
             <Typography
               item
               variant="h1"
@@ -45,46 +40,53 @@ const DetailDescription = () => {
                 fontSize: "20px",
                 color: "#868688",
                 marginTop: "5px",
-
               }}
             >
               {room.room_type}
             </Typography>
           </Grid>
 
-          <Grid item xs={12} sm={5} sx={{ display: 'flex', alignItems: 'flex-end' }}>
-            <Typography variant="h1"
+          <Grid
+            item
+            xs={12}
+            sm={5}
+            sx={{ display: "flex", alignItems: "flex-end" }}
+          >
+            <Typography
+              variant="h1"
               sx={{
-                fontSize: '35px',
-                fontWeight: 'bold',
-                color: '#0400CB',
-              }}>
+                fontSize: "35px",
+                fontWeight: "bold",
+                color: "#0400CB",
+              }}
+            >
               ${room.price}
-
             </Typography>
 
-            <Typography variant="h1"
+            <Typography
+              variant="h1"
               sx={{
-                fontSize: '15px',
-                fontWeight: 'bold',
-                color: '#9A98FE',
-                marginTop: '20px'
-              }}>
-
+                fontSize: "15px",
+                fontWeight: "bold",
+                color: "#9A98FE",
+                marginTop: "20px",
+              }}
+            >
               USD/NIGHT
             </Typography>
           </Grid>
         </Grid>
 
-
-        <Grid container alignItems="flex-start" 
-        style={{ 
-          marginTop: '20px', 
-          borderTop: '1px solid', 
-          marginBotton: '5px', 
-          color: '#9A98FE'
-          }}>
-
+        <Grid
+          container
+          alignItems="flex-start"
+          style={{
+            marginTop: "20px",
+            borderTop: "1px solid",
+            marginBotton: "5px",
+            color: "#9A98FE",
+          }}
+        >
           <Grid item xs={12} sm={8}>
             <Typography
               variant="h1"
@@ -92,7 +94,7 @@ const DetailDescription = () => {
                 fontSize: "20px",
                 fontWeight: "bold",
                 color: "#0400CB",
-                marginTop: '20px'
+                marginTop: "20px",
               }}
             >
               Description
@@ -119,7 +121,7 @@ const DetailDescription = () => {
               Facilities
             </Typography>
 
-            <Grid container spacing={1} style={{ marginTop: '0px' }}>
+            <Grid container spacing={1} style={{ marginTop: "0px" }}>
               <Grid item xs={12} sm={6}>
                 {room.facilities.map((facility, index) => (
                   <Grid item key={index}>
@@ -133,7 +135,6 @@ const DetailDescription = () => {
                       {facility}
                     </Typography>
                   </Grid>
-
                 ))}
               </Grid>
             </Grid>
@@ -158,22 +159,24 @@ const DetailDescription = () => {
                 marginTop: "15px",
               }}
             >
-              Please read and understand our cancellation policy prior to booking.
+              Please read and understand our cancellation policy prior to
+              booking.
             </Typography>
-
           </Grid>
 
-          <Grid item xs={12} sm={4} sx={{
-                padding: '15px',
-            
-              }}>
+          <Grid
+            item
+            xs={12}
+            sm={4}
+            sx={{
+              padding: "15px",
+            }}
+          >
             <LoadScript googleMapsApiKey={apiKey}>
               <GoogleMap />
             </LoadScript>
           </Grid>
         </Grid>
-
-
       </Card>
     </div>
   );

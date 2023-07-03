@@ -21,165 +21,184 @@ import React, { useContext } from "react";
 import { Card, CardMedia, Grid, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { StyledDivider } from "./PayResumeStyled";
-import { DateContext } from '../../Context/DateContex';
+import { DateContext } from "../../Context/DateContex";
 
 export default function PayResume() {
-  const { startDate, endDate } = useContext(DateContext)
-  const { child, adult, numberoom, nights, total } = useSelector(state => state.booking)
-  const { name, price, image } = useSelector(state => state.types.types)
-  const initial = startDate ? startDate.format('YYYY-MM-DD') : '';
-  const finish = endDate ? endDate.format('YYYY-MM-DD') : '';
-
+  const { startDate, endDate } = useContext(DateContext);
+  const { child, adult, numberoom, nights, total } = useSelector(
+    (state) => state.booking
+  );
+  const { name, price, image } = useSelector((state) => state.types.types);
+  const initial = startDate ? startDate.format("YYYY-MM-DD") : "";
+  const finish = endDate ? endDate.format("YYYY-MM-DD") : "";
 
   return (
-    <Card elevation={0} sx={
-      {
+    
+    <Card
+      elevation={0}
+      sx={{
         backgroundColor: "#DFDFFF",
-        height: 'auto',
-        margin: '10px',
-        marginRight: '49px',
-        marginTop: '50px',
-        width: '440px'
-      }
-    }>
-      <CardMedia
-        component="img"
-        height="200"
-        image={
-          image.bed
-        }
-        alt={name}
-      />
+        height: "auto",
+        marginRight: "49px",
+        marginTop: "20px",
+        marginBottom: "55px",
+        marginLeft: "-75px",
+        width: "440px",
+      }}
+    >
+      <CardMedia component="img" height="200" image={image.bed} alt={name} />
 
       <Grid container style={{}}>
         <Grid item xs={12} sm={6}>
-          <Typography variant="h1"
+          <Typography
+            variant="h1"
             sx={{
-              fontSize: '25px',
-              fontWeight: 'bold',
-              color: '#868688',
-              marginTop: '10px',
-              padding: '20px',
-              marginBottom: '10px',
-            }}>
+              fontSize: "25px",
+              fontWeight: "bold",
+              color: "#868688",
+              marginTop: "10px",
+              padding: "20px",
+              marginBottom: "10px",
+            }}
+          >
             {name}
           </Typography>
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <Typography variant="h1" sx={{
-            fontSize: '20px',
-            fontWeight: 'bold',
-            color: '#868688',
-            marginTop: '20px',
-            marginLeft: '40px'
-
-          }}>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              color: "#868688",
+              marginTop: "20px",
+              marginLeft: "40px",
+            }}
+          >
             Total
           </Typography>
-          <Typography variant="h1" sx={{
-            fontSize: '25px',
-            fontWeight: 'bold',
-            color: '#0400CB',
-            marginLeft: '40px'
-          }}>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "25px",
+              fontWeight: "bold",
+              color: "#0400CB",
+              marginLeft: "40px",
+            }}
+          >
             USD,${total}
           </Typography>
         </Grid>
-
       </Grid>
       <StyledDivider />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
-          <Typography variant="h1" sx={{
-            fontSize: '15px',
-            color: '#9a98fe',
-            marginTop: '10px',
-            padding: '10px',
-            marginLeft: '20px'
-          }}>
-            Room Price:    ${price}
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "15px",
+              color: "#9a98fe",
+              marginTop: "10px",
+              padding: "10px",
+              marginLeft: "20px",
+            }}
+          >
+            Room Price: ${price}
           </Typography>
 
-          <Typography variant="h1" sx={{
-            fontSize: '15px',
-            color: '#9a98fe',
-            marginTop: '10px',
-            padding: '10px',
-            marginLeft: '20px'
-
-          }}>
-            Check In:  {initial}
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "15px",
+              color: "#9a98fe",
+              marginTop: "10px",
+              padding: "10px",
+              marginLeft: "20px",
+            }}
+          >
+            Check In: {initial}
           </Typography>
-          <Typography variant="h1" sx={{
-            fontSize: '15px',
-            color: '#9a98fe',
-            marginTop: '10px',
-            padding: '10px',
-            marginLeft: '20px'
-          }}>
-
-            Check Out:  {finish}
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "15px",
+              color: "#9a98fe",
+              marginTop: "10px",
+              padding: "10px",
+              marginLeft: "20px",
+            }}
+          >
+            Check Out: {finish}
           </Typography>
-          <Typography variant="h1" sx={{
-            fontSize: '15px',
-            color: '#9a98fe',
-            marginTop: '10px',
-            padding: '10px',
-            marginLeft: '20px'
-          }}>
-            Room Type:  {name}
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "15px",
+              color: "#9a98fe",
+              marginTop: "10px",
+              padding: "10px",
+              marginLeft: "20px",
+            }}
+          >
+            Room Type: {name}
           </Typography>
         </Grid>
 
         <Grid item xs={6} sm={6}>
-
-          <Typography variant="h1" sx={{
-            fontSize: '15px',
-            color: '#9a98fe',
-            marginTop: '10px',
-            padding: '10px',
-            marginLeft: '20px'
-          }}>
-            How many Nights: {
-              nights}
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "15px",
+              color: "#9a98fe",
+              marginTop: "10px",
+              padding: "10px",
+              marginLeft: "20px",
+            }}
+          >
+            How many Nights: {nights}
           </Typography>
-          <Typography variant="h1" sx={{
-            fontSize: '15px',
-            color: '#9a98fe',
-            marginTop: '10px',
-            padding: '10px',
-            marginLeft: '20px'
-          }}>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "15px",
+              color: "#9a98fe",
+              marginTop: "10px",
+              padding: "10px",
+              marginLeft: "20px",
+            }}
+          >
             How many Adults: {adult}
           </Typography>
 
-          <Typography variant="h1" sx={{
-            fontSize: '15px',
-            color: '#9a98fe',
-            marginTop: '10px',
-            padding: '10px',
-            marginLeft: '20px'
-          }}>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "15px",
+              color: "#9a98fe",
+              marginTop: "10px",
+              padding: "10px",
+              marginLeft: "20px",
+            }}
+          >
             How many childs: {child}
           </Typography>
 
-          <Typography variant="h1" sx={{
-            fontSize: '15px',
-            color: '#9a98fe',
-            marginTop: '10px',
-            padding: '10px',
-            marginLeft: '20px',
-            marginBottom: '30px'
-          }}>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "15px",
+              color: "#9a98fe",
+              marginTop: "10px",
+              padding: "10px",
+              marginLeft: "20px",
+              marginBottom: "30px",
+            }}
+          >
             How many Rooms: {numberoom}
           </Typography>
-
         </Grid>
       </Grid>
-
     </Card>
-
-
   );
 }
