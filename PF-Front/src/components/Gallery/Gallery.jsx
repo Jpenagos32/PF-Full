@@ -1,46 +1,57 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Gallery.module.css";
-import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 const Gallery = () => {
-    const location = useLocation();
-    const path = location.pathname;
     const [currentImage, setCurrentImage] = useState(0);
+    const [images, setImages] = useState([]);
 
-    const images = {
-        a: "https://images.pexels.com/photos/2598638/pexels-photo-2598638.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        b: "https://images.pexels.com/photos/1145257/pexels-photo-1145257.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        c: null,
-        d: "https://images.pexels.com/photos/2507016/pexels-photo-2507016.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        e: "https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?auto=compress&cs=tinysrgb&w=600",
-    };
-
-    function getImgUrl(images) {
-        const image = [];
-
-        for (let key in images) {
-            const value = images[key];
-
-            if (typeof value === "string") {
-                image.push(value);
-            } else if (typeof value === "object" && value !== null) {
-                image.push(...getImgUrl(value));
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(
+                    "https://pf-back-production-6a7d.up.railway.app/hotel"
+                );
+                const responseData = response.data;
+                const imageUrls = getImgUrls(responseData[0]);
+                const sliced = Array.isArray(imageUrls)
+                    ? imageUrls.slice(0, 12)
+                    : [];
+                setImages(sliced);
+            } catch (error) {
+                console.error("Error fetching images:", error);
             }
-        }
+        };
 
-        return image;
+        fetchData();
+    }, []);
+
+    function getImgUrls(data) {
+        const imageUrls = [];
+
+        const traverse = (obj) => {
+            for (const key in obj) {
+                const value = obj[key];
+
+                if (typeof value === "string" && value.includes("http")) {
+                    imageUrls.push(value);
+                } else if (typeof value === "object" && value !== null) {
+                    traverse(value);
+                }
+            }
+        };
+
+        traverse(data);
+
+        return imageUrls;
     }
 
-    let image = getImgUrl(images);
-
     const handleChangeImage = () => {
-        setCurrentImage((prevImage) =>
-            prevImage === image.length - 1 ? 0 : prevImage + 1
-        );
+        setCurrentImage((prevImage) => (prevImage === 11 ? 0 : prevImage + 1));
     };
 
     useEffect(() => {
-        const interval = setInterval(handleChangeImage, 2000);
+        const interval = setInterval(handleChangeImage, 5000);
 
         return () => {
             clearInterval(interval);
@@ -49,14 +60,20 @@ const Gallery = () => {
 
     return (
         <div className={styles.container}>
-            <img
-                className={styles.image}
-                src={image[currentImage]}
-                alt={`Image ${currentImage + 1}`}
-            />
+            {images.length > 0 ? (
+                <div className={styles.imageContainer}>
+                    <img
+                        className={styles.image}
+                        src={images[currentImage]}
+                        alt={`Image ${currentImage + 1}`}
+                    />
+                </div>
+            ) : (
+                <div>No images found</div>
+            )}
 
             <div className={styles.dotContainer}>
-                {image.map((_, index) => (
+                {images.slice(0, 12).map((_, index) => (
                     <div
                         key={index}
                         className={`${styles.dot} ${
@@ -71,65 +88,3 @@ const Gallery = () => {
 };
 
 export default Gallery;
-
-// import React, { useState } from "react";
-// import styles from "./Gallery.module.css";
-
-// const Gallery = () => {
-//     const panels = [
-//         {
-//             backgroundImage:
-//                 "url('https://images.pexels.com/photos/2507016/pexels-photo-2507016.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')",
-//             title: "Baño",
-//         },
-//         {
-//             backgroundImage:
-//                 "url('https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?auto=compress&cs=tinysrgb&w=600')",
-//             title: "Piscina",
-//         },
-//         {
-//             backgroundImage:
-//                 "url('https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')",
-//             title: "Habitacion",
-//         },
-//         {
-//             backgroundImage:
-//                 "url('https://images.pexels.com/photos/1145257/pexels-photo-1145257.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')",
-//             title: "Jardin",
-//         },
-//         {
-//             backgroundImage:
-//                 "url('https://images.pexels.com/photos/2598638/pexels-photo-2598638.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')",
-//             title: "Terraza",
-//         },
-//     ];
-
-//     const [activePanel, setActivePanel] = useState(4);
-
-//     const handlePanelClick = (panelIndex) => {
-//         setActivePanel(panelIndex);
-//     };
-
-//     return (
-//         <div className={styles.container}>
-//             {panels.map((panel, index) => (
-//                 <div
-//                     key={index}
-//                     className={`${styles.panel} ${
-//                         activePanel === index ? styles.active : ""
-//                     }`}
-//                     style={{
-//                         backgroundImage: panel.backgroundImage,
-//                         height: activePanel === index ? "90vh" : "40px",
-//                         backgroundSize:
-//                             activePanel === index ? "70vw 100%" : "cover",
-//                     }}
-//                     onClick={() => handlePanelClick(index)}>
-//                     <h3>{panel.title}</h3>
-//                 </div>
-//             ))}
-//         </div>
-//     );
-// };
-
-// export default Gallery;
