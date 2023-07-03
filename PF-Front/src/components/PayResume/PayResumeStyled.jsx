@@ -11,7 +11,7 @@ export const StyledDivider = styled(Divider)`
 
 export const StyleTypography = styled(Typography)`
   color: rgba(0, 0, 0, 0.25);
-  font-size: 10px;
+  font-size: 20px;
 `;
 
 export const StyleNameTypography = styled(Typography)`

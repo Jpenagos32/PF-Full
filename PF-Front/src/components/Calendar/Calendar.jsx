@@ -53,6 +53,7 @@ export default function Calendar() {
   };
 
   useEffect(() => {
+    
     if (startDate && endDate) {
       const total = countSelectedDays();
       dispatch(countNights(total));
