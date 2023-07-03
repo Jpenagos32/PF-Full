@@ -17,309 +17,171 @@
  *   - Renderizar un elemento de tipografía estilizado para el precio total de la habitación.
  */
 
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Card, CardMedia, Grid } from "@mui/material";
-import {
-  StyleNameTypography,
-  StyledCardContent,
-  StyledDivider,
-  StyleTypography,
-  StyledRoomPriceTypography,
-  StyleTotalTypography,
-  StyledPriceTypography,
-  StyledFacilitiesTypography,
-} from "./PayResumeStyled";
-import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
-
+import React, { useContext } from "react";
+import { Card, CardMedia, Grid, Typography } from "@mui/material";
+import { useSelector } from "react-redux";
+import { StyledDivider } from "./PayResumeStyled";
+import { DateContext } from '../../Context/DateContex';
 
 export default function PayResume() {
+  const { startDate, endDate } = useContext(DateContext)
+  const { child, adult, numberoom, nights, total } = useSelector(state => state.booking)
+  const { name, price, image } = useSelector(state => state.types.types)
+  const initial = startDate ? startDate.format('YYYY-MM-DD') : '';
+  const finish = endDate ? endDate.format('YYYY-MM-DD') : '';
 
-  const [preferenceId, setPreferenceId] = useState(null);
-
-  initMercadoPago("<PUBLIC_KEY>");
-
-  const createPreference = async () => {
-    try {
-      const response = await axios.post("http://localhost:8080/create_preference", {
-        name: '101010',
-        price: 100,
-
-      });
-
-      const { id } = response.data
-      return id
-
-    } catch (error) {
-      console.log(error)
-    }
-
-  };
-
-  const handleOnClikPay = async () => {
-    const id = await createPreference()
-    if (id) {
-      setPreferenceId(id)
-    }
-  }
-
-    // const handlePayment = () => {
-    //     const isConfirmed = window.confirm('¿Estás seguro de realizar el pago?');
-    //     if (isConfirmed) {
-    //       // Lógica para realizar el pago
-    //     } else {
-    //       // Lógica para cancelar el pago
-    //     }
-    //   };
 
   return (
-    <Grid
-      container
-      sx={{
-        marginTop: "20px",
-        padding: "20px",
-        maxWidth: "md",
-      }}
-    >
-      <Grid>
-        <Card>
-          <Grid container>
-            <Grid item xs={12}>
-              <Link to="/detail">
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={
-                    "https://cdn.domestika.org/c_fill,dpr_auto,f_auto,q_auto/v1403264758/content-items/000/610/961/IMG_7824-original.jpg?1403264758"
-                  }
-                  alt="img not found"
-                />
-              </Link>
-            </Grid>
-            <Grid container>
-              <Grid item xs={12}>
-                <StyledCardContent>
-                  <Grid item container direction="column" spacing={2}>
-                    <Grid item sx={{ width: 100 }}>
-                      <StyleNameTypography variant="h5" sx={{ mb: 3 }}>
-                        {"Suite Ejecutiva"}
-                      </StyleNameTypography>
-                    </Grid>
-                  </Grid>
 
-                  <StyledDivider />
 
-                  <Grid container spacing={2}>
-                    <Grid
-                      item
-                      xs={6}
-                      sm={6}
-                      md={6}
-                      lg={6}
-                      xl={6}
-                      sx={{ mt: 2, mb: 2 }}
-                    >
-                      <StyleTypography sx={{ mt: 1 }}>
-                        Check In:
-                      </StyleTypography>
-                      <StyleTypography sx={{ mt: 1 }}>
-                        Check Out:
-                      </StyleTypography>
-                      <StyleTypography sx={{ mt: 1 }}>
-                        Room Type:
-                      </StyleTypography>
-                      <StyleTypography sx={{ mt: 1 }}>Rooms:</StyleTypography>
-                      <StyleTypography sx={{ mt: 1 }}>Gues:</StyleTypography>
-                      <StyleTypography sx={{ mt: 1 }}>Extras:</StyleTypography>
-                    </Grid>
+    <Card elevation={0} sx={
+      {
+        backgroundColor: "#DFDFFF",
+        height: 'auto',
+        margin: '10px',
+        marginRight: '49px',
+        marginTop: '50px',
+        width: '440px'
+      }
+    }>
+      <CardMedia
+        component="img"
+        height="200"
+        image={
+          image.bed
+        }
+        alt={name}
+      />
 
-                    <Grid
-                      item
-                      xs={6}
-                      sm={6}
-                      md={6}
-                      lg={6}
-                      xl={6}
-                      sx={{ mt: 2, mb: 2 }}
-                    >
-                      <StyledFacilitiesTypography sx={{ mt: 1 }}>
-                        {"WED. June 13 2023"}
-                      </StyledFacilitiesTypography>
-                      <StyledFacilitiesTypography sx={{ mt: 1 }}>
-                        {"TUR. June 13 2023"}
-                      </StyledFacilitiesTypography>
-                      <StyledFacilitiesTypography sx={{ mt: 1 }}>
-                        {"Double Queen"}
-                      </StyledFacilitiesTypography>
-                      <StyledFacilitiesTypography sx={{ mt: 1 }}>
-                        {"2"}
-                      </StyledFacilitiesTypography>
-                      <StyledFacilitiesTypography sx={{ mt: 1 }}>
-                        {"2"}
-                      </StyledFacilitiesTypography>
-                      <StyledFacilitiesTypography sx={{ mt: 1 }}>
-                        {"Smoking, Lunch"}
-                      </StyledFacilitiesTypography>
-                    </Grid>
-                  </Grid>
+      <Grid container style={{}}>
+        <Grid item xs={12} sm={6}>
+          <Typography variant="h1"
+            sx={{
+              fontSize: '25px',
+              fontWeight: 'bold',
+              color: '#868688',
+              marginTop: '10px',
+              padding: '20px',
+              marginBottom: '10px',
+            }}>
+            {name}
+          </Typography>
+        </Grid>
 
-                  <StyledDivider />
+        <Grid item xs={12} sm={6}>
+          <Typography variant="h1" sx={{
+            fontSize: '20px',
+            fontWeight: 'bold',
+            color: '#868688',
+            marginTop: '20px',
+            marginLeft: '40px'
 
-                  <Grid container spacing={2}>
-                    <Grid
-                      item
-                      xs={6}
-                      sm={6}
-                      md={6}
-                      lg={6}
-                      xl={6}
-                      sx={{ mt: 2, mb: 2 }}
-                    >
-                      <StyleTotalTypography sx={{ mt: 1 }}>
-                        Room price:
-                      </StyleTotalTypography>
-                      <StyledPriceTypography sx={{ mb: 2 }}>
-                        {"USD,$500"}
-                      </StyledPriceTypography>
-                      <StyleTotalTypography sx={{ mt: 1 }}>
-                        Hotel sale tax:
-                      </StyleTotalTypography>
-                      <StyledPriceTypography sx={{ mb: 2 }}>
-                        {"USD,$500"}
-                      </StyledPriceTypography>
-                      <StyleTotalTypography sx={{ mt: 1 }}>
-                        Extras fee:
-                      </StyleTotalTypography>
-                      <StyledPriceTypography>
-                        {"USD,$500"}
-                      </StyledPriceTypography>
-                    </Grid>
+          }}>
+            Total
+          </Typography>
+          <Typography variant="h1" sx={{
+            fontSize: '25px',
+            fontWeight: 'bold',
+            color: '#0400CB',
+            marginLeft: '40px'
+          }}>
+            USD,${total}
+          </Typography>
+        </Grid>
 
-                    <Grid
-                      item
-                      xs={6}
-                      sm={6}
-                      md={6}
-                      lg={6}
-                      xl={6}
-                      sx={{ mt: 6 }}
-                    >
-                      <StyleTotalTypography>SubTotal</StyleTotalTypography>
-                      <StyledRoomPriceTypography sx={{ mt: 2 }}>
-                        USD,
-                      </StyledRoomPriceTypography>
-                      <StyledRoomPriceTypography>
-                        {`$${500}`}
-                      </StyledRoomPriceTypography>
-                    </Grid>
-                  </Grid>
-                </StyledCardContent>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Card>
       </Grid>
-    </Grid>
+      <StyledDivider />
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <Typography variant="h1" sx={{
+            fontSize: '15px',
+            color: '#9a98fe',
+            marginTop: '10px',
+            padding: '10px',
+            marginLeft: '20px'
+          }}>
+            Room Price:    ${price}
+          </Typography>
+
+          <Typography variant="h1" sx={{
+            fontSize: '15px',
+            color: '#9a98fe',
+            marginTop: '10px',
+            padding: '10px',
+            marginLeft: '20px'
+
+          }}>
+            Check In:  {initial}
+          </Typography>
+          <Typography variant="h1" sx={{
+            fontSize: '15px',
+            color: '#9a98fe',
+            marginTop: '10px',
+            padding: '10px',
+            marginLeft: '20px'
+          }}>
+
+            Check Out:  {finish}
+          </Typography>
+          <Typography variant="h1" sx={{
+            fontSize: '15px',
+            color: '#9a98fe',
+            marginTop: '10px',
+            padding: '10px',
+            marginLeft: '20px'
+          }}>
+            Room Type:  {name}
+          </Typography>
+        </Grid>
+
+        <Grid item xs={6} sm={6}>
+
+          <Typography variant="h1" sx={{
+            fontSize: '15px',
+            color: '#9a98fe',
+            marginTop: '10px',
+            padding: '10px',
+            marginLeft: '20px'
+          }}>
+            How many Nights: {
+              nights}
+          </Typography>
+          <Typography variant="h1" sx={{
+            fontSize: '15px',
+            color: '#9a98fe',
+            marginTop: '10px',
+            padding: '10px',
+            marginLeft: '20px'
+          }}>
+            How many Adults: {adult}
+          </Typography>
+
+          <Typography variant="h1" sx={{
+            fontSize: '15px',
+            color: '#9a98fe',
+            marginTop: '10px',
+            padding: '10px',
+            marginLeft: '20px'
+          }}>
+            How many childs: {child}
+          </Typography>
+
+          <Typography variant="h1" sx={{
+            fontSize: '15px',
+            color: '#9a98fe',
+            marginTop: '10px',
+            padding: '10px',
+            marginLeft: '20px',
+            marginBottom: '30px'
+          }}>
+            How many Rooms: {numberoom}
+          </Typography>
+
+        </Grid>
+      </Grid>
+
+    </Card>
+
+
   );
 }
-
-//  <Grid
-//       container
-//       sx={{
-//         marginTop: "20px",
-//         padding: "20px",
-//       }}
-//     >
-//       <Grid item>
-//         <Card>
-//           <Grid item>
-//             <Link to="/detail">
-//               <CardMedia
-//                 component="img"
-//                 height="200"
-//                 image={
-//                   "https://cdn.domestika.org/c_fill,dpr_auto,f_auto,q_auto/v1403264758/content-items/000/610/961/IMG_7824-original.jpg?1403264758"
-//                 }
-//                 alt="img not found"
-//               />
-//             </Link>
-//           </Grid>
-//           <StyledCardContent>
-//             <Grid item container direction="column" spacing={2}>
-//               <Grid item sx={{ width: 100 }}>
-//                 <StyleNameTypography variant="h5" sx={{ mb: 3 }}>
-//                   {"Suite Ejecutiva"}
-//                 </StyleNameTypography>
-//               </Grid>
-//             </Grid>
-
-//             <StyledDivider />
-
-//             <Grid container spacing={6}>
-//               <Grid item xs={6} sx={{ mt: 2, mb: 2 }}>
-//                 <StyleTypography sx={{ mt: 1 }}>Check In:</StyleTypography>
-//                 <StyleTypography sx={{ mt: 1 }}>Check Out:</StyleTypography>
-//                 <StyleTypography sx={{ mt: 1 }}>Room Type:</StyleTypography>
-//                 <StyleTypography sx={{ mt: 1 }}>Rooms:</StyleTypography>
-//                 <StyleTypography sx={{ mt: 1 }}>Gues:</StyleTypography>
-//                 <StyleTypography sx={{ mt: 1 }}>Extras:</StyleTypography>
-//               </Grid>
-
-//               <Grid item xs={6} sx={{ mt: 2, mb: 2 }}>
-//                 <StyledFacilitiesTypography sx={{ mt: 1 }}>
-//                   {"WED. June 13 2023"}
-//                 </StyledFacilitiesTypography>
-//                 <StyledFacilitiesTypography sx={{ mt: 1 }}>
-//                   {"TUR. June 13 2023"}
-//                 </StyledFacilitiesTypography>
-//                 <StyledFacilitiesTypography sx={{ mt: 1 }}>
-//                   {"Double Queen"}
-//                 </StyledFacilitiesTypography>
-//                 <StyledFacilitiesTypography sx={{ mt: 1 }}>
-//                   {"2"}
-//                 </StyledFacilitiesTypography>
-//                 <StyledFacilitiesTypography sx={{ mt: 1 }}>
-//                   {"2"}
-//                 </StyledFacilitiesTypography>
-//                 <StyledFacilitiesTypography sx={{ mt: 1 }}>
-//                   {"Smoking, Lunch"}
-//                 </StyledFacilitiesTypography>
-//               </Grid>
-//             </Grid>
-
-//             <StyledDivider />
-
-//             <Grid container spacing={12}>
-//               <Grid item xs={6} sx={{ mt: 2, mb: 2 }}>
-//                 <StyleTotalTypography sx={{ mt: 1 }}>
-//                   Room price:
-//                 </StyleTotalTypography>
-//                 <StyledPriceTypography sx={{ mb: 2 }}>
-//                   {"USD,$500"}
-//                 </StyledPriceTypography>
-//                 <StyleTotalTypography sx={{ mt: 1 }}>
-//                   Hotel sale tax:
-//                 </StyleTotalTypography>
-//                 <StyledPriceTypography sx={{ mb: 2 }}>
-//                   {"USD,$500"}
-//                 </StyledPriceTypography>
-//                 <StyleTotalTypography sx={{ mt: 1 }}>
-//                   Extras fee:
-//                 </StyleTotalTypography>
-//                 <StyledPriceTypography>{"USD,$500"}</StyledPriceTypography>
-//               </Grid>
-
-//               <Grid item xs={6} sx={{ mt: 6 }}>
-//                 <StyleTotalTypography>SubTotal</StyleTotalTypography>
-//                 <StyledRoomPriceTypography sx={{ mt: 2 }}>
-//                   USD,
-//                 </StyledRoomPriceTypography>
-//                 <StyledRoomPriceTypography>
-//                   {`$${500}`}
-//                 </StyledRoomPriceTypography>
-//               </Grid>
-//             </Grid>
-//           </StyledCardContent>
-//         </Card>
-//       </Grid>
-//     </Grid>
