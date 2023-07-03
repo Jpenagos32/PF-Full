@@ -1,14 +1,13 @@
 .container {
-    margin: 0rem 1rem 3rem 0rem;
-    width: 100%;
+    top: -20vh;
     text-align: center;
-    position: relative;
+    position: absolute;
+    width: 100vw;
 }
 
 .image {
-    width: 100%;
-    aspect-ratio: 4.5/3;
-    object-fit: cover;
+    width: 107%;
+    object-fit: contain;
     border-radius: 5px;
 }
 
@@ -17,7 +16,7 @@
     border-radius: 10rem;
     background-color: #ededed80;
     position: absolute;
-    bottom: 4rem;
+    top: 110vh;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -35,4 +34,6 @@
 
 .dot.active {
     background-color: rgb(176, 111, 206);
+    width: 13px;
+    height: 13px;
 }
