@@ -4,6 +4,7 @@ JavaScripFile: getRooms.js
 Objetivo:  Archivo que contiene el controlador para poder obtener todas las habitaciones
 Autor: Julian Penagos, Sofia Vila, Juan Valencia, Juan Delgado
 Creation: 23 de junio 2023
+ultima actualizacion: juan esteban valencia
 ==================================================================
 Manifiesto de funciones:
 =============================
@@ -32,9 +33,10 @@ const getRooms = async (req, res) => {
 			return res.status(200).json({ filteredRooms });
 		}
 
-		const { price, capacity, facilities, room_name } = req.query;
+		const { price, capacity, facilities, room_name, available} = req.query;
 		const query = {};
 
+		if(available) query.available = available;
 		if (price) query.price = { $lte: price };
 		if (capacity) query.capacity = capacity;
 
