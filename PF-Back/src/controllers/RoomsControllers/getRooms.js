@@ -16,24 +16,8 @@ const Rooms = require('../../models/Room');
 
 const getRooms = async (req, res) => {
 	try {
-		if (!Object.keys(req.query).length) {
-			const allRooms = await Rooms.find();
-
-			const roomType = new Set();
-			const filteredRooms = [];
-
-			for (const room of allRooms) {
-				if (!roomType.has(room.room_type)) {
-					roomType.add(room.room_type);
-					filteredRooms.push(room);
-				}
-			}
-
-			return res.status(200).json({ filteredRooms });
-		}
-
 		const { price, capacity, facilities, room_name } = req.query;
-		const query = {};
+		const query = { available: true };
 
 		if (price) query.price = { $lte: price };
 		if (capacity) query.capacity = capacity;

@@ -86,6 +86,7 @@ const roomSchema = new Schema({
 		minlength: [25, 'Room description must be greater than 25 chars'],
 		maxlength: [500, 'Room description must be less than 500 chars'],
 	},
+	review: Number,
 });
 
 module.exports = mongoose.model('Room', roomSchema);
