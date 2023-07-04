@@ -12,10 +12,12 @@ Manifiesto de funciones:
 */
 const Hosts = require('../../models/Hosts');
 const Room = require('../../models/Room');
+const notification = require("./notification")
 
 const postHost = async (req, res) => {
 	try {
-		const { identification, room_type } = req.body;
+		
+		const { identification, room_type, contact } = req.body;
 		const existHost = await Hosts.find({ identification });
 
 		if (!room_type) throw new Error('Must provide a room_type');
@@ -24,7 +26,6 @@ const postHost = async (req, res) => {
 			const createHost = new Hosts(req.body);
 
 			const room = await Room.findOne({ room_type, available: true });
-			console.log(room);
 
 			if (!room) {
 				return res
@@ -45,6 +46,15 @@ const postHost = async (req, res) => {
 				{ $set: { available: false } }
 			);
 			await createHost.save();
+			
+			const hostNotification = {
+			 to: contact.email,
+			 subject: 'Reservation created',
+             text: 'the reservation has been created',
+			 
+			}
+
+			notification(hostNotification);
 
 			return res.status(200).json({ createHost });
 		} else {
