@@ -16,7 +16,7 @@ const Rooms = require('../../models/Room');
 
 const getRooms = async (req, res) => {
 	try {
-		const { price, capacity, facilities, room_name } = req.query;
+		const { price, capacity, facilities, room_name, room_number } = req.query;
 		const query = { available: true };
 
 		if (price) query.price = { $lte: price };
@@ -37,6 +37,7 @@ const getRooms = async (req, res) => {
 			query.name = {
 				$regex: new RegExp(room_name, 'i'),
 			};
+		if (room_number) query.room_number = room_number
 
 		const filtered = await Rooms.find(query);
 
