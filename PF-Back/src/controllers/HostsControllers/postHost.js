@@ -17,7 +17,7 @@ const notification = require("./notification")
 const postHost = async (req, res) => {
 	try {
 		
-		const { identification, room_type, contact } = req.body;
+		const { identification, room_number, contact } = req.body;
 		const existHost = await Hosts.find({ identification });
 
 		if (!room_type) throw new Error('Must provide a room_type');
@@ -25,7 +25,7 @@ const postHost = async (req, res) => {
 		if (existHost.length === 0) {
 			const createHost = new Hosts(req.body);
 
-			const room = await Room.findOne({ room_type, available: true });
+			const room = await Room.findOne({ room_number, available: true });
 
 			if (!room) {
 				return res
