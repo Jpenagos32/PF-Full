@@ -24,7 +24,7 @@ const MyAccount = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get("https://pf-back-production-6a7d.up.railway.app/users", {
+        const response = await axios.get("/users", {
           params: {
             email: user,
           },

@@ -7,14 +7,15 @@ const fakePromise = () =>
     setTimeout(resolve, 2000);
   });
 
-export const fetchRoomsType = (room_type) => {
+export const fetchRoomsType = (room_number) => {
+  const roomwithnumber = +room_number;
   return async (dispatch) => {
     try {
       await fakePromise();
       const response = await axios.get(
-        `https://pf-back-production-6a7d.up.railway.app/rooms/${room_type}`
+        `/rooms?room_number=${roomwithnumber}`
       );
-      const roomsData = response.data;
+      const roomsData = response.data.filtered;
       dispatch(fetchDatatype(roomsData));
       dispatch(setLoading(false));
     } catch (error) {

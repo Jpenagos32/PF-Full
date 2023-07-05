@@ -34,6 +34,7 @@ import {
 export default function CardRoom({
   facilities,
   room_type,
+  room_number,
   image,
   name,
   capacity,
@@ -49,7 +50,7 @@ export default function CardRoom({
       }}
     >
       <Grid item xs={12}>
-        <Link to={`/detail/${room_type}`} style={linkStyle}>
+        <Link to={`/detail/${room_number}`} style={linkStyle}>
           <Card
             sx={{
               transition: "0.2s",
