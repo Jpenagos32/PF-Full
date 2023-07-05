@@ -20,7 +20,7 @@ const postPayments = async (req, res) => {
 		const preference = {
 			items: [
 				{
-					title: room_details.room_name,
+					title: room_details.room_type,
 					unit_price: total,
 					quantity: 1,
 				},
