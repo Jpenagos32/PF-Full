@@ -26,12 +26,5 @@ const notification = async (usrData) => {
 	});
 };
 
-// const userData = {
-// 	to: 'correo@gmail.com',
-// 	subject: 'Reservation created',
-// 	text: 'Su reservación ha sido creada porfavor dirijase al siguiente enlace para pagar',
-// };
-
-// notification(userData);
 
 module.exports = notification;

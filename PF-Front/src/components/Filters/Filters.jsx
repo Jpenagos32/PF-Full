@@ -19,13 +19,10 @@ export default function Filters() {
   const [selectedFilters, setSelectedFilters] = useState({});
 
   useEffect(() => {
-    const URL = "https://pf-back-production-6a7d.up.railway.app";
-    // console.log(selectedFilters);
     axios
-      .get(`${URL}/rooms`, { params: selectedFilters })
+      .get('/rooms', { params: selectedFilters })
       .then((response) => {
         const roomsData = response.data;
-        // console.log(roomsData);
         dispatch(fetchData(roomsData));
       })
       .catch((error) => {

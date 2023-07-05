@@ -28,7 +28,7 @@ export default function PayResume() {
   const { child, adult, numberoom, nights, total } = useSelector(
     (state) => state.booking
   );
-  const { name, price, image } = useSelector((state) => state.types.types);
+  const { name, price, image } = useSelector((state) => state.rooms.rooms.filtered[0]);
   const initial = startDate ? startDate.format("YYYY-MM-DD") : "";
   const finish = endDate ? endDate.format("YYYY-MM-DD") : "";
 

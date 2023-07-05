@@ -23,7 +23,7 @@ export default function SubTotal() {
   const { child, adult, numberooms, nights } = useSelector(
     (state) => state.booking
   );
-  const { price } = useSelector((state) => state.types.types);
+  const { price } = useSelector((state) => state.rooms.rooms.filtered[0]);
   const today = dayjs();
   const secondDateMin = startDate ? startDate.add(1, "day") : null;
   const isSecondPickerDisabled = !startDate;

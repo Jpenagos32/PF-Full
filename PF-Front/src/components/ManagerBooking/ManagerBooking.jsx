@@ -22,7 +22,7 @@ const ManagerBooking = () => {
     const { emailAddress, reservationNumber } = formData;
 
     try {
-      const response = await axios.get("https://pf-back-production-6a7d.up.railway.app/hosts");
+      const response = await axios.get('/hosts');
       const hosts = response.data.hosts;
 
       const filteredHost = hosts.find(
