@@ -11,6 +11,7 @@ Manifiesto de funciones:
 ===============================================================================================================================
 */
 const Hosts = require('../../models/Hosts');
+const { findOneAndUpdate } = require('../../models/NewPayments');
 const Room = require('../../models/Room');
 const notification = require("./notification")
 
@@ -22,7 +23,12 @@ const postHost = async (req, res) => {
 
 		if (!room_number) throw new Error('Must provide a room_number');
 
-		if (existHost.active===false) {
+		if(existHost.active===false){
+			await  Hosts.findOneAndUpdate({identification},{active: true})
+			return res.status(200).send("Enabled user");
+		}
+
+		if (!existHost) {
 			const createHost = new Hosts(req.body);
 
 			const room = await Room.findOne({ room_number, available: true });
