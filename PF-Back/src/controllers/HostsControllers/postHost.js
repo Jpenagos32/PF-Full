@@ -22,17 +22,12 @@ const postHost = async (req, res) => {
 		const existHost = await Hosts.findOne({ identification });
 
 		if (!room_number) throw new Error('Must provide a room_number');
-
-		if(existHost.active===false){
-			await  Hosts.findOneAndUpdate({identification},{active: true})
-			return res.status(200).send("Enabled user");
-		}
-
-		if (!existHost) {
+		
+		if (!existHost) { 
 			const createHost = new Hosts(req.body);
-
+			
 			const room = await Room.findOne({ room_number, available: true });
-
+			
 			if (!room) {
 				return res
 					.status(404)
@@ -57,13 +52,17 @@ const postHost = async (req, res) => {
 			 to: contact.email,
 			 subject: 'Reservation created',
              text: 'the reservation has been created',
-			 
+			 template: 'createdHost.ejs'
 			}
 
 			notification(hostNotification);
 
 			return res.status(200).json({ createHost });
-		} else {
+		}else if(existHost.active===false){
+			await  Hosts.findOneAndUpdate({identification},{active: true})
+			return res.status(200).send("Enabled user");
+		}
+		 else {
 			return res.status(400).json({ status: 'host exist' });
 		}
 	} catch (error) {

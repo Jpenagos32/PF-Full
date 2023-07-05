@@ -12,16 +12,16 @@ const notification = async (usrData) => {
 			pass: PASS,
 		},
 	});
-	// const { to, subject, text } = usrData;
-	const { to, subject, text } = usrData;
+	
+	const { to, subject, text, template } = usrData;
 
-	// const templatePath = path.join(__dirname, '.', 'TemplateNotifications', template);
+	const templatePath = path.join(__dirname, '.', 'TemplateNotifications', template);
 	const mailOptions = {
 		from: USER,
 		to,
 		subject,
 		text,
-		// html: await ejs.renderFile(templatePath),
+		html: await ejs.renderFile(templatePath),
 	};
 	await transporter.sendMail(mailOptions, (error, info) => {
 		if (error) {
