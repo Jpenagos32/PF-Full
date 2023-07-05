@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config();
-const { USER_H, PASS } = process.env;
+const { USER, PASS } = process.env;
 const ejs = require('ejs')
 const path = require('path')
 
@@ -8,7 +8,7 @@ const notification = async (usrData) => {
 	const transporter = nodemailer.createTransport({
 		service: 'Gmail',
 		auth: {
-			user: USER_H,
+			user: USER,
 			pass: PASS,
 		},
 	});
@@ -38,6 +38,6 @@ const notification = async (usrData) => {
 // 	template: 'notification.ejs'
 // };
 
-notification(userData);
+//notification(userData);
 
 module.exports = notification;
