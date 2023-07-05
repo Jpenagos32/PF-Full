@@ -17,6 +17,7 @@ const postPayments = async (req, res) => {
 			return res.status(404).json({ error: 'Unregistered user' });
 		}
 		const { room_details } = host;
+		console.log(room_details.room_type)
 		const preference = {
 			items: [
 				{
@@ -26,6 +27,10 @@ const postPayments = async (req, res) => {
 				},
 			],
 			back_urls: {
+				// success:
+				// 	'http://localhost:3001/payments/success',
+				// failure:
+				// 	'http://localhost:3001/payments/failure',
 				success:
 					'https://sunsetsandsdev.adaptable.app/payments/success',
 				failure:
