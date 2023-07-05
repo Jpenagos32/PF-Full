@@ -13,7 +13,7 @@ const failurePayment = async (req, res) => {
             to: host.contact.email,
             subject: 'failure',
             text: 'payment has been declined',
-            
+            template:'pagofallido.ejs'
            }
 
            notification(hostNotification);
