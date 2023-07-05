@@ -3,8 +3,10 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
-import Admin from "../../components/Deshboard/Admin";
-import User from "../../components/Deshboard/User";
+import Admin from "../../components/Deshboard/Admin/Admin";
+import User from "../../components/Deshboard/User/User";
+// import Admin from "../../components/Deshboard/Admin";
+// import User from "../../components/Deshboard/User";
 
 
 

@@ -89,8 +89,8 @@ const Register = () => {
           user_first_name: firstName,
           user_last_name: lastName,
           user_email: emailAddress,
-          // user_type: ["user"],
-          user_type: ["admin"],
+          user_type: ["user"],
+          // user_type: ["admin"],
           phone: phone,
           billing: {
             billing_adress: billingAddress,
