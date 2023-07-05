@@ -10,13 +10,11 @@ export default function SearchBar() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const URL = "https://pf-back-production-6a7d.up.railway.app";
-        console.log(searchValue);
+        
         axios
-            .get(`${URL}/rooms`, { params: searchValue })
+            .get('/rooms', { params: searchValue })
             .then((response) => {
                 const roomsData = response.data;
-                console.log(roomsData);
                 dispatch(fetchData(roomsData));
             })
             .catch((error) => {

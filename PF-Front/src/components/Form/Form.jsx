@@ -15,7 +15,7 @@ const FormComponent = () => {
   const adultNumber = +adult;
   const amount_of_people = childNumber + adultNumber;
   const countryOptions = CountryList().getData();
-  const room = useSelector((state) => state.types.types.room_type);
+  const room = useSelector((state) => state.rooms.rooms.filtered[0].room_type);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -79,12 +79,12 @@ const FormComponent = () => {
 
     try {
       const response = await axios.post(
-        "https://pf-back-production-6a7d.up.railway.app/hosts",
+        '/hosts',
         requestData
       );
       if (response.status === 200) {
         const response = await axios.post(
-          "https://pf-back-production-6a7d.up.railway.app/payments",
+          '/payments',
           requestDataForPay
         );
         const paymentLink = response.data.init_point;
