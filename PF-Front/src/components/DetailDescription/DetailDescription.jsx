@@ -6,7 +6,7 @@ import GoogleMap from "../../components/GoogleMap/GoogleMap";
 import { useSelector } from "react-redux";
 
 const DetailDescription = () => {
-  const room = useSelector((state) => state.rooms.rooms.filtered[0]);
+  const room = useSelector((state) => state.types.types)
 
   return (
     <div>

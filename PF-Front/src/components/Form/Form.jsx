@@ -15,7 +15,7 @@ const FormComponent = () => {
   const adultNumber = +adult;
   const amount_of_people = childNumber + adultNumber;
   const countryOptions = CountryList().getData();
-  const room = useSelector((state) => state.rooms.rooms.filtered[0].room_type);
+  const room = useSelector((state) => state.types.types.room_type);
 
   const [formData, setFormData] = useState({
     firstName: "",

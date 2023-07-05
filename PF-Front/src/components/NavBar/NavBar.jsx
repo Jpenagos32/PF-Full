@@ -49,7 +49,7 @@ const NavBar = () => {
     if (openDrawer) {
       timer = setTimeout(() => {
         setOpenDrawer(false);
-      }, 2000);
+      }, 10000);
     }
     return () => clearTimeout(timer);
   }, [openDrawer]);
