@@ -1,13 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Grid, Card, CardMedia, IconButton } from "@mui/material";
+import { Grid, CardMedia, IconButton } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 export default function DetailGallery() {
   const room = useSelector((state) => state.types.types.image);
-
+  console.log(room)
+  
   const images = room && room ? room : {};
   const imageKeys = Object.keys(images);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -23,7 +24,6 @@ export default function DetailGallery() {
       );
     }
   };
-
   const selectedImageKey = imageKeys[selectedImageIndex];
   const selectedImage = images[selectedImageKey];
 
