@@ -5,6 +5,10 @@ const newPaymentsSchema = new Schema({
     ref_mp: {
         type: String,
     },
+    identification:{
+        type: String,
+        require: true
+    },
     status: {
         type: String,
         require: false,

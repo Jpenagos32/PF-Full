@@ -18,11 +18,11 @@ const postHost = async (req, res) => {
 	try {
 		
 		const { identification, room_number, contact } = req.body;
-		const existHost = await Hosts.find({ identification });
+		const existHost = await Hosts.findOne({ identification });
 
-		if (!room_type) throw new Error('Must provide a room_type');
+		if (!room_number) throw new Error('Must provide a room_number');
 
-		if (existHost.length === 0) {
+		if (existHost.active===false) {
 			const createHost = new Hosts(req.body);
 
 			const room = await Room.findOne({ room_number, available: true });
