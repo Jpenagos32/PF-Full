@@ -1,6 +1,8 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 const { USER, PASS } = process.env;
+const ejs = require('ejs')
+const path = require('path')
 
 const notification = async (usrData) => {
 	const transporter = nodemailer.createTransport({
@@ -10,12 +12,16 @@ const notification = async (usrData) => {
 			pass: PASS,
 		},
 	});
+	// const { to, subject, text } = usrData;
 	const { to, subject, text } = usrData;
+
+	// const templatePath = path.join(__dirname, '.', 'TemplateNotifications', template);
 	const mailOptions = {
 		from: USER,
 		to,
 		subject,
 		text,
+		// html: await ejs.renderFile(templatePath),
 	};
 	await transporter.sendMail(mailOptions, (error, info) => {
 		if (error) {
@@ -26,5 +32,13 @@ const notification = async (usrData) => {
 	});
 };
 
+// const userData = {
+// 	to: 'jpdelgado9641@gmail.com',
+// 	subject: 'Reservation has been created',
+// 	text: 'Thanks for your reservation.',
+// 	template: 'notification.ejs'
+// };
+
+//notification(userData);
 
 module.exports = notification;

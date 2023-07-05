@@ -15,7 +15,6 @@ const room = {
   bathroom2: roomneed.image.bathroom2
 };
 
-
   const images = room && room ? room : {};
   const imageKeys = Object.keys(images);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);

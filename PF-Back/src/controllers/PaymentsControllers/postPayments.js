@@ -7,7 +7,7 @@ const postPayments = async (req, res) => {
 		const { identification, total } = req.body;
 		if (!identification) throw new Error('Must be provider identification');
 		const roomPay = await NewPayments.findOne({ identification });
-		if (roomPay) {
+		if (roomPay.status==="approved") {
 			return res
 				.status(200)
 				.json({ message: 'The payment has already been registered' });
@@ -17,25 +17,31 @@ const postPayments = async (req, res) => {
 			return res.status(404).json({ error: 'Unregistered user' });
 		}
 		const { room_details } = host;
+		console.log(room_details.room_type)
 		const preference = {
 			items: [
 				{
-					title: room_details.room_name,
+					title: room_details.room_type,
 					unit_price: total,
 					quantity: 1,
 				},
 			],
 			back_urls: {
 				success:
-					'https://sunsetsandsdev.adaptable.app/payments/success',
+					'http://localhost:3001/payments/success',
 				failure:
-					'https://sunsetsandsdev.adaptable.app/payments/failure',
+					'http://localhost:3001/payments/failure',
+				// success:
+				// 	'https://sunsetsandsdev.adaptable.app/payments/success',
+				// failure:
+				// 	'https://sunsetsandsdev.adaptable.app/payments/failure',
 			},
 		};
 		const response = await mercadopago.preferences.create(preference);
 		const { id, init_point } = response.body;
 		const newPayment = new NewPayments({
 			ref_mp: id,
+			identification
 		});
 		await newPayment.save();
 		res.status(200).json({ init_point });
