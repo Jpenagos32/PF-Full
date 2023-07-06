@@ -11,7 +11,6 @@ Manifiesto de funciones:
 ===============================================================================================================================
 */
 const Hosts = require('../../models/Hosts');
-const { findOneAndUpdate } = require('../../models/NewPayments');
 const Room = require('../../models/Room');
 const notification = require("./notification")
 
