@@ -58,7 +58,8 @@ const postHost = async (req, res) => {
 
 			return res.status(200).json({ createHost });
 		}else if(existHost.active===false){
-			await  Hosts.findOneAndUpdate({identification},{active: true})
+			await  Hosts.findOneAndUpdate({identification},{active: true});
+			await  Room.findOneAndUpdate({room_number},{available: false});
 			return res.status(200).send("Enabled user");
 		}
 		 else {
