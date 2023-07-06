@@ -76,7 +76,7 @@ export default function CardRoom({
                       <StyleNameTypography variant="h5">
                         {name}
                       </StyleNameTypography>
-                      {/* <Rating
+                      <Rating
                         name="rating"
                         value={capacity}
                         readOnly
@@ -84,7 +84,7 @@ export default function CardRoom({
                         icon={<StyledStarIcon />}
                         size="large"
                         sx={{ fontSize: 15 }}
-                      /> */}
+                      />
                     </Grid>
                   </Grid>
                   <Grid item xs={12}>

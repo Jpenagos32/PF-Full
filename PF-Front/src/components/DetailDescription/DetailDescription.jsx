@@ -172,9 +172,6 @@ const DetailDescription = () => {
               padding: "15px",
             }}
           >
-            <LoadScript googleMapsApiKey={apiKey}>
-              <GoogleMap />
-            </LoadScript>
           </Grid>
         </Grid>
       </Card>

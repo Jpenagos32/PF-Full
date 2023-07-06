@@ -113,79 +113,80 @@ export default function SubTotal() {
           margin: "20px",
         }}
       >
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer
-            components={["DatePicker"]}
-            sx={{ width: "232px", marginTop: "20px" }}
-          >
-            <DatePicker
-              label="Check In"
-              value={startDate}
-              minDate={today}
-              onChange={handleStartDateChange}
-            />
-          </DemoContainer>
-          <DemoContainer components={["DatePicker"]} sx={{ width: "232px" }}>
-            <DatePicker
-              label="Check Out"
-              value={endDate}
-              minDate={secondDateMin}
-              onChange={handleEndDateChange}
-              disabled={isSecondPickerDisabled}
-            />
-          </DemoContainer>
-          <Grid
-            container
-            justifyContent="center"
-            spacing={2}
-            marginTop={2}
-            marginBottom={3}
-          >
-            <Grid item xs={12} sm={3}>
-              <TextField
-                id="subAdult"
-                label="Adult"
-                type="number"
-                value={adult}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="standard"
-                onChange={handleAdultChange}
+        <Grid container justifyContent="center">
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer
+              components={["DatePicker"]}
+              sx={{ marginTop: "20px" }}
+            >
+              <DatePicker
+                label="Check In"
+                value={startDate}
+                minDate={today}
+                onChange={handleStartDateChange}
               />
-            </Grid>
-            <Grid item xs={12} sm={3}>
-              <TextField
-                id="subChild"
-                label="Child"
-                type="number"
-                value={child}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="standard"
-                onChange={handleChildChange}
+            </DemoContainer>
+            <DemoContainer components={["DatePicker"]} sx={{}}>
+              <DatePicker
+                label="Check Out"
+                value={endDate}
+                minDate={secondDateMin}
+                onChange={handleEndDateChange}
+                disabled={isSecondPickerDisabled}
               />
-            </Grid>
-            <Grid item xs={12} sm={3}>
-              <TextField
-                id="subRooms"
-                label="Rooms"
-                type="number"
-                value={numberooms}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="standard"
-                onChange={handleRoomsChange}
-              />
-            </Grid>
-          </Grid>
-        </LocalizationProvider>
+            </DemoContainer>
 
+            <Grid container
+              justifyContent="center"
+              spacing={2}
+              marginTop={2}
+              marginBottom={3}
+            >
+              <Grid item xs={3} sm={3}>
+                <TextField
+                  id="subAdult"
+                  label="Adult"
+                  type="number"
+                  value={adult}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  onChange={handleAdultChange}
+                />
+              </Grid>
+              <Grid item xs={3} sm={3}>
+                <TextField
+                  id="subChild"
+                  label="Child"
+                  type="number"
+                  value={child}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  onChange={handleChildChange}
+                />
+              </Grid>
+              <Grid item xs={3} sm={3}>
+                <TextField
+                  id="subRooms"
+                  label="Rooms"
+                  type="number"
+                  value={numberooms}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  onChange={handleRoomsChange}
+                />
+              </Grid>
+            </Grid>
+          </LocalizationProvider>
+        </Grid>
         <StyledDivider />
 
-        <Grid container spacing={2}>
+        <Grid container spacing={4}>
           <Grid item xs={12} sm={6}>
             <Typography
               variant="h1"
@@ -194,6 +195,7 @@ export default function SubTotal() {
                 fontWeight: "bold",
                 color: "#868688",
                 marginTop: "30px",
+                marginLeft: '45PX'
               }}
             >
               SubTotal
@@ -206,14 +208,15 @@ export default function SubTotal() {
                 fontWeight: "bold",
                 color: "#C2C2C2",
                 marginTop: "10px",
-                marginLeft: "10px",
+                marginLeft: "50px",
+                display: 'flex'
               }}
             >
-              {nights}Nights
+              {nights} Nights
               <br />
-              {adult}Adult
+              {adult} Adult
               <br />
-              {child}Child
+              {child} Child
               <br />
             </Typography>
           </Grid>
@@ -225,6 +228,7 @@ export default function SubTotal() {
                 fontWeight: "bold",
                 color: "#0400CB",
                 marginTop: "20px",
+                marginLeft: '30px'
               }}
             >
               ${subTotal}
@@ -236,7 +240,7 @@ export default function SubTotal() {
                 fontSize: "15px",
                 fontWeight: "bold",
                 color: "#9A98FE",
-                marginLeft: "50px",
+                marginLeft: "80px",
               }}
             >
               USD
