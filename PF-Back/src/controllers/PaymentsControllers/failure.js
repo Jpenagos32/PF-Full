@@ -11,7 +11,7 @@ const failurePayment = async (req, res) => {
         
         const hostNotification = {
             to: host.contact.email,
-            subject: 'failure',
+            subject: 'Your pay was failure',
             text: 'payment has been declined',
             template:'pagofallido.ejs'
            }
