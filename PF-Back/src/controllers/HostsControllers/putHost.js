@@ -60,7 +60,10 @@ const putHost = async (req, res) => {
 			query.special_requirements = special_requirements;
 		}
 
-		await Hosts.findOneAndUpdate({ identification }, query);
+		const updated = await Hosts.findOneAndUpdate({ identification }, query);
+
+		if (!updated) return res.status(404).json({ msg: 'Host not found' });
+
 		res.status(200).json({ msg: 'Host info has been updated' });
 	} catch (error) {
 		res.status(400).json({ error: error.message });

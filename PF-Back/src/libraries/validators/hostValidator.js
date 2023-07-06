@@ -127,8 +127,45 @@ const validatePostHost = [
 		.escape()
 		.notEmpty()
 		.withMessage('Room number cannot be empty'),
+	body('special_requirements').escape(),
+];
+
+const validatePutHost = [
+	body('identification')
+		.escape()
+		.notEmpty()
+		.withMessage('Must provide an identification number')
+		.isString()
+		.withMessage('Identification must be a string'),
+	body('first_name')
+		.escape()
+		.isString()
+		.isLength({ max: 50 })
+		.withMessage('Name length must be lower than 50 characters'),
+	body('last_name')
+		.escape()
+		.isString()
+		.isLength({ max: 50 })
+		.withMessage('Last name length must be lower than 50 characters'),
+	body('email').normalizeEmail().escape(),
+	body('phone').escape(),
+	body('check_in_date')
+		.escape()
+		.custom((value, { req }) => {
+			const checkInDate = new Date(value);
+			const checkOutDate = new Date(req.body.check_out_date);
+			if (checkOutDate <= checkInDate) {
+				throw new Error(
+					'The check-out date must be after the check-in date.'
+				);
+			}
+			return true;
+		}),
+	body('check_out_date').escape(),
+	body('special_requirements').escape(),
 ];
 
 module.exports = {
 	validatePostHost,
+	validatePutHost,
 };

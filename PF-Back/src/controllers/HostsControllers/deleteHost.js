@@ -12,7 +12,7 @@ Manifiesto de funciones: se agruega funcionalidad de actualizacion de la room a 
 ===============================================================================================================================
 */
 const Hosts = require('../../models/Hosts');
-const Room = require("../../models/Room")
+const Room = require('../../models/Room');
 
 const deleteHost = async (req, res) => {
 	try {
@@ -30,8 +30,13 @@ const deleteHost = async (req, res) => {
 		if (host.length === 0) {
 			return res.status(404).json({ error: 'Huésped no encontrado' });
 		}
-	    const room = await Room.findOneAndUpdate({room_number:host.room_details.room_number},{available: true});
-		res.status(200).json({ message: `Huésped con identificacion ${host.identification} eliminado, Room ${room.room_number} disponible` });
+		const room = await Room.findOneAndUpdate(
+			{ room_number: host.room_details.room_number },
+			{ available: true }
+		);
+		res.status(200).json({
+			message: `Huésped con identificacion ${host.identification} eliminado, Room ${room.room_number} disponible`,
+		});
 	} catch (error) {
 		res.status(400).json({ error: error.message });
 	}
