@@ -1,29 +1,101 @@
-import React from "react";
-import Availability from "../../Availability/Availability";
+import React, { useState } from "react";
+import { Tabs, Tab, ThemeProvider, createTheme } from "@mui/material";
+import AdminHotel from "./AdminHotel/AdminHotel";
+import AdminRooms from "./AdminRooms/AdminRooms";
+import AdminBookings from "./AdminBookings/AdminBookings";
+import AdminUsers from "./AdminUsers/AdminUsers";
+import AdminAdmins from "./AdminAdmins/AdminAdmins";
 
+const Admin = () => {
+    const [selectedTab, setSelectedTab] = useState(0);
 
-const Admin = ({ userData }) => {
-  return (
-    <div>
-      <h2>My Account</h2>
-      <h2>soy un admin</h2>
-      {userData ? (
-        <div>
-          <p>Email: {userData.user_email}</p>
-          <p>First Name: {userData.user_first_name}</p>
-          <p>Last Name: {userData.user_last_name}</p>
-          <p>Phone: {userData.phone}</p>
-          <p>Billing Address: {userData.billing.billing_address}</p>
-          <p>City: {userData.billing.city}</p>
-          <p>Country: {userData.billing.country}</p>
-          <p>Zip Code: {userData.billing.zip_code}</p>
-          <Availability />
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
-  );
+    const handleTabChange = (event, newValue) => {
+        setSelectedTab(newValue);
+    };
+    const theme = createTheme({
+        palette: {
+            primary: {
+                main: "#9A98FE",
+            },
+            text: {
+                primary: "#868688",
+            },
+        },
+    });
+
+    return (
+        <ThemeProvider theme={theme}>
+            <div>
+                <Tabs
+                    value={selectedTab}
+                    onChange={handleTabChange}
+                    variant="fullWidth"
+                    textColor="primary"
+                    indicatorColor="primary">
+                    <Tab
+                        label="Hotel"
+                        sx={{
+                            backgroundColor: "#C2C2C2",
+                            color: "#868688",
+                            "&.Mui-selected": {
+                                color: "#9A98FE",
+                                backgroundColor: "#EFEEFF",
+                            },
+                        }}
+                    />
+                    <Tab
+                        label="Rooms"
+                        sx={{
+                            backgroundColor: "#C2C2C2",
+                            color: "#868688",
+                            "&.Mui-selected": {
+                                color: "#9A98FE",
+                                backgroundColor: "#EFEEFF",
+                            },
+                        }}
+                    />
+                    <Tab
+                        label="Bookings"
+                        sx={{
+                            backgroundColor: "#C2C2C2",
+                            color: "#868688",
+                            "&.Mui-selected": {
+                                color: "#9A98FE",
+                                backgroundColor: "#EFEEFF",
+                            },
+                        }}
+                    />
+                    <Tab
+                        label="Users"
+                        sx={{
+                            backgroundColor: "#C2C2C2",
+                            color: "#868688",
+                            "&.Mui-selected": {
+                                color: "#9A98FE",
+                                backgroundColor: "#EFEEFF",
+                            },
+                        }}
+                    />
+                    <Tab
+                        label="Admins"
+                        sx={{
+                            backgroundColor: "#C2C2C2",
+                            color: "#868688",
+                            "&.Mui-selected": {
+                                color: "#9A98FE",
+                                backgroundColor: "#EFEEFF",
+                            },
+                        }}
+                    />
+                </Tabs>
+                {selectedTab === 0 && <AdminHotel />}
+                {selectedTab === 1 && <AdminRooms />}
+                {selectedTab === 2 && <AdminBookings />}
+                {selectedTab === 3 && <AdminUsers />}
+                {selectedTab === 4 && <AdminAdmins />}
+            </div>
+        </ThemeProvider>
+    );
 };
 
 export default Admin;

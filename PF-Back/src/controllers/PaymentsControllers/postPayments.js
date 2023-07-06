@@ -7,6 +7,7 @@ const postPayments = async (req, res) => {
 		const { identification, total } = req.body;
 		console.log("identification-> ",identification)
 		if (!identification) throw new Error('Must be provider identification');
+
 		let roomPay = await NewPayments.findOne({ identification });
 		console.log("registro de pago->",roomPay);
 		if(roomPay===null){

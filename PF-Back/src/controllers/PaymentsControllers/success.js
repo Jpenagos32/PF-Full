@@ -13,7 +13,7 @@ const successPayment = async (req, res) => {
         
         const hostNotification = {
             to: host.contact.email,
-            subject: 'failure',
+            subject: 'Your pay was success',
             text: 'the payment has been approved',
             template:'pagoexitoso.ejs'
            }
