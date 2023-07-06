@@ -6,7 +6,7 @@ const postPayments = async (req, res) => {
 	try {
 		const { identification, total } = req.body;
 		if (!identification) throw new Error('Must be provider identification');
-		const roomPay = await NewPayments.findOne({ identification });
+		const roomPay = await NewPayments.create({ identification});
 		if (roomPay.status==="approved") {
 			return res
 				.status(200)
