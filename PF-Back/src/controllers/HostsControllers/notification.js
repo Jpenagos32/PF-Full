@@ -1,8 +1,8 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 const { USER, PASS } = process.env;
-const ejs = require('ejs')
-const path = require('path')
+const ejs = require('ejs');
+const path = require('path');
 
 const notification = async (usrData) => {
 	const transporter = nodemailer.createTransport({
@@ -12,10 +12,15 @@ const notification = async (usrData) => {
 			pass: PASS,
 		},
 	});
-	
+
 	const { to, subject, text, template } = usrData;
 
-	const templatePath = path.join(__dirname, '.', 'TemplateNotifications', template);
+	const templatePath = path.join(
+		__dirname,
+		'.',
+		'TemplateNotifications',
+		template
+	);
 	const mailOptions = {
 		from: USER,
 		to,

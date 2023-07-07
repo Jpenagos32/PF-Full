@@ -18,7 +18,7 @@ const putRooms = async (req, res) => {
 	try {
 		const { room_number } = req.query;
 
-		if (!room_number) throw new Error('Must provide a valir room_number ');
+		if (!room_number) throw new Error('Must provide a valid room_number ');
 
 		const {
 			name,
@@ -30,6 +30,7 @@ const putRooms = async (req, res) => {
 			bathroom2,
 			extra,
 			room_description,
+			facilities,
 		} = req.body;
 
 		const query = {};
@@ -37,6 +38,15 @@ const putRooms = async (req, res) => {
 		const roomExists = await Room.findOne({ room_number });
 		if (!roomExists) {
 			return res.status(404).json({ error: 'Room not found' });
+		}
+
+		if (facilities) {
+			let facilitiesArray = ['Wifi', 'Room Service'];
+
+			facilities.forEach((facility) => {
+				facilitiesArray.push(facility);
+			});
+			query.facilities = facilitiesArray;
 		}
 
 		if (name) query.name = name;

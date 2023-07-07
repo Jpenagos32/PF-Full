@@ -21,7 +21,7 @@ const putRegisteredUsers = async (req, res) => {
 		let userUpdated;
 
 		if (id) {
-			if (name) query.user_name = name;
+			if (name) query.user_first_name = name;
 			if (last_name) query.user_last_name = last_name;
 			if (email) query.user_email = email;
 
@@ -29,8 +29,8 @@ const putRegisteredUsers = async (req, res) => {
 				new: true,
 			});
 		} else if (!id) {
-			if (!email) throw new Error('Must provide an email');
-			if (name) query.user_name = name;
+			if (!email) throw new Error('Must provide an email or an id');
+			if (name) query.user_first_name = name;
 			if (last_name) query.user_last_name = last_name;
 
 			userUpdated = await RegisteredUsers.findOneAndUpdate(
@@ -42,6 +42,8 @@ const putRegisteredUsers = async (req, res) => {
 			);
 		}
 
+		if (!userUpdated)
+			return res.status(404).json({ status: 'User not found' });
 		return res.status(201).json({ status: 'User updated', userUpdated });
 	} catch (error) {
 		res.status(500).json({ error: error.message });

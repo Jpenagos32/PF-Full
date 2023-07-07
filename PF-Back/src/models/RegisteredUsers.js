@@ -21,30 +21,30 @@ const registeredUsers = new Schema({
 			'Please enter a valid email address',
 		],
 	},
-	phone:{
+	phone: {
 		type: Number,
 		unique: true,
 		required: true,
-		min:5
+		min: 5,
 	},
-	billing:{
-		billing_adress:{
+	billing: {
+		billing_adress: {
 			type: String,
-			required:true
-		},
-		city:{
-			type: String,
-			required: true
-		},
-		zip_code:{
-			type: Number,
 			required: true,
-			min:2
 		},
-		country:{
-			type:String,
-			required:true
-		}
+		city: {
+			type: String,
+			required: true,
+		},
+		zip_code: {
+			type: String,
+			required: true,
+			min: 2,
+		},
+		country: {
+			type: String,
+			required: true,
+		},
 	},
 	user_type: {
 		type: [
