@@ -92,8 +92,8 @@ const Register = () => {
           user_first_name: firstName,
           user_last_name: lastName,
           user_email: emailAddress,
-          //user_type: ["user"],
-          user_type: ["admin"],
+          user_type: ["user"],
+          // user_type: ["admin"],
           phone: phone,
           billing: {
             billing_adress: billingAddress,
@@ -243,7 +243,7 @@ const Register = () => {
               Requisitos de la contraseña:
               {/* Aquí puedes listar los requisitos de la contraseña */}
               <ul>
-                <li>Password Must Be 6 to 10 Characters</li>
+                <li>Password Must Be 6 to 15 Characters</li>
                 <li>Have at least one Special Character</li>
                 <li>Have at least one capital letter</li>
                 <li>Have at least one lowercase letter</li>

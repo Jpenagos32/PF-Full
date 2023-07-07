@@ -58,7 +58,7 @@ const Login = () => {
           const encryptedEmail = encryptData(userEmail, "secretKey");
           localStorage.setItem("user", encryptedEmail);
 
-          dispatch(setUser(userEmail));
+          dispatch(setUser(encryptedEmail));
         }
 
         setFormData({
@@ -86,7 +86,7 @@ const Login = () => {
         const encryptedEmail = encryptData(userEmail, "secretKey");
         localStorage.setItem("user", encryptedEmail);
 
-        dispatch(setUser(userEmail));
+        dispatch(setUser(encryptedEmail));
       }
 
       setFormData({

@@ -14,7 +14,7 @@ import { useEffect } from "react";
 import { setUser } from "./redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
-axios.defaults.baseURL = "http://localhost:3001/";
+axios.defaults.baseURL = "https://sunsetsandsdev.adaptable.app";
 
 const App = () => {
   

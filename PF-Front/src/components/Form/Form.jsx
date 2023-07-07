@@ -16,7 +16,7 @@ const FormComponent = () => {
   const adultNumber = +adult;
   const amount_of_people = childNumber + adultNumber;
   const countryOptions = CountryList().getData();
-  const room = useSelector((state) => state.types.types.room_type);
+  const room = useSelector((state) => state.types.types);
 
   const [errors, setErrors] = useState({});
 
@@ -31,6 +31,7 @@ const FormComponent = () => {
     country: "",
     zipCode: "",
   });
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -53,46 +54,53 @@ const FormComponent = () => {
     // Validar el formulario
     const validationErrors = validation(formData);
     setErrors(validationErrors);
-    console.log(errors)
     // Comprobar si hay errores
     if (Object.keys(validationErrors).length === 0) {
       try {
         const PhoneNumber = +formData.phone;
 
         const requestData = {
-          identification: formData.identification,
-          first_name: formData.firstName,
-          last_name: formData.lastName,
-          contact: {
-            email: formData.emailAddress,
-            phone: PhoneNumber,
-            address: formData.billingAddress,
-            country: formData.country.label,
-            city: formData.city,
-            zip_code: formData.zipCode,
-          },
-          check_in_date: check_in_date,
-          check_out_date: check_out_date,
-          amount_of_people: amount_of_people,
-          type_of_guest: {
-            adult: adultNumber,
-            children: childNumber,
-            baby: 0,
-            pets: 0,
-          },
-          room_type: room,
+            room_number: room.room_number,
+            room_type: room.room_type,
+            identification: formData.identification,
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            contact: {
+              email: formData.emailAddress,
+              phone: PhoneNumber,
+              address: formData.billingAddress,
+              country: formData.country.label,
+              city: formData.city,
+              zip_code: formData.zipCode,
+            },
+            check_in_date: check_in_date,
+            check_out_date: check_out_date,
+            amount_of_people: amount_of_people,
+            type_of_guest: {
+              adult: adultNumber,
+              children: childNumber,
+              baby: 0,
+              pets: 0,
+            },
+            room_details: {
+              room_number: room.room_number,
+              room_type: room.room_type,
+              room_price: room.price,
+              room_name: room.name,
+            },
         };
 
         const requestDataForPay = {
+          total : total,
           identification: formData.identification,
-          total : total
-        };
-
+        }
+        
         const response = await axios.post("/hosts", requestData);
+
         if (response.status === 200) {
           const responsePay = await axios.post("/payments", requestDataForPay);
           const paymentLink = responsePay.data.init_point;
-          
+
           setFormData({
             firstName: "",
             lastName: "",
@@ -112,7 +120,6 @@ const FormComponent = () => {
     } else {
       console.log("Errores de validación:", validationErrors);
     }
-
   };
 
   return (
