@@ -102,22 +102,24 @@ const HostsSchema = new Schema({
 		type: String,
 		required: false,
 	},
-	room_details: {
-		// Referenciar el modelo Room
-		_id: {
-			type: Schema.Types.ObjectId,
-			ref: 'Room',
+	reservations: [
+		{
+			// Referenciar el modelo Room
+			_id: {
+				type: Schema.Types.ObjectId,
+				ref: 'Room',
+			},
+			room_number: {
+				type: Number,
+				// unique: true,
+			},
+			room_type: {
+				type: String,
+			},
+			room_price: Number,
+			room_name: String,
 		},
-		room_number: {
-			type: Number,
-			// unique: true,
-		},
-		room_type: {
-			type: String,
-		},
-		room_price: Number,
-		room_name: String,
-	},
+	],
 });
 
 module.exports = mongoose.model('Hosts', HostsSchema);
