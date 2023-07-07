@@ -22,10 +22,14 @@ const getRegisteredUsers = async (req, res) => {
 
 		if (!email) {
 			userFound = await RegisteredUsers.find();
+			if (!userFound)
+				return res.status(404).json({ error: 'No users in database' });
 		} else {
 			if (!regexEmail.test(email))
 				throw new Error('Must provide a valid email');
 			userFound = await RegisteredUsers.findOne({ user_email: email });
+			if (!userFound)
+				return res.status(404).json({ error: 'User not found' });
 		}
 
 		return res.status(201).json(userFound);

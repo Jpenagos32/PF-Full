@@ -56,8 +56,7 @@ const validatePostUsers = [
 
 const validateGetUsers = [
 	query('email')
-		.notEmpty()
-		.withMessage('Must provide an email')
+		.optional()
 		.normalizeEmail()
 		.isEmail()
 		.withMessage('Must provide a valid email'),
