@@ -16,7 +16,7 @@ const Room = require('../../models/Room');
 
 const putRooms = async (req, res) => {
 	try {
-		const { room_number } = req.query;
+		const { room_number } = req.body;
 
 		if (!room_number) throw new Error('Must provide a valid room_number ');
 
