@@ -1,4 +1,4 @@
-const { query } = require('express-validator');
+const { query, body } = require('express-validator');
 
 const validatePayments = [
 	query('preference_id')
@@ -6,4 +6,11 @@ const validatePayments = [
 		.withMessage('preference_id cannot be empty'),
 ];
 
-module.exports = validatePayments;
+const validatePostPayments = [
+	body('identification')
+		.escape()
+		.notEmpty()
+		.withMessage('Must provide an identification'),
+	body('total').escape().notEmpty().withMessage('Must provide a total value'),
+];
+module.exports = { validatePayments, validatePostPayments };
