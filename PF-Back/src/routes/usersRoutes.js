@@ -18,11 +18,28 @@ const postRegisteredUsers = require('../controllers/UserControllers/postRegister
 const getRegisteredUsers = require('../controllers/UserControllers/getRegisteredUsers');
 const putRegisteredUsers = require('../controllers/UserControllers/putRegisteredUsers');
 const deleteRegisteredUsers = require('../controllers/UserControllers/deleteRegisteredUsers');
+const {
+	validatePostUsers,
+	validateGetUsers,
+	validatePutUsers,
+	validateDeleteUsers,
+} = require('../libraries/validators/usersValidator');
+const validationMessages = require('../libraries/validators/validationMessages');
 const usersRoutes = express.Router();
 
-usersRoutes.post('/', postRegisteredUsers);
-usersRoutes.get('/', getRegisteredUsers);
-usersRoutes.put('/', putRegisteredUsers);
-usersRoutes.delete('/', deleteRegisteredUsers);
+usersRoutes.post(
+	'/',
+	validatePostUsers,
+	validationMessages,
+	postRegisteredUsers
+);
+usersRoutes.get('/', validateGetUsers, validationMessages, getRegisteredUsers);
+usersRoutes.put('/', validatePutUsers, validationMessages, putRegisteredUsers);
+usersRoutes.delete(
+	'/',
+	validateDeleteUsers,
+	validationMessages,
+	deleteRegisteredUsers
+);
 
 module.exports = usersRoutes;

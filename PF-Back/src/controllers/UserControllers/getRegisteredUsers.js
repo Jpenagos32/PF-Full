@@ -16,7 +16,7 @@ const RegisteredUsers = require('../../models/RegisteredUsers');
 
 const getRegisteredUsers = async (req, res) => {
 	try {
-		const { email } = req.body;
+		const { email } = req.query;
 		const regexEmail = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
 		let userFound;
 
