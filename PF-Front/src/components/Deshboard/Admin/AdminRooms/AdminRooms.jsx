@@ -76,7 +76,7 @@ const AdminRooms = () => {
         <form onSubmit={handleSubmit}>
             <Grid
                 container
-                spacing={2}>
+                spacing={4}>
                 <Grid
                     item
                     xs={12}
@@ -110,90 +110,49 @@ const AdminRooms = () => {
                         }}
                         sx={{ margin: "0.5rem" }}
                     />
-                    <div
-                        {...getBedRootProps()}
-                        style={{
-                            minHeight: "100px",
-                            border: "2px dashed #9A98FE",
-                            padding: "1rem",
-                            borderRadius: "10px",
-                            cursor: "pointer",
-                            margin: "0.5rem",
-                        }}>
-                        <input {...getBedInputProps()} />
-                        {bedImage ? (
-                            <img
-                                src={URL.createObjectURL(bedImage)}
-                                alt="BedImage"
-                                style={{
-                                    margin: "0.5rem",
-                                    maxWidth: "100%",
-                                    maxHeight: "100px",
-                                }}
-                            />
-                        ) : (
-                            <p style={{ margin: 0 }}>
-                                Drag 'n' drop the bed image here, or click to
-                                select
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        {...getBath1RootProps()}
-                        style={{
-                            margin: "0.5rem",
-                            minHeight: "100px",
-                            border: "2px dashed #9A98FE",
-                            padding: "1rem",
-                            borderRadius: "10px",
-                            cursor: "pointer",
-                        }}>
-                        <input {...getBath1InputProps()} />
-                        {bathImage1 ? (
-                            <img
-                                src={URL.createObjectURL(bathImage1)}
-                                alt="Bath Image 1"
-                                style={{
-                                    margin: "0.5rem",
-                                    maxWidth: "100%",
-                                    maxHeight: "100px",
-                                }}
-                            />
-                        ) : (
-                            <p style={{ margin: 0 }}>
-                                Drag 'n' drop the first bath image here, or
-                                click to select
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        {...getBath2RootProps()}
-                        style={{
-                            margin: "0.5rem",
-                            minHeight: "100px",
-                            border: "2px dashed #9A98FE",
-                            padding: "1rem",
-                            borderRadius: "10px",
-                            cursor: "pointer",
-                        }}>
-                        <input {...getBath2InputProps()} />
-                        {bathImage2 ? (
-                            <img
-                                src={URL.createObjectURL(bathImage2)}
-                                alt="Bath Image 2"
-                                style={{
-                                    margin: "0.5rem",
-                                    maxWidth: "100%",
-                                    maxHeight: "100px",
-                                }}
-                            />
-                        ) : (
-                            <p style={{ margin: 0 }}>
-                                Drag 'n' drop the second bath image here, or
-                                click to select
-                            </p>
-                        )}
-                    </div>
+                    <TextField
+                        label="Room Price"
+                        value={roomPrice}
+                        onChange={(e) => setRoomPrice(e.target.value)}
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        required
+                        inputProps={{
+                            type: "number",
+                            min: 0,
+                        }}
+                        sx={{ margin: "0.5rem" }}
+                    />
+                    <TextField
+                        label="Room Number"
+                        value={roomNumber}
+                        onChange={(e) => setRoomNumber(e.target.value)}
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        required
+                        inputProps={{
+                            type: "number",
+                            min: 0,
+                        }}
+                        sx={{ margin: "0.5rem" }}
+                    />
+                    <TextField
+                        label="Number of Beds"
+                        value={numberOfBeds}
+                        onChange={(e) => setNumberOfBeds(e.target.value)}
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        required
+                        inputProps={{
+                            type: "number",
+                            min: 0,
+                            max: 5,
+                        }}
+                        sx={{ margin: "0.5rem" }}
+                    />
                 </Grid>
                 <Grid
                     item
@@ -202,6 +161,22 @@ const AdminRooms = () => {
                     md={6}
                     lg={6}
                     xl={6}>
+                    {" "}
+                    <TextField
+                        label="Room Capacity"
+                        value={roomCapacity}
+                        onChange={(e) => setRoomCapacity(e.target.value)}
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        required
+                        inputProps={{
+                            type: "number",
+                            min: 0,
+                            max: 10,
+                        }}
+                        sx={{ margin: "0.5rem" }}
+                    />
                     <FormControl
                         component="fieldset"
                         sx={{ marginBottom: "1rem" }}>
@@ -276,63 +251,99 @@ const AdminRooms = () => {
                             />
                         </FormGroup>
                     </FormControl>
-                    <TextField
-                        label="Room Price"
-                        value={roomPrice}
-                        onChange={(e) => setRoomPrice(e.target.value)}
-                        variant="outlined"
-                        fullWidth
-                        margin="normal"
-                        required
-                        inputProps={{
-                            type: "number",
-                            min: 0,
-                        }}
-                        sx={{ margin: "0.5rem" }}
-                    />
-                    <TextField
-                        label="Room Number"
-                        value={roomNumber}
-                        onChange={(e) => setRoomNumber(e.target.value)}
-                        variant="outlined"
-                        fullWidth
-                        margin="normal"
-                        required
-                        inputProps={{
-                            type: "number",
-                            min: 0,
-                        }}
-                        sx={{ margin: "0.5rem" }}
-                    />
-                    <TextField
-                        label="Number of Beds"
-                        value={numberOfBeds}
-                        onChange={(e) => setNumberOfBeds(e.target.value)}
-                        variant="outlined"
-                        fullWidth
-                        margin="normal"
-                        required
-                        inputProps={{
-                            type: "number",
-                            min: 0,
-                            max: 5,
-                        }}
-                        sx={{ margin: "0.5rem" }}
-                    />
-                    <TextField
-                        label="Room Capacity"
-                        value={roomCapacity}
-                        onChange={(e) => setRoomCapacity(e.target.value)}
-                        variant="outlined"
-                        fullWidth
-                        margin="normal"
-                        required
-                        inputProps={{
-                            type: "number",
-                            min: 0,
-                        }}
-                        sx={{ margin: "0.5rem" }}
-                    />
+                    <Grid
+                        container
+                        direction="row"
+                        alignItems="center"
+                        spacing={2}>
+                        <div
+                            {...getBedRootProps()}
+                            style={{
+                                minHeight: "100px",
+                                border: "2px dashed #9A98FE",
+                                padding: "1rem",
+                                borderRadius: "10px",
+                                cursor: "pointer",
+                                margin: "0.5rem",
+                                maxWidth: "15vw",
+                            }}>
+                            <input {...getBedInputProps()} />
+                            {bedImage ? (
+                                <img
+                                    src={URL.createObjectURL(bedImage)}
+                                    alt="BedImage"
+                                    style={{
+                                        margin: "0.5rem",
+                                        maxWidth: "15vw",
+                                        maxHeight: "100px",
+                                    }}
+                                />
+                            ) : (
+                                <p style={{ margin: 0 }}>
+                                    Drag and drop the bed image here, or click
+                                    to select
+                                </p>
+                            )}
+                        </div>
+                        <div
+                            {...getBath1RootProps()}
+                            style={{
+                                margin: "0.5rem",
+                                minHeight: "100px",
+                                border: "2px dashed #9A98FE",
+                                padding: "1rem",
+                                borderRadius: "10px",
+                                cursor: "pointer",
+                                maxWidth: "15vw",
+                            }}>
+                            <input {...getBath1InputProps()} />
+                            {bathImage1 ? (
+                                <img
+                                    src={URL.createObjectURL(bathImage1)}
+                                    alt="Bath Image 1"
+                                    style={{
+                                        margin: "0.5rem",
+                                        maxWidth: "15vw",
+                                        maxHeight: "100px",
+                                    }}
+                                />
+                            ) : (
+                                <p style={{ margin: 0 }}>
+                                    Drag and drop the first bath image here, or
+                                    click to select
+                                </p>
+                            )}
+                        </div>
+                        <div
+                            {...getBath2RootProps()}
+                            style={{
+                                margin: "0.5rem",
+                                minHeight: "100px",
+                                border: "2px dashed #9A98FE",
+                                padding: "1rem",
+                                borderRadius: "10px",
+                                cursor: "pointer",
+                                maxWidth: "15vw",
+                            }}>
+                            <input {...getBath2InputProps()} />
+                            {bathImage2 ? (
+                                <img
+                                    src={URL.createObjectURL(bathImage2)}
+                                    alt="Bath Image 2"
+                                    style={{
+                                        margin: "0.5rem",
+                                        maxWidth: "15vw",
+                                        maxHeight: "100px",
+                                    }}
+                                />
+                            ) : (
+                                <p style={{ margin: 0 }}>
+                                    Drag and drop the second bath image here, or
+                                    click to select
+                                </p>
+                            )}
+                        </div>
+                    </Grid>
                 </Grid>
             </Grid>
             <Button

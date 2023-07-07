@@ -104,7 +104,11 @@ const AdminHotel = () => {
                     sm={12}
                     md={6}
                     lg={6}
-                    xl={6}>
+                    xl={6}
+                    container
+                    direction="row"
+                    alignItems="center"
+                    spacing={1}>
                     <div
                         {...getLogoRootProps()}
                         style={{
@@ -114,6 +118,7 @@ const AdminHotel = () => {
                             padding: "1rem",
                             borderRadius: "10px",
                             cursor: "pointer",
+                            maxWidth: "15vw",
                         }}>
                         <input {...getLogoInputProps()} />
                         {hotelLogo ? (
@@ -122,13 +127,13 @@ const AdminHotel = () => {
                                 alt="Hotel Logo"
                                 style={{
                                     margin: "0.5rem",
-                                    maxWidth: "100%",
+                                    maxWidth: "15vw",
                                     maxHeight: "100px",
                                 }}
                             />
                         ) : (
                             <p style={{ margin: 0 }}>
-                                Drag 'n' drop the hotel logo image here, or
+                                Drag and drop the hotel logo image here, or
                                 click to select
                             </p>
                         )}
@@ -142,6 +147,7 @@ const AdminHotel = () => {
                             padding: "1rem",
                             borderRadius: "10px",
                             cursor: "pointer",
+                            maxWidth: "15vw",
                         }}>
                         <input {...getFacadeInputProps()} />
                         {hotelFacade ? (
@@ -150,13 +156,13 @@ const AdminHotel = () => {
                                 alt="Hotel Facade"
                                 style={{
                                     margin: "0.5rem",
-                                    maxWidth: "100%",
+                                    maxWidth: "15vw",
                                     maxHeight: "100px",
                                 }}
                             />
                         ) : (
                             <p style={{ margin: 0 }}>
-                                Drag 'n' drop the hotel facade image here, or
+                                Drag and drop the hotel facade image here, or
                                 click to select
                             </p>
                         )}
@@ -170,6 +176,7 @@ const AdminHotel = () => {
                             padding: "1rem",
                             borderRadius: "10px",
                             cursor: "pointer",
+                            maxWidth: "15vw",
                         }}>
                         <input {...getLobbyInputProps()} />
                         {hotelLobby ? (
@@ -178,13 +185,13 @@ const AdminHotel = () => {
                                 alt="Hotel Lobby"
                                 style={{
                                     margin: "0.5rem",
-                                    maxWidth: "100%",
+                                    maxWidth: "15vw",
                                     maxHeight: "100px",
                                 }}
                             />
                         ) : (
                             <p style={{ margin: 0 }}>
-                                Drag 'n' drop the hotel lobby image here, or
+                                Drag and drop the hotel lobby image here, or
                                 click to select
                             </p>
                         )}
