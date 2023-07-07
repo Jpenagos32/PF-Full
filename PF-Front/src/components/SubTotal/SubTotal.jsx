@@ -142,7 +142,7 @@ export default function SubTotal() {
               marginTop={2}
               marginBottom={3}
             >
-              <Grid item xs={3} sm={3}>
+              <Grid item xs={3} sm={4}>
                 <TextField
                   id="subAdult"
                   label="Adult"
@@ -155,7 +155,7 @@ export default function SubTotal() {
                   onChange={handleAdultChange}
                 />
               </Grid>
-              <Grid item xs={3} sm={3}>
+              <Grid item xs={3} sm={4}>
                 <TextField
                   id="subChild"
                   label="Child"
@@ -168,7 +168,7 @@ export default function SubTotal() {
                   onChange={handleChildChange}
                 />
               </Grid>
-              <Grid item xs={3} sm={3}>
+              {/* <Grid item xs={3} sm={3}>
                 <TextField
                   id="subRooms"
                   label="Rooms"
@@ -180,7 +180,7 @@ export default function SubTotal() {
                   variant="standard"
                   onChange={handleRoomsChange}
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
           </LocalizationProvider>
         </Grid>
@@ -212,6 +212,8 @@ export default function SubTotal() {
                 display: 'flex'
               }}
             >
+              {numberooms} Rooms
+              <br />
               {nights} Nights
               <br />
               {adult} Adult

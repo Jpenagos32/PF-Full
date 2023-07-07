@@ -124,7 +124,7 @@ export default function Filters() {
           onChange={handleFilterChange}
         />
 
-        <Typography id="type_room" level="body2" fontWeight="lg" mb={1}>
+        <Typography id="capa" level="body2" fontWeight="lg" mb={1}>
           Capacity
         </Typography>
         <RadioGroup

@@ -52,7 +52,7 @@ const Landing = () => {
     />
 
     <Grid container  justifyContent="center" alignItems="center">
-      <Grid item xs={12} sm={7}  >
+      <Grid item xs={11} sm={7} lg={8} >
         <Card elevation={0} sx={{ backdropFilter: 'blur(8px)', backgroundColor: 'rgba(154, 152, 254, 0.78)', p: 3 }}>
           <Grid container 
           spacing={2} 
@@ -61,7 +61,7 @@ const Landing = () => {
           sx={{
              mt: -3
               }}>
-            <Grid item xs={12} sm={8} >
+            <Grid item xs={10} sm={8} >
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DatePicker', 'DatePicker']} >
                 <DatePicker
@@ -71,7 +71,9 @@ const Landing = () => {
                   onChange={handleStartDateChange}
                   sx={{
                     '& .MuiInputBase-root': {
-                      backgroundColor: '#EFEEFF',
+                      backgroundColor: 'rgba(239, 238, 255, 0.6)',
+                      borderRadius: '10px',
+                      color: '#868688',
                     
                       transition: 'border-color 0.3s ease'
                     },
@@ -82,7 +84,7 @@ const Landing = () => {
                       borderColor: '#EFEEFF',
                     },
                     '& .MuiInputBase-root:hover .MuiIconButton-root': {
-                      color: '#C2C2C2 ', // Establece el color del icono al hacer hover
+                      color: '#EFEEFF', // Establece el color del icono al hacer hover
                     },
                   }}
                 />
@@ -95,7 +97,9 @@ const Landing = () => {
                   sx={{
               
                     '& .MuiInputBase-root': {
-                      backgroundColor: '#EFEEFF',
+                      backgroundColor: 'rgba(239, 238, 255, 0.6)',
+                      borderRadius: '10px',
+                      color: '#868688',
                     
                       transition: 'border-color 0.3s ease'
                     },
@@ -106,7 +110,7 @@ const Landing = () => {
                       borderColor: '#EFEEFF',
                     },
                     '& .MuiInputBase-root:hover .MuiIconButton-root': {
-                      color: '#C2C2C2 ', // Establece el color del icono al hacer hover
+                      color: '#EFEEFF', // Establece el color del icono al hacer hover
                     },
                   }}
                 />
@@ -115,7 +119,7 @@ const Landing = () => {
             </Grid>
 
                 {startDate && endDate ?
-            <Grid item xs={12} sm={3} sx={{  display: 'flex', justifyContent: 'center' }}>
+            <Grid item xs={12} sm={3}  sx={{  display: 'flex', justifyContent: 'center' }}>
               <Link to="/home">
                 <Button
                   variant="contained"

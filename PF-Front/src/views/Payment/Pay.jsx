@@ -7,8 +7,10 @@ export default function PayView() {
   return (
 
     <Grid container
-      rowSpacing={2}
-      
+      rowSpacing={2} 
+      sx={{
+        backgroundColor: "#FAFAFF"
+      }}
     >
       <Grid item sm={12} md={7}>
         <FormComponent />

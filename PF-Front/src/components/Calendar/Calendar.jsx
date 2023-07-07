@@ -46,12 +46,12 @@ export default function Calendar() {
     }
   };
 
-  const handleRoomsChange = (event) => {
-    const { value } = event.target
-    if (value === '' || (Number(value) > 0 && !value.includes('-'))) {
-      dispatch(countRooms(value))
-    }
-  };
+  // const handleRoomsChange = (event) => {
+  //   const { value } = event.target
+  //   if (value === '' || (Number(value) > 0 && !value.includes('-'))) {
+  //     dispatch(countRooms(value))
+  //   }
+  // };
 
   useEffect(() => {
 
@@ -102,182 +102,177 @@ export default function Calendar() {
           margin: '20px'
         }
       }>
-          <Grid container spacing={-5} justifyContent="start" marginTop={0} marginBottom={2}> 
+        <Grid container  justifyContent="start" marginTop={0} marginBottom={2}>
+          <Typography sx={
+            {
+              fontSize: '14px',
+              color: '#9A98FE',
+              marginLeft: '12px',
+              display: 'flex',
+            }
+          }>
+            <CalendarMonthIcon sx={
+              {
+                fontSize: '20px',
+                color: '#9A98FE',
+                marginRight: '2px',
+              
+              }
+            } />
+
+            ( {startDate && endDate ? (
+              `${startDate.format('YYYY-MM-DD')} to ${endDate.format('YYYY-MM-DD')}`
+            ) : (
+              "No dates selected"
+            )} )
+          </Typography>
+        </Grid>
+
+        <Grid container spacing={0} justifyContent="center" >
+          <Grid item xs={3} sm={3}>
             <Typography sx={
               {
-                fontSize: '14px',
-                color: '#9A98FE',
-                marginLeft: '9px'
+                fontSize: '15px',
+                color: '#C2C2C2',
+                marginLeft: '15px',
+                display: 'flex',
               }
             }>
-               <CalendarMonthIcon sx={
+              <Person2Icon sx={
                 {
                   fontSize: '20px',
                   color: '#9A98FE',
                   marginRight: '2px',
                 }
               } />
-
-              ( {startDate && endDate ? (
-                `${startDate.format('YYYY-MM-DD')} to ${endDate.format('YYYY-MM-DD')}`
-              ) : (
-                "No dates selected"
-              )} )
+              {adult}
             </Typography>
           </Grid>
-
-          <Grid container spacing={0} justifyContent="center" >
-            <Grid item xs={3} sm={3}>
-
-              <Typography sx={
+          <Grid item xs={3} sm={3}>
+            <Typography sx={
+              {
+                fontSize: '15px',
+                color: '#C2C2C2',
+                marginLeft: '8px',
+                display: 'flex',
+              }
+            }>
+              <ChildCareIcon sx={
                 {
-                  fontSize: '15px',
-                  color: '#C2C2C2',
-                  marginLeft: '30px',
-                  display: 'flex', 
+                  fontSize: '20px',
+                  color: '#9A98FE',
+                  marginRight: '3px',
                 }
-              }>  
-              <Person2Icon sx={
-                  {
-                    fontSize: '20px',
-                    color: '#9A98FE',
-                    marginRight: '2px',   
-                  }
-                } />
-               {adult} 
-              </Typography>
-            </Grid>
-            <Grid item xs={3} sm={3}>
-              <Typography sx={
-                {
-                  fontSize: '15px',
-                  color: '#C2C2C2',
-                  marginLeft: '17px',
-                  display: 'flex',                
-                }
-              }>
-                <ChildCareIcon sx={
-                  {
-                    fontSize:'20px',
-                    color: '#9A98FE',
-                    marginRight:'3px',        
-                  }
-                } />
-                {child}
-              </Typography>
-            </Grid>
-            <Grid item xs={3} sm={3}>
-              <Typography sx={
-                {
-                  fontSize: '15px',
-                  color: '#C2C2C2',
-                  marginLeft: '10px', 
-                  display: 'flex',                            
-                }
-              }>
-                <BedIcon sx={
-                  {
-                    fontSize: '24px',
-                    color: '#9A98FE',
-                    marginRight: '2px',                  
-                  }
-                } />
-                {numberooms}
-              </Typography>
-            </Grid>
-            <Grid item xs={3} sm={3}>
-              <Typography sx={
-                {
-                  fontSize: '15px',
-                  color: '#C2C2C2',
-                  marginRight: '20px',
-                  display: 'flex',
-                  alignItems: 'center'  
-                }
-              }>
-                <NightlightRoundIcon sx={
-                  {
-                    fontSize: '20px',
-                    color: '#9A98FE',
-                    marginRight: '2px',          
-                  }
-                } />
-                {countSelectedDays()}
-              </Typography>
-            </Grid>
+              } />
+              {child}
+            </Typography>
           </Grid>
- <Grid container justifyContent="center" spacing={0}  marginBottom={2}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-
-          <DemoContainer components={['DatePicker']} sx={{ width: '90%' , marginTop: '20px' }}>
-
-            <DatePicker
-              label='Check In'
-              value={startDate}
-              minDate={today}
-              onChange={handleStartDateChange}
-            />
-
-          </DemoContainer>
-          <DemoContainer components={['DatePicker']} sx={{ width: '90%' }}>
-            <DatePicker
-              label="Check Out"
-              value={endDate}
-              minDate={secondDateMin}
-              onChange={handleEndDateChange}
-              disabled={isSecondPickerDisabled}
-            />
-
-          </DemoContainer>
-
-
-          <Grid container justifyContent="center" spacing={1} marginTop={1} marginBottom={3}>
-
-            <Grid item xs={3} sm={3}>
-              <TextField
-                id="valueAdult"
-                label="Adult"
-                type="number"
-                value={adult}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="standard"
-                onChange={handleAdultChange}
-              />
-            </Grid>
-            <Grid item xs={3} sm={3}>
-              <TextField
-                id="ValueChild"
-                label="Child"
-                type="number"
-                value={child}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="standard"
-                onChange={handleChildChange}
-              />
-            </Grid>
-            <Grid item xs={3} sm={3}>
-              <TextField
-                id="value-Rooms"
-                label="Rooms "
-                type="number"
-                value={numberooms}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="standard"
-                onChange={handleRoomsChange}
-              />
-            </Grid>
+          <Grid item xs={3} sm={3}>
+            <Typography sx={
+              {
+                fontSize: '15px',
+                color: '#C2C2C2',
+                marginLeft: '4px',
+                display: 'flex',
+              }
+            }>
+              <BedIcon sx={
+                {
+                  fontSize: '24px',
+                  color: '#9A98FE',
+                  marginRight: '2px',
+                }
+              } />
+              {numberooms}
+            </Typography>
           </Grid>
-        </LocalizationProvider>
+          <Grid item xs={3} sm={3}>
+            <Typography sx={
+              {
+                fontSize: '15px',
+                color: '#C2C2C2',
+                marginRight: '10px',
+                display: 'flex',
+                alignItems: 'center'
+              }
+            }>
+              <NightlightRoundIcon sx={
+                {
+                  fontSize: '20px',
+                  color: '#9A98FE',
+                  marginRight: '2px',
+                }
+              } />
+              {countSelectedDays()}
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid container justifyContent="center" spacing={0} marginBottom={2}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+
+            <DemoContainer components={['DatePicker']} sx={{ width: '90%', marginTop: '20px' }}>
+
+              <DatePicker
+                label='Check In'
+                value={startDate}
+                minDate={today}
+                onChange={handleStartDateChange}
+              />
+
+            </DemoContainer>
+            <DemoContainer components={['DatePicker']} sx={{ width: '90%' }}>
+              <DatePicker
+                label="Check Out"
+                value={endDate}
+                minDate={secondDateMin}
+                onChange={handleEndDateChange}
+                disabled={isSecondPickerDisabled}
+              />
+            </DemoContainer>
+            <Grid container justifyContent="center" spacing={1} marginTop={1} marginBottom={3}>
+              <Grid item xs={6} sm={5}>
+                <TextField
+                  id="valueAdult"
+                  label="Adult"
+                  type="number"
+                  value={adult}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  onChange={handleAdultChange}
+                />
+              </Grid>
+              <Grid item xs={6} sm={5}>
+                <TextField
+                  id="ValueChild"
+                  label="Child"
+                  type="number"
+                  value={child}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  onChange={handleChildChange}
+                />
+              </Grid>
+              {/* <Grid item xs={3} sm={3}>
+                <TextField
+                  id="value-Rooms"
+                  label="Rooms "
+                  type="number"
+                  value={numberooms}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  readOnly={true}
+                />
+              </Grid> */}
+            </Grid>
+          </LocalizationProvider>
         </Grid>
       </Card>
-
-
     </div>
   );
 }
