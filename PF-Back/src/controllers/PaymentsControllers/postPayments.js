@@ -5,7 +5,7 @@ const { mercadopago } = require('../../utils/mercadoPago');
 const postPayments = async (req, res) => {
 	try {
 		const { identification, total } = req.body;
-		console.log("identification-> ",identification)
+		// console.log("identification-> ",identification)
 		if (!identification) throw new Error('Must be provider identification');
 
 		let roomPay = await NewPayments.findOne({ identification });
@@ -16,22 +16,14 @@ const postPayments = async (req, res) => {
 			});
 			await roomPay.save();
 		}
-		
-		if(roomPay.status === "approved"){
-			
-				return res
-					.status(200)
-					.json({ message: 'The payment has already been arpove' });
-			
-		}
-		if(roomPay.status==="in progress" || "rejected"){
 
 		 const host = await Host.findOne({ identification });
 		 if (!host) {
 			return res.status(404).json({ error: 'Unregistered user' });
 		 }
+
 		 const { room_details } = host;
-		 console.log(room_details.room_type)
+		//  console.log(room_details.room_type)
 		 const preference = {
 			 items: [
 				{
@@ -51,12 +43,24 @@ const postPayments = async (req, res) => {
 				// 	'https://sunsetsandsdev.adaptable.app/payments/failure',
 			 },
 		   };
+
 		 const response = await mercadopago.preferences.create(preference);
-		 const { id, init_point } = response.body;
-		 await NewPayments.findOneAndUpdate ({identification},{ref_mp: id});
+		 const { id, init_point, date_created } = response.body;
+
+		 if(roomPay.date_created){
+			const newPay = new NewPayments({
+				identification,
+				ref_mp: id,
+				date_created
+			});
+			newPay.save();
+			return res.status(200).json({ init_point });
+		 }
+		 
+		 await NewPayments.findOneAndUpdate ({identification},{ref_mp: id, date_created : date_created});
 		 await roomPay.save();
 		 res.status(200).json({ init_point });
-	    }
+	    
 
 	} catch (error) {
 		res.status(500).json({ error: error.message });

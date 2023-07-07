@@ -14,5 +14,9 @@ const newPaymentsSchema = new Schema({
         require: false,
         default: 'in progress'
     },
+    date_created: {
+        type: String,
+        require:true
+    }
 })
 module.exports = mongoose.model('NewPayments', newPaymentsSchema);
