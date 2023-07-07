@@ -11,6 +11,11 @@ const validatePostPayments = [
 		.escape()
 		.notEmpty()
 		.withMessage('Must provide an identification'),
-	body('total').escape().notEmpty().withMessage('Must provide a total value'),
+	body('total')
+		.toInt()
+		.isInt()
+		.withMessage('Must provide a valid total Number')
+		.notEmpty()
+		.withMessage('Must provide a total value'),
 ];
 module.exports = { validatePayments, validatePostPayments };
