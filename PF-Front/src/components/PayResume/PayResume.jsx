@@ -25,10 +25,10 @@ import { DateContext } from "../../Context/DateContex";
 
 export default function PayResume() {
   const { startDate, endDate } = useContext(DateContext);
-  const { child, adult, numberoom, nights, total } = useSelector(
+  const { child, adult, numberooms, nights, total } = useSelector(
     (state) => state.booking
   );
-  const { name, price, image } = useSelector((state) => state.types.types);
+  const { name, price, image, room_type } = useSelector((state) => state.types.types);
   const initial = startDate ? startDate.format("YYYY-MM-DD") : "";
   const finish = endDate ? endDate.format("YYYY-MM-DD") : "";
 
@@ -42,12 +42,12 @@ export default function PayResume() {
         marginTop: "20px",
         marginBottom: "55px",
         marginLeft: "-75px",
-        width: "440px",
+        width: "450px",
       }}
     >
       <CardMedia component="img" height="200" image={image.bed} alt={name} />
 
-      <Grid container style={{}}>
+      <Grid container>
         <Grid item xs={12} sm={6}>
           <Typography
             variant="h1"
@@ -91,19 +91,21 @@ export default function PayResume() {
         </Grid>
       </Grid>
       <StyledDivider />
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+
+
+      <Grid container sx={{ margin: "15px"}}>
+        <Grid item xs={12} sm={3}  >
           <Typography
             variant="h1"
             sx={{
               fontSize: "15px",
               color: "#9a98fe",
-              marginTop: "10px",
-              padding: "10px",
+              fontWeight: 'bold',
+              marginTop: "20px", 
               marginLeft: "20px",
             }}
           >
-            Room Price: ${price}
+            Room Price:
           </Typography>
 
           <Typography
@@ -111,63 +113,119 @@ export default function PayResume() {
             sx={{
               fontSize: "15px",
               color: "#9a98fe",
-              marginTop: "10px",
-              padding: "10px",
+              fontWeight: 'bold',
+              marginTop: "20px",        
               marginLeft: "20px",
             }}
           >
-            Check In: {initial}
+            Check In:
           </Typography>
           <Typography
             variant="h1"
             sx={{
               fontSize: "15px",
               color: "#9a98fe",
-              marginTop: "10px",
-              padding: "10px",
+              fontWeight: 'bold',
+              marginTop: "20px",
               marginLeft: "20px",
             }}
           >
-            Check Out: {finish}
+            Check Out:
           </Typography>
           <Typography
             variant="h1"
             sx={{
               fontSize: "15px",
               color: "#9a98fe",
-              marginTop: "10px",
-              padding: "10px",
+              fontWeight: 'bold',
+              marginTop: "20px",
               marginLeft: "20px",
             }}
           >
-            Room Type: {name}
+            Room Type:
           </Typography>
         </Grid>
 
-        <Grid item xs={6} sm={6}>
+
+        <Grid item xs={12} sm={3} >
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "15px",
+              color: "#868688",
+              marginTop: "20px",
+            }}
+          > ${price}
+          </Typography>
+
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "15px",
+              color: "#868688",
+              marginTop: "20px",                       
+            }}
+          >
+            {initial}
+          </Typography>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "15px",
+              color: "#868688",
+              marginTop: "20px", 
+                 
+            }}
+          >
+            {finish}
+          </Typography>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "15px",
+              color: "#868688",
+              marginTop: "20px", 
+                
+            }}
+          >
+            {room_type}
+          </Typography>
+        </Grid>
+
+
+        <Grid item xs={6} sm={4}>
           <Typography
             variant="h1"
             sx={{
               fontSize: "15px",
               color: "#9a98fe",
-              marginTop: "10px",
-              padding: "10px",
-              marginLeft: "20px",
+              fontWeight: 'bold',
+              marginTop: "20px",           
             }}
           >
-            How many Nights: {nights}
+            Total of Rooms:
           </Typography>
           <Typography
             variant="h1"
             sx={{
               fontSize: "15px",
               color: "#9a98fe",
-              marginTop: "10px",
-              padding: "10px",
-              marginLeft: "20px",
+              fontWeight: 'bold',
+              marginTop: "20px",
             }}
           >
-            How many Adults: {adult}
+            Total of Nights:
+          </Typography>       
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "15px",
+              color: "#9a98fe",
+              fontWeight: 'bold',
+              marginTop: "20px",
+            }}
+          >
+            Total of Adults:
           </Typography>
 
           <Typography
@@ -175,27 +233,62 @@ export default function PayResume() {
             sx={{
               fontSize: "15px",
               color: "#9a98fe",
-              marginTop: "10px",
-              padding: "10px",
-              marginLeft: "20px",
+              fontWeight: 'bold',
+              marginTop: "20px",
             }}
           >
-            How many childs: {child}
+            Total of childs:
+          </Typography>
+
+        </Grid>
+
+
+        <Grid item xs={6} sm={2}>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "15px",
+              color: "#868688",
+              marginTop: "20px",
+            }}
+          >
+            {numberooms}
+          </Typography>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "15px",
+              color: "#868688",
+              marginTop: "20px",
+            }}
+          >
+            {nights}
           </Typography>
 
           <Typography
             variant="h1"
             sx={{
               fontSize: "15px",
-              color: "#9a98fe",
-              marginTop: "10px",
-              padding: "10px",
-              marginLeft: "20px",
-              marginBottom: "30px",
+              color: "#868688",
+              marginTop: "20px",
             }}
           >
-            How many Rooms: {numberoom}
+            {adult}
           </Typography>
+
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "15px",
+              color: "#868688",
+              marginTop: "20px",
+              marginBottom: '30px'
+            }}
+          >
+            {child}
+          </Typography>
+
+
         </Grid>
       </Grid>
     </Card>
