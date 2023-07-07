@@ -1,6 +1,6 @@
 export const validation = (formData) => {
   const regexEmail = /^(?=.{1,35}$)[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const regexPassword = /^(?=.*\d)[\w\d\W_]{6,10}$/;
+  const regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_])[\w\d\W_]{6,10}$/;
 
   let errors = {};
 

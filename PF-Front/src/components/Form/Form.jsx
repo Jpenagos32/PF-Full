@@ -5,10 +5,11 @@ import Select from "react-select";
 import CountryList from "react-select-country-list";
 import { useSelector } from "react-redux";
 import { DateContext } from "../../Context/DateContex";
+import { validation } from "./FormValidations";
 
 const FormComponent = () => {
   const { startDate, endDate } = useContext(DateContext);
-  const { child, adult ,total} = useSelector((state) => state.booking);
+  const { child, adult, total } = useSelector((state) => state.booking);
   const check_in_date = startDate ? startDate.format("YYYY-MM-DD") : "";
   const check_out_date = endDate ? endDate.format("YYYY-MM-DD") : "";
   const childNumber = +child;
@@ -16,6 +17,8 @@ const FormComponent = () => {
   const amount_of_people = childNumber + adultNumber;
   const countryOptions = CountryList().getData();
   const room = useSelector((state) => state.types.types.room_type);
+
+  const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -45,66 +48,71 @@ const FormComponent = () => {
   };
 
   const handleSubmit = async (event) => {
-    const PhoneNumber = +formData.phone;
     event.preventDefault();
 
-    const requestData = {
-      identification: formData.identification,
-      first_name: formData.firstName,
-      last_name: formData.lastName,
-      contact: {
-        email: formData.emailAddress,
-        phone: PhoneNumber,
-        address: formData.billingAddress,
-        country: formData.country.label,
-        city: formData.city,
-        zip_code: formData.zipCode,
-      },
-      check_in_date: check_in_date,
-      check_out_date: check_out_date,
-      amount_of_people: amount_of_people,
-      type_of_guest: {
-        adult: adultNumber,
-        children: childNumber,
-        baby: 0,
-        pets: 0,
-      },
-      room_type: room,
-    };
+    // Validar el formulario
+    const validationErrors = validation(formData);
+    setErrors(validationErrors);
+    console.log(errors)
+    // Comprobar si hay errores
+    if (Object.keys(validationErrors).length === 0) {
+      try {
+        const PhoneNumber = +formData.phone;
 
-    const requestDataForPay = {
-      identification: formData.identification,
-      total : total
-    };
+        const requestData = {
+          identification: formData.identification,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          contact: {
+            email: formData.emailAddress,
+            phone: PhoneNumber,
+            address: formData.billingAddress,
+            country: formData.country.label,
+            city: formData.city,
+            zip_code: formData.zipCode,
+          },
+          check_in_date: check_in_date,
+          check_out_date: check_out_date,
+          amount_of_people: amount_of_people,
+          type_of_guest: {
+            adult: adultNumber,
+            children: childNumber,
+            baby: 0,
+            pets: 0,
+          },
+          room_type: room,
+        };
 
-    try {
-      const response = await axios.post(
-        '/hosts',
-        requestData
-      );
-      if (response.status === 200) {
-        const response = await axios.post(
-          '/payments',
-          requestDataForPay
-        );
-        const paymentLink = response.data.init_point;
-        window.location.href = paymentLink;
+        const requestDataForPay = {
+          identification: formData.identification,
+          total : total
+        };
+
+        const response = await axios.post("/hosts", requestData);
+        if (response.status === 200) {
+          const responsePay = await axios.post("/payments", requestDataForPay);
+          const paymentLink = responsePay.data.init_point;
+          
+          setFormData({
+            firstName: "",
+            lastName: "",
+            emailAddress: "",
+            phone: "",
+            billingAddress: "",
+            identification: "",
+            city: "",
+            country: "",
+            zipCode: "",
+          });
+          window.location.href = paymentLink;
+        }
+      } catch (error) {
+        console.log("Error al realizar la solicitud:", error);
       }
-    } catch (error) {
-      console.log("Error al realizar la solicitud:", error);
+    } else {
+      console.log("Errores de validación:", validationErrors);
     }
 
-    setFormData({
-      firstName: "",
-      lastName: "",
-      emailAddress: "",
-      phone: "",
-      billingAddress: "",
-      identification: "",
-      city: "",
-      country: "",
-      zipCode: "",
-    });
   };
 
   return (
@@ -130,6 +138,8 @@ const FormComponent = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.firstName}
+              helperText={errors.firstName}
             />
           </Grid>
           <Grid item xs={12} sm={5.9}>
@@ -140,6 +150,8 @@ const FormComponent = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.lastName}
+              helperText={errors.lastName}
             />
           </Grid>
           <Grid item xs={5.9}>
@@ -150,16 +162,20 @@ const FormComponent = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.phone}
+              helperText={errors.phone}
             />
           </Grid>
           <Grid item xs={5.9}>
             <TextField
               name="identification"
-              label="Identification"
+              label="Identity card Number or DNI number"
               value={formData.identification}
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.identification}
+              helperText={errors.identification}
             />
           </Grid>
           <Grid item xs={11.8}>
@@ -170,6 +186,8 @@ const FormComponent = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.emailAddress}
+              helperText={errors.emailAddress}
             />
           </Grid>
           <Grid item xs={11.8}>
@@ -180,6 +198,8 @@ const FormComponent = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.billingAddress}
+              helperText={errors.billingAddress}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -190,6 +210,8 @@ const FormComponent = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.city}
+              helperText={errors.city}
             />
           </Grid>
           <Grid item xs={5.8}>
@@ -200,6 +222,8 @@ const FormComponent = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.zipCode}
+              helperText={errors.zipCode}
             />
           </Grid>
           <Grid item xs={10} sm={11.8}>
@@ -211,6 +235,8 @@ const FormComponent = () => {
                 options={countryOptions}
                 placeholder="Country"
                 required
+                error={!!errors.country}
+                helperText={errors.country}
               />
             </FormControl>
           </Grid>
