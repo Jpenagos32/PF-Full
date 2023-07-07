@@ -33,21 +33,20 @@ export default function PayResume() {
   const finish = endDate ? endDate.format("YYYY-MM-DD") : "";
 
   return (
+  
     <Card
       elevation={0}
       sx={{
         backgroundColor: "#DFDFFF",
         height: "auto",
-        marginRight: "49px",
         marginTop: "20px",
         marginBottom: "55px",
-        marginLeft: "-75px",
         width: "450px",
       }}
     >
       <CardMedia component="img" height="200" image={image.bed} alt={name} />
 
-      <Grid container>
+        <Grid container>
         <Grid item xs={12} sm={6}>
           <Typography
             variant="h1"
@@ -55,23 +54,23 @@ export default function PayResume() {
               fontSize: "25px",
               fontWeight: "bold",
               color: "#868688",
-              marginTop: "10px",
-              padding: "20px",
+              marginTop: "17px",
               marginBottom: "10px",
+              marginLeft: '30px'
             }}
           >
             {name}
           </Typography>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} >
           <Typography
             variant="h1"
             sx={{
               fontSize: "20px",
               fontWeight: "bold",
               color: "#868688",
-              marginTop: "20px",
+              marginTop: "17px",
               marginLeft: "40px",
             }}
           >
@@ -84,6 +83,7 @@ export default function PayResume() {
               fontWeight: "bold",
               color: "#0400CB",
               marginLeft: "40px",
+              marginBottom: '15px'
             }}
           >
             USD,${total}
@@ -292,5 +292,6 @@ export default function PayResume() {
         </Grid>
       </Grid>
     </Card>
+    
   );
 }
