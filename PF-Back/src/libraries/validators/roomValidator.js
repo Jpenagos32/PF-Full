@@ -1,4 +1,5 @@
 const { body, query } = require('express-validator');
+
 const validateGetRoom = [
 	query('price')
 		.optional()
@@ -58,7 +59,7 @@ const validatePostRooms = [
 		.toFloat()
 		.isFloat({ min: 0 })
 		.withMessage(
-			'The "number" field must be a number greater than or equal to 0.'
+			'The price field must be a number greater than or equal to 0.'
 		),
 	body('number_of_beds')
 		.escape()
@@ -108,7 +109,66 @@ const validatePostRooms = [
 		),
 ];
 
+const validatePutRooms = [
+	query('room_number')
+		.escape()
+		.notEmpty()
+		.withMessage('Must provide a room number')
+		.isInt({ gt: 0 })
+		.withMessage('Room number must be a number greater than 0'),
+	body('name')
+		.escape()
+		.optional()
+		.isLength({ min: 2, max: 50 })
+		.withMessage('Name length max is 50 chars and min is 2 chars')
+		.isString()
+		.withMessage('Room name must be a string type'),
+	body('price')
+		.optional()
+		.toFloat()
+		.isFloat({ min: 0 })
+		.withMessage(
+			'The price field must be a number greater than or equal to 0.'
+		),
+	body('bed')
+		.optional()
+		.isURL()
+		.withMessage('Must upload a valid image at bed'),
+	body('bed2')
+		.optional()
+		.isURL()
+		.withMessage('Must upload a valid image at bed2'),
+	body('bed3')
+		.optional()
+		.isURL()
+		.withMessage('Must upload a valid image at bed3'),
+	body('bathroom')
+		.optional()
+		.isURL()
+		.withMessage('Must upload a valid image at bathroom'),
+	body('bathroom2')
+		.optional()
+		.isURL()
+		.withMessage('Must upload a valid image at bathroom2'),
+	body('extra')
+		.optional()
+		.isURL()
+		.withMessage('Must upload a valid image at extra'),
+	body('room_description')
+		.escape()
+		.optional()
+		.isLength({ min: 25, max: 500 })
+		.withMessage(
+			'Room description length must be between 25 and 500 characters'
+		),
+	body('facilities')
+		.optional()
+		.isArray()
+		.withMessage('The field must be an array'),
+];
+
 module.exports = {
 	validateGetRoom,
 	validatePostRooms,
+	validatePutRooms,
 };

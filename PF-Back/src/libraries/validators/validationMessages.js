@@ -7,7 +7,7 @@ const validationMessages = (req, res, next) => {
 		const errorMessages = errorArray.map((error) => ({
 			msg: error.msg,
 			path: error.path,
-			notSupported: error.value,
+			notSupportedValue: error.value,
 		}));
 		return res.status(400).json(errorMessages);
 	}
