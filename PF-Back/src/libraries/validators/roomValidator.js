@@ -111,7 +111,7 @@ const validatePostRooms = [
 ];
 
 const validatePutRooms = [
-	query('room_number')
+	body('room_number')
 		.escape()
 		.notEmpty()
 		.withMessage('Must provide a room number')

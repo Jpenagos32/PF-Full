@@ -16,7 +16,7 @@ const Room = require('../../models/Room');
 
 const putRooms = async (req, res) => {
 	try {
-		const { room_number } = req.query;
+		const { room_number } = req.body;
 
 		if (!room_number) throw new Error('Must provide a valid room_number ');
 
@@ -31,6 +31,7 @@ const putRooms = async (req, res) => {
 			extra,
 			room_description,
 			facilities,
+			available,
 		} = req.body;
 
 		const query = {};
@@ -58,6 +59,7 @@ const putRooms = async (req, res) => {
 		if (bathroom2) query['image.bathroom2'] = bathroom2;
 		if (extra) query['image.extra'] = extra;
 		if (room_description) query.room_description = room_description;
+		if (available) query.available = true;
 
 		const updatedRoom = await Room.findOneAndUpdate(
 			{ room_number },
