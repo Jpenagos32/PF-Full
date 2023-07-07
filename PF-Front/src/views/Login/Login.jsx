@@ -14,6 +14,11 @@ import { setUser } from "../../redux/slices/authSlice";
 const Login = () => {
   const navigate = useNavigate();
 
+  const encryptData = (text, secretKey) => {
+    const encodedText = btoa(text);
+    return encodedText;
+  };
+
   const [formData, setFormData] = useState({
     emailAddress: "",
     password: "",
@@ -49,10 +54,12 @@ const Login = () => {
 
         if (response.operationType === "signIn") {
           userEmail = response.user.email;
+
+          const encryptedEmail = encryptData(userEmail, "secretKey");
+          localStorage.setItem("user", encryptedEmail);
+
           dispatch(setUser(userEmail));
         }
-
-        localStorage.setItem("user", userEmail);
 
         setFormData({
           emailAddress: "",
@@ -75,14 +82,21 @@ const Login = () => {
       let userEmail = "";
       if (response.operationType === "signIn") {
         userEmail = response.user.email;
-        dispatch(setUser(userEmail));
 
-        localStorage.setItem("user", userEmail);
-        setTimeout(() => {
-          navigate("/myaccount");
-        }, 1000);
-        console.log(response)
+        const encryptedEmail = encryptData(userEmail, "secretKey");
+        localStorage.setItem("user", encryptedEmail);
+
+        dispatch(setUser(userEmail));
       }
+
+      setFormData({
+        emailAddress: "",
+        password: "",
+      });
+      setTimeout(() => {
+        navigate("/myaccount");
+      }, 1000);
+      console.log(response);
     } catch (error) {
       console.log("Error al iniciar sesión con Google:", error);
     }

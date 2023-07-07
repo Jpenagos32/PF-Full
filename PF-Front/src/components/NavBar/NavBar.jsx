@@ -106,7 +106,7 @@ const NavBar = () => {
           hideBackdrop: true,
         }}
         sx={{
-          zIndex: 0,
+          zIndex: 999,
           ".MuiDrawer-paper": {
             width: "300px",
             height: "200px",
