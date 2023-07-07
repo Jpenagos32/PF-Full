@@ -71,8 +71,6 @@ export default function Calendar() {
     }
     return 0;
   };
-
-
   return (
     <div>
       <Card elevation={0} sx={
@@ -136,8 +134,7 @@ export default function Calendar() {
                   fontSize: '15px',
                   color: '#C2C2C2',
                   marginLeft: '30px',
-                  display: 'flex',
-                    
+                  display: 'flex', 
                 }
               }>  
               <Person2Icon sx={
@@ -156,8 +153,7 @@ export default function Calendar() {
                   fontSize: '15px',
                   color: '#C2C2C2',
                   marginLeft: '17px',
-                  display: 'flex',
-                
+                  display: 'flex',                
                 }
               }>
                 <ChildCareIcon sx={
@@ -176,16 +172,14 @@ export default function Calendar() {
                   fontSize: '15px',
                   color: '#C2C2C2',
                   marginLeft: '10px', 
-                  display: 'flex',
-                             
+                  display: 'flex',                            
                 }
               }>
                 <BedIcon sx={
                   {
                     fontSize: '24px',
                     color: '#9A98FE',
-                    marginRight: '2px',
-                   
+                    marginRight: '2px',                  
                   }
                 } />
                 {numberooms}
@@ -279,115 +273,6 @@ export default function Calendar() {
               />
             </Grid>
           </Grid>
-
-          {/* <Grid container spacing={-5} justifyContent="start" marginTop={0} marginBottom={2}> 
-            <Typography sx={
-              {
-                fontSize: '14px',
-                color: '#9A98FE',
-                marginLeft: '9px'
-              }
-            }>
-               <CalendarMonthIcon sx={
-                {
-                  fontSize: '20px',
-                  color: '#9A98FE',
-                  marginRight: '2px',
-                }
-              } />
-
-              ( {startDate && endDate ? (
-                `${startDate.format('YYYY-MM-DD')} to ${endDate.format('YYYY-MM-DD')}`
-              ) : (
-                "No dates selected"
-              )} )
-            </Typography>
-          </Grid> */}
-
-          {/* <Grid container spacing={0} justifyContent="center" >
-            <Grid item xs={3} sm={3}>
-
-              <Typography sx={
-                {
-                  fontSize: '15px',
-                  color: '#C2C2C2',
-                  marginLeft: '30px',
-                  display: 'flex',
-                    
-                }
-              }>  
-              <Person2Icon sx={
-                  {
-                    fontSize: '20px',
-                    color: '#9A98FE',
-                    marginRight: '2px',   
-                  }
-                } />
-               {adult} 
-              </Typography>
-            </Grid>
-            <Grid item xs={3} sm={3}>
-              <Typography sx={
-                {
-                  fontSize: '15px',
-                  color: '#C2C2C2',
-                  marginLeft: '17px',
-                  display: 'flex',
-                
-                }
-              }>
-                <ChildCareIcon sx={
-                  {
-                    fontSize:'20px',
-                    color: '#9A98FE',
-                    marginRight:'3px',        
-                  }
-                } />
-                {child}
-              </Typography>
-            </Grid>
-            <Grid item xs={3} sm={3}>
-              <Typography sx={
-                {
-                  fontSize: '15px',
-                  color: '#C2C2C2',
-                  marginLeft: '10px', 
-                  display: 'flex',
-                             
-                }
-              }>
-                <BedIcon sx={
-                  {
-                    fontSize: '24px',
-                    color: '#9A98FE',
-                    marginRight: '2px',
-                   
-                  }
-                } />
-                {numberooms}
-              </Typography>
-            </Grid>
-            <Grid item xs={3} sm={3}>
-              <Typography sx={
-                {
-                  fontSize: '15px',
-                  color: '#C2C2C2',
-                  marginRight: '20px',
-                  display: 'flex',
-                  alignItems: 'center'  
-                }
-              }>
-                <NightlightRoundIcon sx={
-                  {
-                    fontSize: '20px',
-                    color: '#9A98FE',
-                    marginRight: '2px',          
-                  }
-                } />
-                {countSelectedDays()}
-              </Typography>
-            </Grid>
-          </Grid> */}
         </LocalizationProvider>
         </Grid>
       </Card>
