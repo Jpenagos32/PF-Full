@@ -167,8 +167,18 @@ const validatePutRooms = [
 		.withMessage('The field must be an array'),
 ];
 
+const validateDeleteRooms = [
+	query('room_number')
+		.escape()
+		.notEmpty()
+		.withMessage('Must provide a room_number by query string')
+		.isInt({ gt: 0 })
+		.withMessage('Room number must be greater than 0'),
+];
+
 module.exports = {
 	validateGetRoom,
 	validatePostRooms,
 	validatePutRooms,
+	validateDeleteRooms,
 };
