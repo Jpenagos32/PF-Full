@@ -52,10 +52,16 @@ const Landing = () => {
     />
 
     <Grid container  justifyContent="center" alignItems="center">
-      <Grid item xs={12} sm={7} >
-        <Card elevation={0} sx={{  backdropFilter: 'blur(8px)', backgroundColor: 'rgba(154, 152, 254, 0.78)', p: 2.5 }}>
-          <Grid container spacing={2} justifyContent="center" alignItems="center">
-            <Grid item xs={12} sm={8}>
+      <Grid item xs={12} sm={7}  >
+        <Card elevation={0} sx={{ backdropFilter: 'blur(8px)', backgroundColor: 'rgba(154, 152, 254, 0.78)', p: 3 }}>
+          <Grid container 
+          spacing={2} 
+          justifyContent="center" 
+          alignItems="center"
+          sx={{
+             mt: -3
+              }}>
+            <Grid item xs={12} sm={8} >
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DatePicker', 'DatePicker']} >
                 <DatePicker
@@ -87,6 +93,7 @@ const Landing = () => {
                   onChange={handleEndDateChange}
                   disabled={isSecondPickerDisabled}
                   sx={{
+              
                     '& .MuiInputBase-root': {
                       backgroundColor: '#EFEEFF',
                     

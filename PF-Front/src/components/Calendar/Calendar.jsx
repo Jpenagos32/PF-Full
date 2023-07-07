@@ -75,8 +75,6 @@ export default function Calendar() {
 
   return (
     <div>
-
-
       <Card elevation={0} sx={
         {
           backgroundColor: "#9A98FE",
