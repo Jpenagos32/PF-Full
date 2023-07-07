@@ -1,6 +1,5 @@
 const { validationResult } = require('express-validator');
 
-// Cualquier cosa para mergear
 const validationMessages = (req, res, next) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
