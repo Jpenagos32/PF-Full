@@ -67,23 +67,43 @@ const validatePostHost = [
 		.notEmpty()
 		.withMessage('Must provide a zip code'),
 	body('check_in_date')
-		.escape()
 		.notEmpty()
 		.withMessage('Check in date cannot be empty')
 		.isDate()
 		.withMessage('Must provide a valid check in date')
-		.isAfter()
-		.withMessage('The date must be later than the current date ')
+		.bail()
 		.custom((value, { req }) => {
-			const checkInDate = new Date(value);
+			const checkDate = new Date(value);
+			const actualDate = new Date();
+
+			if (checkDate.getDate() + 1 < actualDate.getDate()) {
+				throw new Error(
+					'The check in date must be equal or later than the actual date'
+				);
+			}
+
 			const checkOutDate = new Date(req.body.check_out_date);
-			if (checkOutDate <= checkInDate) {
+
+			if (checkOutDate < checkDate) {
 				throw new Error(
 					'The check-out date must be after the check-in date.'
 				);
 			}
+
 			return true;
 		}),
+
+	// !No eliminar, la solucion de antes es provisional
+	// .custom((value, { req }) => {
+	// 	const checkInDate = new Date(value);
+	// 	const checkOutDate = new Date(req.body.check_out_date);
+	// 	if (checkOutDate <= checkInDate) {
+	// 		throw new Error(
+	// 			'The check-out date must be after the check-in date.'
+	// 		);
+	// 	}
+	// 	return true;
+	// }),
 	body('check_out_date')
 		.escape()
 		.notEmpty()
@@ -126,7 +146,9 @@ const validatePostHost = [
 	body('room_number')
 		.escape()
 		.notEmpty()
-		.withMessage('Room number cannot be empty'),
+		.withMessage('Room number cannot be empty')
+		.isInt({ gt: 0 })
+		.withMessage('room number must be greter than 0'),
 	body('special_requirements').escape(),
 ];
 
