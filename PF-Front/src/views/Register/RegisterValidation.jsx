@@ -1,6 +1,6 @@
 export const validation = (formData) => {
   const regexEmail = /^(?=.{1,35}$)[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_])[\w\d\W_]{6,10}$/;
+  const regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_])[\w\d\W_]{6,15}$/;
 
   let errors = {};
 
@@ -24,7 +24,9 @@ export const validation = (formData) => {
     errors.emailAddress = "Enter a valid Email Address";
   }
 
-  if (!regexPassword.test(formData.password)) {
+  if (formData.password.trim() === "") {
+    errors.password = "The Password field is required";
+  } else if (!regexPassword.test(formData.password)) {
     errors.password = "The Password is Invalid";
   }
 

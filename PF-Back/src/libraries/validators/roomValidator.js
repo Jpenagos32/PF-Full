@@ -4,6 +4,7 @@ const validateGetRoom = [
 	query('price')
 		.optional()
 		.escape()
+		.toInt()
 		.isInt()
 		.withMessage('Price must be a number'),
 	query('capacity')
@@ -56,8 +57,8 @@ const validatePostRooms = [
 		.escape()
 		.notEmpty()
 		.withMessage('Must provide a price')
-		.toFloat()
-		.isFloat({ min: 0 })
+		.toInt()
+		.isInt({ min: 0 })
 		.withMessage(
 			'The price field must be a number greater than or equal to 0.'
 		),
@@ -125,8 +126,8 @@ const validatePutRooms = [
 		.withMessage('Room name must be a string type'),
 	body('price')
 		.optional()
-		.toFloat()
-		.isFloat({ min: 0 })
+		.toInt()
+		.isInt({ min: 0 })
 		.withMessage(
 			'The price field must be a number greater than or equal to 0.'
 		),
