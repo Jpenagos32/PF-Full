@@ -117,8 +117,6 @@ const Landing = () => {
                 </DemoContainer>
               </LocalizationProvider>
             </Grid>
-
-                {startDate && endDate ?
             <Grid item xs={12} sm={3}  sx={{  display: 'flex', justifyContent: 'center' }}>
               <Link to="/home">
                 <Button
@@ -135,12 +133,11 @@ const Landing = () => {
                     },
                   }}
                 >
-                 
                   Book Now
                 </Button>
               </Link>
             </Grid>
-                :null }
+             
           </Grid>
         </Card>
       </Grid>
