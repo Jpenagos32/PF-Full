@@ -16,7 +16,6 @@ export const fetchRoomsType = (room_number) => {
         `/rooms?room_number=${roomwithnumber}`
       );
       const roomsData = response.data.filtered;
-      console.log(roomsData[0])
       dispatch(fetchDatatype(roomsData[0]));
       dispatch(setLoading(false));
     } catch (error) {

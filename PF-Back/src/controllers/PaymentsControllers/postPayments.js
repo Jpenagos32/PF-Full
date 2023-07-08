@@ -27,7 +27,7 @@ const postPayments = async (req, res) => {
 		const preference = {
 			items: [
 				{
-					title: reservations[reservations.length - 1 ].room_number,
+					title: reservations[reservations.length - 1 ].room_name,
 					unit_price: total,
 					quantity: 1,
 				},

@@ -59,36 +59,30 @@ const FormComponent = () => {
       try {
         const PhoneNumber = +formData.phone;
 
-        const requestData = {
-            room_number: room.room_number,
-            room_type: room.room_type,
-            identification: formData.identification,
-            first_name: formData.firstName,
-            last_name: formData.lastName,
-            contact: {
-              email: formData.emailAddress,
-              phone: PhoneNumber,
-              address: formData.billingAddress,
-              country: formData.country.label,
-              city: formData.city,
-              zip_code: formData.zipCode,
-            },
-            check_in_date: check_in_date,
-            check_out_date: check_out_date,
-            amount_of_people: amount_of_people,
-            type_of_guest: {
-              adult: adultNumber,
-              children: childNumber,
-              baby: 0,
-              pets: 0,
-            },
-            room_details: {
-              room_number: room.room_number,
-              room_type: room.room_type,
-              room_price: room.price,
-              room_name: room.name,
-            },
-        };
+        const requestData = 
+            {
+              identification: formData.identification,
+              first_name : formData.firstName,
+              last_name: formData.lastName,
+              contact :{
+                email : formData.emailAddress,
+                phone : PhoneNumber,
+                address : formData.billingAddress,
+                country : formData.country.label,
+                city : formData.city,
+                zip_code : formData.zipCode
+              },
+              check_in_date : check_in_date,
+              check_out_date : check_out_date,
+              amount_of_people : amount_of_people,
+              type_of_guest : {
+                adult : adultNumber,
+                children : childNumber,
+                baby : 0,
+                pets : 0
+              },
+              room_number : room.room_number 
+            }
 
         const requestDataForPay = {
           total : total,
