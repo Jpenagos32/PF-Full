@@ -38,13 +38,14 @@ const Landing = () => {
             }}>
             <Gallery
                 sx={{
-                    position: "fixed",
-                    top: 0,
+                    bottom: 0,
                     left: 0,
-                    height: "100%",
+                    width: "130vw",
                     zIndex: -1,
                     backgroundSize: "contain",
                     overflowX: "hidden",
+                    margin: 0,
+                    borderColor: "black",
                 }}
             />
 
