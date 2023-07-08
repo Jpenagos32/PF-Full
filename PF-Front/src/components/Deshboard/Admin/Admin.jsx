@@ -4,7 +4,7 @@ import AdminHotel from "./AdminHotel/AdminHotel";
 import AdminRooms from "./AdminRooms/AdminRooms";
 import AdminBookings from "./AdminBookings/AdminBookings";
 import AdminUsers from "./AdminUsers/AdminUsers";
-import AdminAdmins from "./AdminAdmins/AdminAdmins";
+// import AdminAdmins from "./AdminAdmins/AdminAdmins";
 
 
 
@@ -48,7 +48,6 @@ const Admin = () => {
                 <Tabs
                     value={selectedTab}
                     onChange={handleTabChange}
-                    variant="fullWidth"
                     textColor="primary"
                     indicatorColor="primary">
                     <Tab
@@ -105,7 +104,7 @@ const Admin = () => {
                                 backgroundColor: "#EFEEFF",
                             },
                         }}
-                    />
+                    /> 
                 </Tabs>
                 {selectedTab === 0 && <AdminHotel />}
                 {selectedTab === 1 && <AdminRooms />}

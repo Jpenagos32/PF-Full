@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
     Table,
     TableHead,
@@ -12,149 +13,41 @@ import {
     DialogContent,
     DialogActions,
     Button,
+    Snackbar,
 } from "@mui/material";
-
-const users = [
-    {
-        firstName: "John",
-        lastName: "Doe",
-        identificationNumber: "123456789",
-        email: "johndoe@example.com",
-        phoneNumber: "123-456-7890",
-        active: true,
-    },
-    {
-        firstName: "Jane",
-        lastName: "Smith",
-        identificationNumber: "987654321",
-        email: "janesmith@example.com",
-        phoneNumber: "987-654-3210",
-        active: true,
-    },
-    {
-        firstName: "Michael",
-        lastName: "Johnson",
-        identificationNumber: "456123789",
-        email: "michaeljohnson@example.com",
-        phoneNumber: "456-123-7890",
-        active: false,
-    },
-    {
-        firstName: "Emily",
-        lastName: "Davis",
-        identificationNumber: "789456123",
-        email: "emilydavis@example.com",
-        phoneNumber: "789-456-1230",
-        active: true,
-    },
-    {
-        firstName: "Daniel",
-        lastName: "Brown",
-        identificationNumber: "321654987",
-        email: "danielbrown@example.com",
-        phoneNumber: "321-654-9870",
-        active: false,
-    },
-    {
-        firstName: "Olivia",
-        lastName: "Taylor",
-        identificationNumber: "654321789",
-        email: "oliviataylor@example.com",
-        phoneNumber: "654-321-7890",
-        active: true,
-    },
-    {
-        firstName: "William",
-        lastName: "Clark",
-        identificationNumber: "987789456",
-        email: "williamclark@example.com",
-        phoneNumber: "987-789-4560",
-        active: true,
-    },
-    {
-        firstName: "Sophia",
-        lastName: "Anderson",
-        identificationNumber: "123123123",
-        email: "sophiaanderson@example.com",
-        phoneNumber: "123-123-1230",
-        active: false,
-    },
-    {
-        firstName: "James",
-        lastName: "Lee",
-        identificationNumber: "456456456",
-        email: "jameslee@example.com",
-        phoneNumber: "456-456-4560",
-        active: true,
-    },
-    {
-        firstName: "Isabella",
-        lastName: "Wright",
-        identificationNumber: "789789789",
-        email: "isabellawright@example.com",
-        phoneNumber: "789-789-7890",
-        active: false,
-    },
-    {
-        firstName: "Benjamin",
-        lastName: "Smith",
-        identificationNumber: "321321321",
-        email: "benjaminsmith@example.com",
-        phoneNumber: "321-321-3210",
-        active: true,
-    },
-    {
-        firstName: "Ava",
-        lastName: "Lewis",
-        identificationNumber: "654654654",
-        email: "avalewis@example.com",
-        phoneNumber: "654-654-6540",
-        active: false,
-    },
-    {
-        firstName: "Mason",
-        lastName: "Hall",
-        identificationNumber: "987987987",
-        email: "masonhall@example.com",
-        phoneNumber: "987-987-9870",
-        active: true,
-    },
-    {
-        firstName: "Charlotte",
-        lastName: "Adams",
-        identificationNumber: "111222333",
-        email: "charlotteadams@example.com",
-        phoneNumber: "111-222-3330",
-        active: true,
-    },
-    {
-        firstName: "Likam",
-        lastName: "Martin",
-        identificationNumber: "444555666",
-        email: "liammartin@example.com",
-        phoneNumber: "444-555-6660",
-        active: false,
-    },
-    {
-        firstName: "Amelia",
-        lastName: "Harris",
-        identificationNumber: "777888999",
-        email: "ameliaharris@example.com",
-        phoneNumber: "777-888-9990",
-        active: true,
-    },
-];
+import { auth } from "../../../../Firebase/Firebase.config";
+import { deleteUser } from "firebase/auth";
 
 const AdminUsers = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const usersPerPage = 5;
-    const [userList, setUserList] = useState(users);
+    const [userList, setUserList] = useState([]);
     const [confirmationOpen, setConfirmationOpen] = useState(false);
     const [selectedUserIndex, setSelectedUserIndex] = useState(null);
-    const [activeFilter, setActiveFilter] = useState(null);
+    const [currentUserEmail, setCurrentUserEmail] = useState("");
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState("");
 
-    const handleToggle = (index) => {
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const response = await axios.get("/users");
+                const users = response.data;
+                const filteredUsers = users.filter(
+                    (user) => user.user_type[0] === "user"
+                );
+                setUserList(filteredUsers);
+            } catch (error) {
+                console.error("Error fetching users:", error);
+            }
+        };
+
+        fetchUsers();
+    }, []);
+
+    const handleToggle = (index, email) => {
         setSelectedUserIndex(index);
+        setCurrentUserEmail(email);
         setConfirmationOpen(true);
     };
 
@@ -162,26 +55,52 @@ const AdminUsers = () => {
         setConfirmationOpen(false);
     };
 
-    const handleConfirmationConfirm = () => {
+    const handleConfirmationConfirm = async () => {
         setConfirmationOpen(false);
-        setTimeout(() => {
-            const updatedUserList = [...userList];
-            updatedUserList[selectedUserIndex].active =
-                !updatedUserList[selectedUserIndex].active;
-            setUserList(updatedUserList);
-        }, 2000);
+        const emailToDelete = currentUserEmail;
+        const userToDelete = userList.find(
+            (user) => user.user_email === emailToDelete
+        );
+
+        try {
+            //! ==== aqui se elimina de firebase ===
+            const FbResponse = await deleteUser(auth, emailToDelete);
+
+            console.log(FbResponse);
+            // Eliminación en Firebase exitosa
+            showSnackbar("User deleted from Firebase");
+
+            //? ==== aqui se elimina de la base de datos
+            //?, esto funciona bien ===
+            await axios.delete(`/users?email=${emailToDelete}`);
+            // Eliminación en la base de datos exitosa
+            showSnackbar("User deleted from database");
+
+            setTimeout(() => {
+                const updatedUserList = userList.filter(
+                    (user) => user.user_email !== emailToDelete
+                );
+                setUserList(updatedUserList);
+            }, 500);
+        } catch (error) {
+            console.error("Error deleting user:", error);
+            showSnackbar("Error deleting user");
+        }
+    };
+
+    const showSnackbar = (message) => {
+        setSnackbarMessage(message);
+        setSnackbarOpen(true);
+    };
+
+    const handleSnackbarClose = () => {
+        setSnackbarOpen(false);
     };
 
     const indexOfLastUser = currentPage * usersPerPage;
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
 
-    let currentUsers = userList.slice(indexOfFirstUser, indexOfLastUser);
-
-    if (activeFilter !== null) {
-        currentUsers = currentUsers.filter(
-            (user) => user.active === activeFilter
-        );
-    }
+    const currentUsers = userList.slice(indexOfFirstUser, indexOfLastUser);
 
     const renderUsers = () => {
         if (currentUsers.length === 0) {
@@ -193,14 +112,7 @@ const AdminUsers = () => {
         }
 
         return currentUsers.map((user, index) => {
-            const {
-                active,
-                firstName,
-                lastName,
-                identificationNumber,
-                email,
-                phoneNumber,
-            } = user;
+            const { user_first_name, user_last_name, user_email, phone } = user;
 
             const isEvenRow = index % 2 === 0;
             const rowBackground = isEvenRow ? "#EFEEFF" : "#F3F3F7";
@@ -209,28 +121,26 @@ const AdminUsers = () => {
                 <TableRow
                     key={index}
                     style={{ backgroundColor: rowBackground }}>
-                    {" "}
                     <TableCell>
                         <Switch
-                            checked={active}
-                            onChange={() => handleToggle(index)}
-                            color={active ? "success" : "error"}
+                            checked={true}
+                            onChange={() =>
+                                handleToggle(index, user.user_email)
+                            }
+                            color="primary"
                         />
                     </TableCell>
                     <TableCell style={{ color: "#868688", fontSize: "12px" }}>
-                        {firstName}
+                        {user_first_name}
                     </TableCell>
                     <TableCell style={{ color: "#868688", fontSize: "12px" }}>
-                        {lastName}
+                        {user_last_name}
                     </TableCell>
                     <TableCell style={{ color: "#868688", fontSize: "12px" }}>
-                        {identificationNumber}
+                        {user_email}
                     </TableCell>
                     <TableCell style={{ color: "#868688", fontSize: "12px" }}>
-                        {email}
-                    </TableCell>
-                    <TableCell style={{ color: "#868688", fontSize: "12px" }}>
-                        {phoneNumber}
+                        {phone}
                     </TableCell>
                 </TableRow>
             );
@@ -250,7 +160,7 @@ const AdminUsers = () => {
                     <TableRow>
                         <TableCell
                             style={{ color: "#0400CB", fontSize: "15px" }}>
-                            Active User
+                            Delete User
                         </TableCell>
                         <TableCell
                             style={{ color: "#0400CB", fontSize: "15px" }}>
@@ -262,15 +172,11 @@ const AdminUsers = () => {
                         </TableCell>
                         <TableCell
                             style={{ color: "#0400CB", fontSize: "15px" }}>
-                            Identification Number
-                        </TableCell>
-                        <TableCell
-                            style={{ color: "#0400CB", fontSize: "15px" }}>
                             Email
                         </TableCell>
                         <TableCell
                             style={{ color: "#0400CB", fontSize: "15px" }}>
-                            Phone Number
+                            Phone
                         </TableCell>
                     </TableRow>
                 </TableHead>
@@ -290,17 +196,24 @@ const AdminUsers = () => {
                 onClose={handleConfirmationClose}>
                 <DialogTitle>Confirmation</DialogTitle>
                 <DialogContent>
-                    Are you sure you want to apply the change?
+                    Are you sure you want to DELETE this user?
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleConfirmationClose}>No</Button>
                     <Button
                         onClick={handleConfirmationConfirm}
                         autoFocus>
-                        Yes
+                        Yes, Delete
                     </Button>
                 </DialogActions>
             </Dialog>
+
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={3000}
+                onClose={handleSnackbarClose}
+                message={snackbarMessage}
+            />
         </div>
     );
 };
