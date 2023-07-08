@@ -74,7 +74,7 @@ const Admin = () => {
                         }}
                     />
                     <Tab
-                        label="Reserves"
+                        label="Manage Reserves"
                         sx={{
                             backgroundColor: "#F3F3F7",
                             color: "#868688",
@@ -85,7 +85,7 @@ const Admin = () => {
                         }}
                     />
                     <Tab
-                        label="Custome Users"
+                        label="Manage Users"
                         sx={{
                             backgroundColor: "#F3F3F7",
                             color: "#868688",
@@ -96,7 +96,7 @@ const Admin = () => {
                         }}
                     />
                     <Tab
-                        label="Custome Admins"
+                        label="Manage Admins"
                         sx={{
                             backgroundColor: "#F3F3F7",
                             color: "#868688",
