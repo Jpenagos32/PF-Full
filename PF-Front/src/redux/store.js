@@ -5,6 +5,7 @@ import roomTypes from "./slices/roomTypesSlice";
 import bookingReducer from "./slices/bookingSlice";
 import authSlice from "./slices/authSlice";
 import loadingSlice from "./slices/LodingSlice";
+import reservation from "./slices/reservation";
 
 export default configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export default configureStore({
     roomTypes: roomTypes,
     loginStatus: authSlice,
     loading: loadingSlice,
+    reserve: reservation,
   },
 });
