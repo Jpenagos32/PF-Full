@@ -118,6 +118,8 @@ const HostsSchema = new Schema({
 			},
 			room_price: Number,
 			room_name: String,
+			room_check_in: Date,
+			room_check_out: Date,
 		},
 	],
 });

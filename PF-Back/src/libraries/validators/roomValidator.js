@@ -166,6 +166,11 @@ const validatePutRooms = [
 		.optional()
 		.isArray()
 		.withMessage('The field must be an array'),
+	body('available')
+		.optional()
+		// .toBoolean()
+		.isBoolean()
+		.withMessage('Available typeof must be boolean'),
 ];
 
 const validateDeleteRooms = [
