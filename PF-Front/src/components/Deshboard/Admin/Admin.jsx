@@ -73,7 +73,7 @@ const Admin = () => {
                         }}
                     />
                     <Tab
-                        label="Reserves"
+                        label="Manage Reserves"
                         sx={{
                             backgroundColor: "#F3F3F7",
                             color: "#868688",
@@ -84,7 +84,7 @@ const Admin = () => {
                         }}
                     />
                     <Tab
-                        label="Custome Users"
+                        label="Manage Users"
                         sx={{
                             backgroundColor: "#F3F3F7",
                             color: "#868688",
@@ -106,13 +106,13 @@ const Admin = () => {
                                 backgroundColor: "#EFEEFF",
                             },
                         }}
-                    /> */}
+                    /> 
                 </Tabs>
                 {selectedTab === 0 && <AdminHotel />}
                 {selectedTab === 1 && <AdminRooms />}
                 {selectedTab === 2 && <AdminBookings />}
                 {selectedTab === 3 && <AdminUsers />}
-                {/* {selectedTab === 4 && <AdminAdmins />} */}
+                {selectedTab === 4 && <AdminAdmins />}
             </div>
 
         </Grid>
