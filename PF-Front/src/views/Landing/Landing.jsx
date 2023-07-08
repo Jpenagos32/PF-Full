@@ -142,43 +142,6 @@ export default function Landing() {
                                     <Button
                                         variant="contained"
                                         sx={{
-                                            width: '150px',
-                                            borderRadius: '30px',
-                                            color: '#EFEEFF',
-                                            backgroundColor: '#9A98FE',
-                                            '&:hover': {
-                                                color: '#9A98FE',
-                                                backgroundColor: '#EFEEFF',
-                                                transition: "border-color 0.3s ease",
-                                            },
-                                            "& .MuiIconButton-root": {
-                                                color: "#9A98FE",
-                                            },
-                                            "& .MuiInputBase-root:hover": {
-                                                borderColor: "#EFEEFF",
-                                            },
-                                            "& .MuiInputBase-root:hover .MuiIconButton-root": {
-                                                color: "#EFEEFF",
-                                            },
-                                        }}
-                                    >
-                                        Button
-                                    </Button>
-                                </Link>
-                            </Grid>
-                            <Grid
-                                item
-                                xs={12}
-                                sm={3}
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                }}
-                            >
-                                <Link to="/home">
-                                    <Button
-                                        variant="contained"
-                                        sx={{
                                             width: "150px",
                                             borderRadius: "30px",
                                             color: "#EFEEFF",
