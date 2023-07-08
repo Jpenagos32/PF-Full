@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { Tabs, Tab, ThemeProvider, createTheme } from "@mui/material";
+import { Tabs, Tab, createTheme, Grid, Typography } from "@mui/material";
 import AdminHotel from "./AdminHotel/AdminHotel";
 import AdminRooms from "./AdminRooms/AdminRooms";
 import AdminBookings from "./AdminBookings/AdminBookings";
 import AdminUsers from "./AdminUsers/AdminUsers";
 import AdminAdmins from "./AdminAdmins/AdminAdmins";
 
+
+
 const Admin = () => {
+
+
     const [selectedTab, setSelectedTab] = useState(0);
 
     const handleTabChange = (event, newValue) => {
@@ -24,8 +28,23 @@ const Admin = () => {
     });
 
     return (
-        <ThemeProvider theme={theme}>
-            <div>
+
+        <Grid container justifyContent="center"
+            sx={{ width: 'auto', backgroundColor: '#FAFAFF' }}>
+
+            <div style={{ width: '80%', margin: '20px' }}>
+                <Typography
+                    variant="h1"
+                    sx={{
+                        fontSize: "25px",
+                        fontWeight: "bold",
+                        color: "#0400CB",
+                        textAlign: "Start",
+                        margin: '20px'
+                    }}
+                >
+                    DASHBOARD
+                </Typography>
                 <Tabs
                     value={selectedTab}
                     onChange={handleTabChange}
@@ -33,9 +52,9 @@ const Admin = () => {
                     textColor="primary"
                     indicatorColor="primary">
                     <Tab
-                        label="Hotel"
+                        label="Custome Hotel"
                         sx={{
-                            backgroundColor: "#C2C2C2",
+                            backgroundColor: "#F3F3F7",
                             color: "#868688",
                             "&.Mui-selected": {
                                 color: "#9A98FE",
@@ -44,9 +63,9 @@ const Admin = () => {
                         }}
                     />
                     <Tab
-                        label="Rooms"
+                        label="Create Rooms"
                         sx={{
-                            backgroundColor: "#C2C2C2",
+                            backgroundColor: "#F3F3F7",
                             color: "#868688",
                             "&.Mui-selected": {
                                 color: "#9A98FE",
@@ -55,9 +74,9 @@ const Admin = () => {
                         }}
                     />
                     <Tab
-                        label="Bookings"
+                        label="Reserves"
                         sx={{
-                            backgroundColor: "#C2C2C2",
+                            backgroundColor: "#F3F3F7",
                             color: "#868688",
                             "&.Mui-selected": {
                                 color: "#9A98FE",
@@ -66,9 +85,9 @@ const Admin = () => {
                         }}
                     />
                     <Tab
-                        label="Users"
+                        label="Custome Users"
                         sx={{
-                            backgroundColor: "#C2C2C2",
+                            backgroundColor: "#F3F3F7",
                             color: "#868688",
                             "&.Mui-selected": {
                                 color: "#9A98FE",
@@ -77,9 +96,9 @@ const Admin = () => {
                         }}
                     />
                     <Tab
-                        label="Admins"
+                        label="Custome Admins"
                         sx={{
-                            backgroundColor: "#C2C2C2",
+                            backgroundColor: "#F3F3F7",
                             color: "#868688",
                             "&.Mui-selected": {
                                 color: "#9A98FE",
@@ -94,7 +113,8 @@ const Admin = () => {
                 {selectedTab === 3 && <AdminUsers />}
                 {selectedTab === 4 && <AdminAdmins />}
             </div>
-        </ThemeProvider>
+
+        </Grid>
     );
 };
 

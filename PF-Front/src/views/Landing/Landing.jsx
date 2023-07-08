@@ -53,6 +53,19 @@ const Landing = () => {
 
     <Grid container  justifyContent="center" alignItems="center">
       <Grid item xs={11} sm={7} lg={8} >
+      {/* <Typography
+            variant="h1"
+            sx={{
+              fontSize: "25px",
+              fontWeight: "bold",
+              color: "#868688",
+              marginTop: "17px",
+              marginBottom: "10px",
+              marginLeft: '30px'
+            }}
+          >
+            {name}
+          </Typography> */}
         <Card elevation={0} sx={{ backdropFilter: 'blur(8px)', backgroundColor: 'rgba(154, 152, 254, 0.78)', p: 3 }}>
           <Grid container 
           spacing={2} 
