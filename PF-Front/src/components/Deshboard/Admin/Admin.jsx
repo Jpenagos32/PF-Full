@@ -94,8 +94,10 @@ const Admin = () => {
                             },
                         }}
                     />
+
                     <Tab
-                        label="Manage Admins"
+                        label="Custome Admins"
+
                         sx={{
                             backgroundColor: "#F3F3F7",
                             color: "#868688",
