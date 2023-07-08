@@ -62,7 +62,7 @@ const MyAccount = () => {
       {userData && userData.user_type.includes("user") ? (
         <User userData={userData} />
       ) : null}
-      <button onClick={handleLogout}>Logout</button>
+      {/* <button onClick={handleLogout}>Logout</button> */}
     </div>
   );
 };
