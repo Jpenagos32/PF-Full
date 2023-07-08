@@ -59,7 +59,7 @@ const putRooms = async (req, res) => {
 		if (bathroom2) query['image.bathroom2'] = bathroom2;
 		if (extra) query['image.extra'] = extra;
 		if (room_description) query.room_description = room_description;
-		if (available) query.available = true;
+		if (available) query.available = available;
 
 		const updatedRoom = await Room.findOneAndUpdate(
 			{ room_number },

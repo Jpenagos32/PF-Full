@@ -16,7 +16,13 @@ const notification = require('./notification');
 
 const postHost = async (req, res) => {
 	try {
-		const { identification, room_number, contact } = req.body;
+		const {
+			identification,
+			room_number,
+			contact,
+			check_in_date,
+			check_out_date,
+		} = req.body;
 		const existHost = await Hosts.findOne({ identification });
 
 		if (!room_number) throw new Error('Must provide a room_number');
@@ -39,6 +45,8 @@ const postHost = async (req, res) => {
 					room_type: room.room_type,
 					room_price: room.price,
 					room_name: room.name,
+					room_check_in: check_in_date,
+					room_check_out: check_out_date,
 				},
 			];
 
@@ -74,6 +82,9 @@ const postHost = async (req, res) => {
 
 			const query = {};
 
+			if (check_in_date) query.check_in_date = check_in_date;
+			if (check_out_date) query.check_out_date = check_out_date;
+
 			if (!existHost.reservations) {
 				query.reservations = [
 					{
@@ -82,6 +93,8 @@ const postHost = async (req, res) => {
 						room_type: room.room_type,
 						room_price: room.price,
 						room_name: room.name,
+						room_check_in: check_in_date,
+						room_check_out: check_out_date,
 					},
 				];
 			}
@@ -95,6 +108,8 @@ const postHost = async (req, res) => {
 						room_type: room.room_type,
 						room_price: room.price,
 						room_name: room.name,
+						room_check_in: check_in_date,
+						room_check_out: check_out_date,
 					},
 				];
 				query.reservations = reservationsArray;
