@@ -4,7 +4,7 @@ import AdminHotel from "./AdminHotel/AdminHotel";
 import AdminRooms from "./AdminRooms/AdminRooms";
 import AdminBookings from "./AdminBookings/AdminBookings";
 import AdminUsers from "./AdminUsers/AdminUsers";
-import AdminAdmins from "./AdminAdmins/AdminAdmins";
+// import AdminAdmins from "./AdminAdmins/AdminAdmins";
 
 
 
@@ -48,7 +48,6 @@ const Admin = () => {
                 <Tabs
                     value={selectedTab}
                     onChange={handleTabChange}
-                    variant="fullWidth"
                     textColor="primary"
                     indicatorColor="primary">
                     <Tab
@@ -95,8 +94,10 @@ const Admin = () => {
                             },
                         }}
                     />
+
                     <Tab
                         label="Custome Admins"
+
                         sx={{
                             backgroundColor: "#F3F3F7",
                             color: "#868688",
@@ -105,13 +106,13 @@ const Admin = () => {
                                 backgroundColor: "#EFEEFF",
                             },
                         }}
-                    />
+                    /> */}
                 </Tabs>
                 {selectedTab === 0 && <AdminHotel />}
                 {selectedTab === 1 && <AdminRooms />}
                 {selectedTab === 2 && <AdminBookings />}
                 {selectedTab === 3 && <AdminUsers />}
-                {selectedTab === 4 && <AdminAdmins />}
+                {/* {selectedTab === 4 && <AdminAdmins />} */}
             </div>
 
         </Grid>
