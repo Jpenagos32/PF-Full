@@ -111,7 +111,7 @@ const validatePostRooms = [
 ];
 
 const validatePutRooms = [
-	query('room_number')
+	body('room_number')
 		.escape()
 		.notEmpty()
 		.withMessage('Must provide a room number')
@@ -166,6 +166,11 @@ const validatePutRooms = [
 		.optional()
 		.isArray()
 		.withMessage('The field must be an array'),
+	body('available')
+		.optional()
+		// .toBoolean()
+		.isBoolean()
+		.withMessage('Available typeof must be boolean'),
 ];
 
 const validateDeleteRooms = [
