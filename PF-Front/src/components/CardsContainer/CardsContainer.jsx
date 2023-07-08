@@ -11,74 +11,81 @@
  * (cardsRooms) y generar las tarjetas correspondientes.
  *   - CardsContainer: No tiene parámetros de entrada ni salida.
  */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardRoom from "../CardRoom/CardRoom";
 import CardRoomSkeleton from "../CardRommSkeleton/CardRommSkeleton";
 import { Container, Grid, Pagination } from "@mui/material";
 import { useSelector } from "react-redux";
 
 export default function CardsContainer() {
-    const loading = useSelector((state) => state.loading.loading);
-    const cardsRooms = useSelector((state) => state.rooms.rooms.filteredRooms);
-    const filteredrooms = useSelector((state) => state.rooms.rooms.filtered);
-    const [currentPage, setCurrentPage] = useState(1);
-    const cardsPerPage = 12;
+  const loading = useSelector((state) => state.loading.loading);
+  const cardsRooms = useSelector((state) => state.rooms.rooms.filteredRooms);
+  const filteredrooms = useSelector((state) => state.rooms.rooms.filtered);
+  const [currentPage, setCurrentPage] = useState(1);
+  const cardsPerPage = 12;
 
-    let roomsToShow = [];
+  let roomsToShow = [];
 
-    if (typeof filteredrooms !== "undefined") {
-        roomsToShow = filteredrooms;
-    } else {
-        roomsToShow = cardsRooms;
-    }
+  if (typeof filteredrooms !== "undefined") {
+    roomsToShow = filteredrooms;
+  } else {
+    roomsToShow = cardsRooms;
+  }
 
-    const indexOfLastCard = currentPage * cardsPerPage;
-    const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-    const currentCards = roomsToShow.slice(indexOfFirstCard, indexOfLastCard);
-    const totalPages = Math.ceil(roomsToShow.length / cardsPerPage);
+  const indexOfLastCard = currentPage * cardsPerPage;
+  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+  const currentCards = roomsToShow
+    ? roomsToShow.slice(indexOfFirstCard, indexOfLastCard)
+    : [];
 
-    const handlePageChange = (event, value) => {
-        setCurrentPage(value);
-    };
+  const totalPages = roomsToShow
+    ? Math.ceil(roomsToShow.length / cardsPerPage)
+    : 0;
 
-    return (
-        <Container>
-            <Grid
-                container
-                rowSpacing={{ xs: 2, sm: 6, md: 8 }}
-                columnSpacing={{ xs: 2, sm: 6, md: 8 }}>
-                {loading
-                    ? Array.from(new Array(9)).map((_, index) => (
-                          <CardRoomSkeleton key={index} />
-                      ))
-                    : currentCards.map((room) => {
-                          return (
-                              <Grid
-                                  item
-                                  xs={12}
-                                  sm={6}
-                                  md={4}
-                                  key={room._id}>
-                                  <CardRoom
-                                      _id={room._id}
-                                      name={room.name}
-                                      image={room.image.bed}
-                                      price={room.price}
-                                      facilities={room.facilities}
-                                      room_type={room.room_type}
-                                      room_number={room.room_number}
-                                  />
-                              </Grid>
-                          );
-                      })}
-            </Grid>
-            <Grid style={{ margin: "4rem" }}>
-                <Pagination
-                    count={totalPages}
-                    page={currentPage}
-                    onChange={handlePageChange}
-                />
-            </Grid>
-        </Container>
-    );
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [roomsToShow]);
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
+
+  return (
+    <div>
+      <Grid>
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          onChange={handlePageChange}
+        />
+      </Grid>
+      <Container>
+        <Grid
+          container
+          rowSpacing={{ xs: 2, sm: 6, md: 8 }}
+          columnSpacing={{ xs: 2, sm: 6, md: 8 }}
+        >
+          {loading
+            ? Array.from(new Array(9)).map((_, index) => (
+                <CardRoomSkeleton key={index} />
+              ))
+            : currentCards.map((room) => {
+                return (
+                  <Grid item xs={12} sm={6} md={4} key={room._id}>
+                    <CardRoom
+                      _id={room._id}
+                      name={room.name}
+                      image={room.image.bed}
+                      price={room.price}
+                      facilities={room.facilities}
+                      room_type={room.room_type}
+                      room_number={room.room_number}
+                    />
+                  </Grid>
+                );
+              })}
+        </Grid>
+      </Container>
+    </div>
+  );
 }
