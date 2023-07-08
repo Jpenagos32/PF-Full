@@ -9,7 +9,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DateContext } from "../../Context/DateContex";
 import dayjs from "dayjs";
 
-const Landing = () => {
+export default function Landing() {
     const { startDate, endDate, setDateRange } = useContext(DateContext);
     const today = dayjs();
     const secondDateMin = startDate ? startDate.add(1, "day") : null;
@@ -35,7 +35,8 @@ const Landing = () => {
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
-            }}>
+            }}
+        >
             <Gallery
                 sx={{
                     bottom: 0,
@@ -49,84 +50,9 @@ const Landing = () => {
                 }}
             />
 
-            <Grid
-                container
-                justifyContent="center"
-                alignItems="center">
-                <Grid
-                    item
-                    xs={11}
-                    sm={7}
-                    lg={8}>
-                    <Card
-                        elevation={0}
-                        sx={{
-                            backdropFilter: "blur(8px)",
-                            backgroundColor: "rgba(154, 152, 254, 0.78)",
-                            p: 3,
-                        }}>
-                        <Grid
-                            container
-                            spacing={2}
-                            justifyContent="center"
-                            alignItems="center"
-                            sx={{
-                                mt: -3,
-                            }}>
-                            <Grid
-                                item
-                                xs={10}
-                                sm={8}>
-                                <LocalizationProvider
-                                    dateAdapter={AdapterDayjs}>
-                                    <DemoContainer
-                                        components={[
-                                            "DatePicker",
-                                            "DatePicker",
-                                        ]}>
-                                        <DatePicker
-                                            label="Check In"
-                                            value={startDate}
-                                            minDate={today}
-                                            onChange={handleStartDateChange}
-                                            sx={{
-                                                "& .MuiInputBase-root": {
-                                                    backgroundColor:
-                                                        "rgba(239, 238, 255, 0.6)",
-                                                    borderRadius: "10px",
-                                                    color: "#868688",
-
-                                                    transition:
-                                                        "border-color 0.3s ease",
-                                                },
-                                                "& .MuiIconButton-root": {
-                                                    color: "#9A98FE", // Establece el color del icono
-                                                },
-                                                "& .MuiInputBase-root:hover": {
-                                                    borderColor: "#EFEEFF",
-                                                },
-                                                "& .MuiInputBase-root:hover .MuiIconButton-root":
-                                                    {
-                                                        color: "#EFEEFF", // Establece el color del icono al hacer hover
-                                                    },
-                                            }}
-                                        />
-                                        <DatePicker
-                                            label="Check Out"
-                                            value={endDate}
-                                            minDate={secondDateMin}
-                                            onChange={handleEndDateChange}
-                                            disabled={isSecondPickerDisabled}
-                                            sx={{
-                                                "& .MuiInputBase-root": {
-                                                    backgroundColor:
-                                                        "rgba(239, 238, 255, 0.6)",
-                                                    borderRadius: "10px",
-                                                    color: "#868688",
-
-    <Grid container  justifyContent="center" alignItems="center">
-      <Grid item xs={11} sm={7} lg={8} >
-      {/* <Typography
+            <Grid container justifyContent="center" alignItems="center">
+                <Grid item xs={11} sm={7} lg={8}>
+                    {/* <Typography
             variant="h1"
             sx={{
               fontSize: "25px",
@@ -139,101 +65,106 @@ const Landing = () => {
           >
             {name}
           </Typography> */}
-        <Card elevation={0} sx={{ backdropFilter: 'blur(8px)', backgroundColor: 'rgba(154, 152, 254, 0.78)', p: 3 }}>
-          <Grid container 
-          spacing={2} 
-          justifyContent="center" 
-          alignItems="center"
-          sx={{
-             mt: -3
-              }}>
-            <Grid item xs={10} sm={8} >
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={['DatePicker', 'DatePicker']} >
-                <DatePicker
-                  label='Check In'
-                  value={startDate}
-                  minDate={today}
-                  onChange={handleStartDateChange}
-                  sx={{
-                    '& .MuiInputBase-root': {
-                      backgroundColor: 'rgba(239, 238, 255, 0.6)',
-                      borderRadius: '10px',
-                      color: '#868688',
-                    
-                      transition: 'border-color 0.3s ease'
-                    },
-                    '& .MuiIconButton-root': {
-                      color: '#9A98FE', // Establece el color del icono
-                    },
-                    '& .MuiInputBase-root:hover': {
-                      borderColor: '#EFEEFF',
-                    },
-                    '& .MuiInputBase-root:hover .MuiIconButton-root': {
-                      color: '#EFEEFF', // Establece el color del icono al hacer hover
-                    },
-                  }}
-                />
-                <DatePicker
-                  label="Check Out"
-                  value={endDate}
-                  minDate={secondDateMin}
-                  onChange={handleEndDateChange}
-                  disabled={isSecondPickerDisabled}
-                  sx={{
-              
-                    '& .MuiInputBase-root': {
-                      backgroundColor: 'rgba(239, 238, 255, 0.6)',
-                      borderRadius: '10px',
-                      color: '#868688',
-                    
-                      transition: 'border-color 0.3s ease'
-                    },
-                    '& .MuiIconButton-root': {
-                      color: '#9A98FE', // Establece el color del icono
-                    },
-                    '& .MuiInputBase-root:hover': {
-                      borderColor: '#EFEEFF',
-                    },
-                    '& .MuiInputBase-root:hover .MuiIconButton-root': {
-                      color: '#EFEEFF', // Establece el color del icono al hacer hover
-                    },
-                  }}
-                />
-                </DemoContainer>
-              </LocalizationProvider>
-            </Grid>
-            <Grid item xs={12} sm={3}  sx={{  display: 'flex', justifyContent: 'center' }}>
-              <Link to="/home">
-                <Button
-                  variant="contained"
-                  sx={{
-                    width: '150px',
-                    borderRadius: '30px',
-                    color: '#EFEEFF',
-                    backgroundColor: '#9A98FE',
-                    '&:hover': {
-                      color: '#9A98FE',
-                      backgroundColor: '#EFEEFF',
+                    <Card
+                        elevation={0}
+                        sx={{
+                            backdropFilter: 'blur(8px)',
+                            backgroundColor: 'rgba(154, 152, 254, 0.78)',
+                            p: 3
+                        }}
+                    >
+                        <Grid
+                            container
+                            spacing={2}
+                            justifyContent="center"
+                            alignItems="center"
+                            sx={{
+                                mt: -3
+                            }}
+                        >
+                            <Grid item xs={10} sm={8}>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DemoContainer components={['DatePicker', 'DatePicker']}>
+                                        <DatePicker
+                                            label='Check In'
+                                            value={startDate}
+                                            minDate={today}
+                                            onChange={handleStartDateChange}
+                                            sx={{
+                                                '& .MuiInputBase-root': {
+                                                    backgroundColor: 'rgba(239, 238, 255, 0.6)',
+                                                    borderRadius: '10px',
+                                                    color: '#868688',
 
+                                                    transition: 'border-color 0.3s ease'
+                                                },
+                                                '& .MuiIconButton-root': {
+                                                    color: '#9A98FE',
+                                                },
+                                                '& .MuiInputBase-root:hover': {
+                                                    borderColor: '#EFEEFF',
+                                                },
+                                                '& .MuiInputBase-root:hover .MuiIconButton-root': {
+                                                    color: '#EFEEFF',
+                                                },
+                                            }}
+                                        />
+                                        <DatePicker
+                                            label="Check Out"
+                                            value={endDate}
+                                            minDate={secondDateMin}
+                                            onChange={handleEndDateChange}
+                                            disabled={isSecondPickerDisabled}
+                                            sx={{
+                                                '& .MuiInputBase-root': {
+                                                    backgroundColor: 'rgba(239, 238, 255, 0.6)',
+                                                    borderRadius: '10px',
+                                                    color: '#868688',
 
-                                                    transition:
-                                                        "border-color 0.3s ease",
+                                                    transition: 'border-color 0.3s ease'
                                                 },
-                                                "& .MuiIconButton-root": {
-                                                    color: "#9A98FE", // Establece el color del icono
+                                                '& .MuiIconButton-root': {
+                                                    color: '#9A98FE',
                                                 },
-                                                "& .MuiInputBase-root:hover": {
-                                                    borderColor: "#EFEEFF",
+                                                '& .MuiInputBase-root:hover': {
+                                                    borderColor: '#EFEEFF',
                                                 },
-                                                "& .MuiInputBase-root:hover .MuiIconButton-root":
-                                                    {
-                                                        color: "#EFEEFF", // Establece el color del icono al hacer hover
-                                                    },
+                                                '& .MuiInputBase-root:hover .MuiIconButton-root': {
+                                                    color: '#EFEEFF',
+                                                },
                                             }}
                                         />
                                     </DemoContainer>
                                 </LocalizationProvider>
+                            </Grid>
+                            <Grid item xs={12} sm={3} sx={{ display: 'flex', justifyContent: 'center' }}>
+                                <Link to="/home">
+                                    <Button
+                                        variant="contained"
+                                        sx={{
+                                            width: '150px',
+                                            borderRadius: '30px',
+                                            color: '#EFEEFF',
+                                            backgroundColor: '#9A98FE',
+                                            '&:hover': {
+                                                color: '#9A98FE',
+                                                backgroundColor: '#EFEEFF',
+                                                transition: "border-color 0.3s ease",
+                                            },
+                                            "& .MuiIconButton-root": {
+                                                color: "#9A98FE",
+                                            },
+                                            "& .MuiInputBase-root:hover": {
+                                                borderColor: "#EFEEFF",
+                                            },
+                                            "& .MuiInputBase-root:hover .MuiIconButton-root": {
+                                                color: "#EFEEFF",
+                                            },
+                                        }}
+                                    >
+                                        Button
+                                    </Button>
+                                </Link>
                             </Grid>
                             <Grid
                                 item
@@ -242,7 +173,8 @@ const Landing = () => {
                                 sx={{
                                     display: "flex",
                                     justifyContent: "center",
-                                }}>
+                                }}
+                            >
                                 <Link to="/home">
                                     <Button
                                         variant="contained"
@@ -255,7 +187,8 @@ const Landing = () => {
                                                 color: "#9A98FE",
                                                 backgroundColor: "#EFEEFF",
                                             },
-                                        }}>
+                                        }}
+                                    >
                                         Book Now
                                     </Button>
                                 </Link>
@@ -267,49 +200,3 @@ const Landing = () => {
         </Box>
     );
 };
-
-export default Landing;
-
-// <Box
-//   sx={{
-//     width: "100%",
-//     height: "100vh",
-//     backgroundColor: "rgb(200, 170, 600)",
-//     backgroundPosition: "center",
-//     backgroundSize: "contain",
-//     backgroundRepeat: "no-repeat",
-//     display: "flex",
-//     flexDirection: "column",
-//     padding: 0,
-//   }}
-// >
-//   <Content
-//     sx={{
-//       padding: 0,
-//     }}
-//   >
-//     <Title>SUNSET SANDS HOTEL</Title>
-//     <Link to="/home">
-//       <Button
-//         variant="contained"
-//         sx={{
-//           width: "150px",
-//           borderRadius: "30px",
-//           color: "#white",
-//           backgroundColor: "#9A98FE",
-//           "&:hover": {
-//             backgroundColor: "#c2c1fe",
-//           },
-//         }}
-//       >
-//         Book Now!
-//       </Button>
-//     </Link>
-//   </Content>
-//   <Gallery
-//     sx={{
-//       backgroundSize: "cover",
-//       overflowX: "hidden",
-//     }}
-//   />
-// </Box>
