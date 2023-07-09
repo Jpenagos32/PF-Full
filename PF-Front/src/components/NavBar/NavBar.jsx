@@ -70,6 +70,7 @@ const NavBar = () => {
   const handleLogout = () => {
     logout();
     navigate("/home");
+    handleDrawerClose();
   };
 
   return (
@@ -174,6 +175,7 @@ const NavBar = () => {
                 }}
                 component={NavLink}
                 to="/signup"
+                onClick={handleDrawerClose}
               >
                 <ListItemText
                   primary="Register"
@@ -194,6 +196,7 @@ const NavBar = () => {
                 }}
                 component={NavLink}
                 to="/managerbooking"
+                onClick={handleDrawerClose}
               >
                 <ListItemText
                   primary="Manage Your Booking"
@@ -219,6 +222,7 @@ const NavBar = () => {
                 }}
                 component={NavLink}
                 to="/myaccount"
+                onClick={handleDrawerClose}
               >
                 <ListItemText
                   primary="My Account"

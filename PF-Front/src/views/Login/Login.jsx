@@ -96,7 +96,6 @@ const Login = () => {
       setTimeout(() => {
         navigate("/myaccount");
       }, 1000);
-      console.log(response);
     } catch (error) {
       console.log("Error al iniciar sesión con Google:", error);
     }
