@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  Grid,
+  Snackbar,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useDispatch } from "react-redux";
 import { auth } from "../../Firebase/Firebase.config";
 import {
@@ -24,6 +32,7 @@ const Login = () => {
     password: "",
   });
 
+  const [errorOpen, setErrorOpen] = useState(false);
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
 
@@ -33,6 +42,10 @@ const Login = () => {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const handleCloseAlert = () => {
+    setErrorOpen(false);
   };
 
   const handleSubmit = async (event) => {
@@ -69,7 +82,8 @@ const Login = () => {
           navigate("/myaccount");
         }, 1000);
       } catch (error) {
-        console.log("Error al iniciar sesión:", error);
+        console.error("Error To sign In:", error);
+        setErrorOpen(true);
       }
     }
   };
@@ -213,6 +227,21 @@ const Login = () => {
             </Button>
           </Grid>
         </Box>
+        <Snackbar
+          open={errorOpen}
+          autoHideDuration={5000}
+          onClose={handleCloseAlert}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          style={{ marginTop: "60px" }}
+        >
+          <Alert
+            onClose={handleCloseAlert}
+            severity="error"
+            sx={{ width: "80%", backgroundColor: "#f55d60" }}
+          >
+            Error To Sign In , Check Your Email And Password!
+          </Alert>
+        </Snackbar>
       </form>
     </Box>
   );
