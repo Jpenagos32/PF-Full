@@ -12,11 +12,13 @@ import axios from "axios";
 
 import { format } from "date-fns";
 
-const ReservationInfo = ({ filteredHost }) => {
-  const checkInDate = new Date(filteredHost.check_in_date);
+const ReservationInfo = ({ filteredHost, filteredBooking }) => {
+  const checkInDate = new Date(filteredBooking.room_check_in);
+  checkInDate.setDate(checkInDate.getDate() + 1);
   const formattedCheckInDate = format(checkInDate, "dd-MM-yyyy");
 
-  const checkOutDate = new Date(filteredHost.check_out_date);
+  const checkOutDate = new Date(filteredBooking.room_check_out);
+  checkOutDate.setDate(checkOutDate.getDate() + 1);
   const formattedCheckOutDate = format(checkOutDate, "dd-MM-yyyy");
 
   return (
@@ -137,27 +139,6 @@ const ReservationInfo = ({ filteredHost }) => {
               {formattedCheckOutDate}
             </Typography>
           </Box>
-          <Box sx={{ marginBottom: "10px" }}>
-            <Typography
-              sx={{
-                marginTop: "0px",
-                marginLeft: "8px",
-                color: "#9A98FE",
-              }}
-            >
-              Number Of Guests:
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                marginTop: "0px",
-                marginLeft: "8px",
-                color: "#868688",
-              }}
-            >
-              {filteredHost.amount_of_people}
-            </Typography>
-          </Box>
         </Grid>
         <Grid
           item
@@ -184,7 +165,7 @@ const ReservationInfo = ({ filteredHost }) => {
                 color: "#868688",
               }}
             >
-              {filteredHost.room_details.room_name}
+              {filteredBooking.room_name}
             </Typography>
           </Box>
           <Box sx={{ marginBottom: "10px" }}>
@@ -205,7 +186,7 @@ const ReservationInfo = ({ filteredHost }) => {
                 color: "#868688",
               }}
             >
-              {filteredHost.room_details.room_type}
+              {filteredBooking.room_type}
             </Typography>
           </Box>
           <Box sx={{ marginBottom: "10px" }}>
@@ -226,7 +207,7 @@ const ReservationInfo = ({ filteredHost }) => {
                 color: "#868688",
               }}
             >
-              {filteredHost.room_details.room_number}
+              {filteredBooking.room_number}
             </Typography>
           </Box>
           {/* Resto de los campos en la segunda columna */}
@@ -242,6 +223,7 @@ const ManagerBooking = () => {
     reservationNumber: "",
   });
   const [filteredHost, setFilteredHost] = useState(null);
+  const [filteredBooking, setfilteredBooking] = useState(null);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -258,12 +240,24 @@ const ManagerBooking = () => {
       const response = await axios.get("/hosts");
       const hosts = response.data.hosts;
 
-      const filteredHost = hosts.find(
-        (host) =>
-          host.contact.email === emailAddress && host._id === reservationNumber
-      );
+      const matchingHost = hosts.find((host) => {
+        const matchingReservation = host.reservations.find(
+          (reservation) => reservation._id === reservationNumber
+        );
+        return matchingReservation !== undefined;
+      });
 
-      setFilteredHost(filteredHost);
+      if (matchingHost) {
+        const matchingReservation = matchingHost.reservations.find(
+          (reservation) => reservation._id === reservationNumber
+        );
+        setFilteredHost(matchingHost);
+        setfilteredBooking(matchingReservation);
+      } else {
+        setFilteredHost(null);
+        alert("No Reservation Found With The Information Provided");
+      }
+
       setFormData({
         emailAddress: "",
         reservationNumber: "",
@@ -273,12 +267,13 @@ const ManagerBooking = () => {
     }
   };
 
-  // console.log(filteredHost.room_details);
-
   return (
     <div>
       {filteredHost ? (
-        <ReservationInfo filteredHost={filteredHost} />
+        <ReservationInfo
+          filteredHost={filteredHost}
+          filteredBooking={filteredBooking}
+        />
       ) : (
         <Grid container spacing={1}>
           {/* Primer cuadro */}

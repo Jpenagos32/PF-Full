@@ -22,7 +22,7 @@ export default function CardsContainer() {
   const cardsRooms = useSelector((state) => state.rooms.rooms.filteredRooms);
   const filteredrooms = useSelector((state) => state.rooms.rooms.filtered);
   const [currentPage, setCurrentPage] = useState(1);
-  const cardsPerPage = 12;
+  const cardsPerPage = 6;
 
   let roomsToShow = [];
 
