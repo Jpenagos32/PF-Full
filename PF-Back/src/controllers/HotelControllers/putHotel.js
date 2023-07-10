@@ -8,7 +8,7 @@ Creation: 26 de junio 2023
 Manifiesto de funciones:
 cambiar la forma en que se reciben los datos debemos obtener las keys del objeto enviado por body
 =============================
-    1-putHotel= Metodo encargado de actualizar los datos básicos del Hotel.
+	1-putHotel= Metodo encargado de actualizar los datos básicos del Hotel.
 ===============================================================================================================================
 */
 /* 
@@ -52,6 +52,7 @@ const putHotel = async (req, res) => {
 			logo,
 			translator,
 			tourist_guide,
+			cancelation,
 		} = req.body;
 
 		if (!niu) throw new Error('Must provide a niu');
@@ -87,6 +88,8 @@ const putHotel = async (req, res) => {
 		if (translator) query.translator = translator;
 
 		if (tourist_guide) query.tourist_guide = tourist_guide;
+
+		if (cancelation) query.cancelation = cancelation;
 
 		const hotel = await Hotel.updateOne({ niu }, query);
 

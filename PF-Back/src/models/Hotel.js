@@ -94,6 +94,7 @@ const hotelSchema = new Schema({
 	},
 	translator: Boolean,
 	tourist_guide: Boolean,
+	cancelation: String
 });
 
 module.exports = mongoose.model('Hotel', hotelSchema);
