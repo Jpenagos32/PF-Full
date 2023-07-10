@@ -32,6 +32,8 @@ const putRooms = async (req, res) => {
 			room_description,
 			facilities,
 			available,
+			review_description,
+			review_estrellas,
 		} = req.body;
 
 		const query = {};
@@ -60,12 +62,14 @@ const putRooms = async (req, res) => {
 		if (extra) query['image.extra'] = extra;
 		if (room_description) query.room_description = room_description;
 		if (available) query.available = available;
+		if (review_description) query.review_description = review_description;
+		if (review_estrellas) query.review_estrellas = review_estrellas;
 
-		const updatedRoom = await Room.findOneAndUpdate(
-			{ room_number },
-			query,
-			{ new: true }
-		);
+			const updatedRoom = await Room.findOneAndUpdate(
+				{ room_number },
+				query,
+				{ new: true }
+			);
 
 		return res
 			.status(200)
