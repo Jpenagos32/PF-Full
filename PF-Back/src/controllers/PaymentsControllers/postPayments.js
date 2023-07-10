@@ -5,7 +5,7 @@ const { mercadopago } = require('../../utils/mercadoPago');
 const postPayments = async (req, res) => {
 	try {
 		const { identification, total } = req.body;
-		 console.log("identification-> ",identification)
+		console.log("identification-> ", identification)
 		if (!identification) throw new Error('Must be provider identification');
 
 		let roomPay = await NewPayments.findOne({ identification });
@@ -24,22 +24,22 @@ const postPayments = async (req, res) => {
 		}
 
 		const { reservations } = host;
-		console.log("nombre de habitacion -> ", reservations[reservations.length - 1 ].room_name)
+		console.log("nombre de habitacion -> ", reservations[reservations.length - 1].room_name)
 		const preference = {
 			items: [
 				{
-					title: reservations[reservations.length - 1 ].room_name,
+					title: reservations[reservations.length - 1].room_name,
 					unit_price: total,
 					quantity: 1,
 				},
 			],
 			back_urls: {
-				success: 'http://localhost:3001/payments/success',
-				failure: 'http://localhost:3001/payments/failure',
-				// success:
-				// 	'https://sunsetsandsdev.adaptable.app/payments/success',
-				// failure:
-				// 	'https://sunsetsandsdev.adaptable.app/payments/failure',
+				// success: 'http://localhost:3001/payments/success',
+				// failure: 'http://localhost:3001/payments/failure',
+				success:
+					'https://sunsetsandsdev.adaptable.app/payments/success',
+				failure:
+					'https://sunsetsandsdev.adaptable.app/payments/failure',
 			},
 		};
 
