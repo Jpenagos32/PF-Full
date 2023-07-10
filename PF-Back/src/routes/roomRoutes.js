@@ -13,11 +13,14 @@ const {
 	validateDeleteRooms,
 } = require('../libraries/validators/roomValidator');
 const validationMessages = require('../libraries/validators/validationMessages');
+const adminRoutes = require('./adminRoutes');
 
 roomRoutes.get('/', validateGetRoom, validationMessages, getRooms);
+roomRoutes.use('/admin', adminRoutes)
 roomRoutes.get('/:room_type', getRoomsDetail);
 roomRoutes.post('/', validatePostRooms, validationMessages, postRooms);
 roomRoutes.put('/', validatePutRooms, validationMessages, putRooms);
 roomRoutes.delete('/', validateDeleteRooms, validationMessages, deleteRooms);
+
 
 module.exports = roomRoutes;
