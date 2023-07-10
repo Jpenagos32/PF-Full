@@ -10,6 +10,7 @@ const validatePostPayments = [
 	body('identification')
 		.escape()
 		.notEmpty()
+		.isString()
 		.withMessage('Must provide an identification'),
 	body('total')
 		.toInt()
