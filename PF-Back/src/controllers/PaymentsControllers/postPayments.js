@@ -5,7 +5,7 @@ const { mercadopago } = require('../../utils/mercadoPago');
 const postPayments = async (req, res) => {
 	try {
 		const { identification, total } = req.body;
-		// console.log("identification-> ",identification)
+		 console.log("identification-> ",identification)
 		if (!identification) throw new Error('Must be provider identification');
 
 		let roomPay = await NewPayments.findOne({ identification });
@@ -18,12 +18,13 @@ const postPayments = async (req, res) => {
 		}
 
 		const host = await Host.findOne({ identification });
+		console.log("huesped-> ", host)
 		if (!host) {
 			return res.status(404).json({ error: 'Unregistered user' });
 		}
 
 		const { reservations } = host;
-		//  console.log(room_details.room_type)
+		console.log("nombre de habitacion -> ", reservations[reservations.length - 1 ].room_name)
 		const preference = {
 			items: [
 				{
