@@ -1,27 +1,89 @@
-import React from 'react'
+import React, { useState } from "react";
+import { Tabs, Tab, createTheme, Grid, Typography, Box } from "@mui/material";
+import MyProfile from "./MyProfile";
+import MyBookings from "./MyBookings";
 
 const User = ({ userData }) => {
+  const [selectedTab, setSelectedTab] = useState(0);
+
+  const handleTabChange = (event, newValue) => {
+    setSelectedTab(newValue);
+  };
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#9A98FE",
+      },
+      text: {
+        primary: "#868688",
+      },
+    },
+  });
+
   return (
-    <div>
-    
-    <h2>My Account</h2>
-    <h2>soy un user</h2>
-    {userData ? (
-      <div>
-        <p>Email: {userData.user_email}</p>
-        <p>First Name: {userData.user_first_name}</p>
-        <p>Last Name: {userData.user_last_name}</p>
-        <p>Phone: {userData.phone}</p>
-        <p>Billing Address: {userData.billing.billing_address}</p>
-        <p>City: {userData.billing.city}</p>
-        <p>Country: {userData.billing.country}</p>
-        <p>Zip Code: {userData.billing.zip_code}</p>
+    <Grid
+      container
+      justifyContent="center"
+      sx={{ width: "auto", backgroundColor: "#FAFAFF" }}
+    >
+      <div style={{ width: "80%", margin: "20px" }}>
+        <Box sx={{ padding: 2 }}>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "25px",
+              fontWeight: "bold",
+              color: "#0400CB",
+              textAlign: "start",
+              marginTop: "-2%",
+              marginLeft: "-15.7px",
+            }}
+          >
+            Welcome,
+            <Box component="span" sx={{ marginLeft: "15px" }}>
+              {userData.user_first_name}
+            </Box>
+          </Typography>
+        </Box>
+        <Tabs
+          value={selectedTab}
+          onChange={handleTabChange}
+          textColor="primary"
+          indicatorColor="primary"
+          sx={{
+            borderRadius : "5px",
+            width: "125%"
+          }}
+        >
+          <Tab
+            label="My Profile"
+            sx={{
+              backgroundColor: "#F3F3F7",
+              color: "#868688",
+              "&.Mui-selected": {
+                color: "#9A98FE",
+                backgroundColor: "#EFEEFF",
+              },
+            }}
+          />
+          <Tab
+            label="My Bookings"
+            sx={{
+              backgroundColor: "#F3F3F7",
+              color: "#868688",
+              "&.Mui-selected": {
+                color: "#9A98FE",
+                backgroundColor: "#EFEEFF",
+              },
+            }}
+          />
+        </Tabs>
+        {selectedTab === 0 && < MyProfile userData={userData} />}
+        {selectedTab === 1 && <MyBookings userData={userData} />}
       </div>
-    ) : (
-      <p>Loading...</p>
-    )}
-    </div>
-  )
-}
+    </Grid>
+    
+  );
+};
 
 export default User;

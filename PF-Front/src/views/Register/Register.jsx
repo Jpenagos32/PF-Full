@@ -258,7 +258,7 @@ const Register = () => {
                 color="textSecondary"
                 sx={{ marginTop: "8px" }}
               >
-                Requisitos de la contraseña:
+                Password Requirements::
                 {/* Aquí puedes listar los requisitos de la contraseña */}
                 <ul>
                   <li>Password Must Be 6 to 15 Characters</li>
