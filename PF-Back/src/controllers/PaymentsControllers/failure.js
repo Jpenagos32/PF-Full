@@ -18,7 +18,7 @@ const failurePayment = async (req, res) => {
 
            notification(hostNotification);
 
-        res.status(200).json({ message: 'Rejected' })
+           res.redirect('http://sunsetsandsdev.vercel.app/rejected');
     } catch (error) {
         res.status(400).json({ error })
     }
