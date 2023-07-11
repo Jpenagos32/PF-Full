@@ -20,7 +20,7 @@ const successPayment = async (req, res) => {
 
            notification(hostNotification);
 
-        res.status(200).json({ message: 'Payment successful' })
+        res.redirect('http://sunsetsandsdev.vercel.app/success');
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
