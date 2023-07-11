@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from 'axios';
-import { Pagination, Switch } from '@mui/material';
+import { Pagination, Snackbar, Switch, Alert } from '@mui/material';
 import dayjs from "dayjs";
 import { differenceInDays, parseISO } from 'date-fns';
 
@@ -19,6 +19,8 @@ export default function SetAvailable() {
   const [disabledRooms, setDisabledRooms] = React.useState([]);//copia anterior de rooms cuando se va cambiando a available mantener el estado true
   const [filteredRooms, setfilteredRooms] = React.useState([]);//roomsdata
   const [roomsData, setRoomData] = React.useState([])
+  const [openAlertSeteada, setOpenAlertSeteada] = React.useState(false);
+  const [openAlertSuccess, setOpenAlertSuccess] = React.useState(false);
   const today = dayjs().toDate();
 
   const rowsPerPage = 4;
@@ -60,15 +62,34 @@ export default function SetAvailable() {
   };
 
   const handleSetAvailable = async (roomNumber) => {
-    try {
-      await axios.put(`/rooms`, {
-        room_number: roomNumber,
-        available: true,
-      });
-      setDisabledRooms((prevDisabledRooms) => [...prevDisabledRooms, roomNumber]);
-    } catch (error) {
-      console.log("Error editing room:", error);
+    if (disabledRooms.includes(roomNumber)) {
+      // La habitación ya está seteada
+      // Mostrar una alerta indicando que la habitación ya está disponible
+      setOpenAlertSeteada(true);
+    } else {
+      try {
+        await axios.put(`/rooms`, {
+          room_number: roomNumber,
+          available: true,
+        });
+        // Actualizar el estado disabledRooms con la nueva habitación seteada
+        setDisabledRooms((prevDisabledRooms) => [...prevDisabledRooms, roomNumber]);
+        // Mostrar una alerta indicando que se actualizó correctamente
+        setOpenAlertSuccess(true);
+      } catch (error) {
+        console.log("Error editing room:", error);
+        // Mostrar una alerta indicando que ocurrió un error al actualizar la habitación
+        setOpenAlertError(true);
+      }
     }
+  };
+
+  const handleAlertSeteadaClose = () => {
+    setOpenAlertSeteada(false);
+  };
+
+  const handleAlertSuccessClose = () => {
+    setOpenAlertSuccess(false);
   };
 
   React.useEffect(() => {
@@ -82,6 +103,24 @@ export default function SetAvailable() {
   }, []);
 
   return (
+<React.Fragment>
+ {/* Snackbar para alerta de habitación ya seteada */}
+ <Snackbar open={openAlertSeteada} autoHideDuration={3000} 
+ onClose={handleAlertSeteadaClose} 
+ anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+        <Alert severity="warning" onClose={handleAlertSeteadaClose}>
+          La habitación ya está seteada como disponible.
+        </Alert>
+      </Snackbar>
+
+      {/* Snackbar para alerta de éxito */}
+      <Snackbar open={openAlertSuccess} 
+      autoHideDuration={3000} onClose={handleAlertSuccessClose} 
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+        <Alert severity="success" onClose={handleAlertSuccessClose}>
+          La habitación se ha actualizado correctamente.
+        </Alert>
+      </Snackbar>
 
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -129,6 +168,7 @@ export default function SetAvailable() {
         onChange={handlePageChange}
       />
     </TableContainer>
-
+  
+    </React.Fragment>
   );
 }
