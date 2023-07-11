@@ -541,8 +541,19 @@ const PutRoomsBoard = ({ roomNum, props }) => {
                 <Button
                     type="submit"
                     variant="contained"
-                    color="primary"
-                    sx={{ marginLeft: "1vw" }}>
+                    sx={{
+                        width: "170px",
+                        borderRadius: "30px",
+                        height: "45px",
+                        color: "#868688",
+                        marginTop: "15px",
+                        marginLeft: "200px",
+                        marginBottom : "50px",
+                        backgroundColor: "#9A98FE",
+                        "&:hover": {
+                          backgroundColor: "#c2c1fe",
+                        },
+                      }}>
                     Modify Room
                 </Button>
             </form>

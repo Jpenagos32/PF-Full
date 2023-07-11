@@ -136,7 +136,6 @@ const PostRooms = () => {
 
             const response = await axios.post("/rooms", requestData);
 
-            console.log(requestData);
             console.log("Respuesta del servidor:", response.data);
 
             // Restablecer los campos del formulario
@@ -569,8 +568,19 @@ const PostRooms = () => {
                 <Button
                     type="submit"
                     variant="contained"
-                    color="primary"
-                    sx={{ marginLeft: "47vw" }}>
+                    sx={{
+                        width: "170px",
+                        borderRadius: "30px",
+                        height: "45px",
+                        color: "#868688",
+                        marginTop: "15px",
+                        marginLeft: "500px",
+                        marginBottom : "50px",
+                        backgroundColor: "#9A98FE",
+                        "&:hover": {
+                          backgroundColor: "#c2c1fe",
+                        },
+                      }}>
                     Create
                 </Button>
             </form>
