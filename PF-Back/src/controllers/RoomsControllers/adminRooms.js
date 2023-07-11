@@ -15,9 +15,18 @@ Manifiesto de funciones:
 const Rooms = require('../../models/Room');
 
 const adminRooms = async (req, res) => {
+    const {room_number} = req.query;
     try {
+        if(room_number){
+            const room = await Rooms.findOne({room_number});
+            if(!room){
+               return res.status(402).send("No room found");
+            }
+            return res.status(200).json({room});
+        }else{
         const adminsRooms = await Rooms.find()
         res.status(200).json({ adminsRooms });
+        }
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
