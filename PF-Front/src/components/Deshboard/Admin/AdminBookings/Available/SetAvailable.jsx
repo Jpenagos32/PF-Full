@@ -20,19 +20,14 @@ export default function SetAvailable() {
   const [filteredRooms, setfilteredRooms] = React.useState([]);//roomsdata
   const [roomsData, setRoomData] = React.useState([])
   const today = dayjs().toDate();
-  console.log('ESTADO LOCAL', filteredRooms)
-  console.log('ROOMSDATA', roomsData)
+
   const rowsPerPage = 4;
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
   const roomNumbersRooms = roomsData.map(room => room.room_number);
   const roomNumbersHosts = hostData.hosts.flatMap(host => host.reservations.map(reservation => reservation.room_number));
-  // const filterdisabledRooms = roomNumbersRooms.filter(roomNumber => roomNumbersHosts.includes(roomNumber));
-  console.log('numero room', roomNumbersRooms)
-  console.log('numero host', roomNumbersHosts)
-  // console.log('macheo d ambnos', filterdisabledRooms)
+
   const reservationData = hostData.hosts.flatMap((host) => host.reservations);
-  console.log('reservation flapmap', reservationData)
   const filteredReservations = reservationData.filter((reservation) => {
     const checkOutDate = parseISO(reservation.room_check_out);
     const daysDifference = differenceInDays(checkOutDate, today);
@@ -77,10 +72,7 @@ export default function SetAvailable() {
   };
 
   React.useEffect(() => {
-    // Filtrar los números de habitación que están presentes tanto en roomsData como en hostData
     const filteredDisabledRooms = roomNumbersRooms.filter(roomNumber => roomNumbersHosts.includes(roomNumber));
-    
-    // Actualizar el estado de disabledRooms
     setDisabledRooms(filteredDisabledRooms);
   }, [roomsData, hostData]);
 
