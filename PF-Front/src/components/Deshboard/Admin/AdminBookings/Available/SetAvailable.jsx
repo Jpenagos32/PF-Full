@@ -103,72 +103,72 @@ export default function SetAvailable() {
   }, []);
 
   return (
-<React.Fragment>
- {/* Snackbar para alerta de habitación ya seteada */}
- <Snackbar open={openAlertSeteada} autoHideDuration={3000} 
- onClose={handleAlertSeteadaClose} 
- anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+    <React.Fragment>
+      {/* Snackbar para alerta de habitación ya seteada */}
+      <Snackbar open={openAlertSeteada} autoHideDuration={3000}
+        onClose={handleAlertSeteadaClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
         <Alert severity="warning" onClose={handleAlertSeteadaClose}>
-        The room is already set as available
+          The room is already set as available
         </Alert>
       </Snackbar>
 
       {/* Snackbar para alerta de éxito */}
-      <Snackbar open={openAlertSuccess} 
-      autoHideDuration={3000} onClose={handleAlertSuccessClose} 
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+      <Snackbar open={openAlertSuccess}
+        autoHideDuration={3000} onClose={handleAlertSuccessClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
         <Alert severity="success" onClose={handleAlertSuccessClose}>
-        The room has been updated successfully
+          The room has been updated successfully
         </Alert>
       </Snackbar>
 
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead sx={{ backgroundColor: "#EFEEFF", borderBottom: "2px solid #9A98FE" }}>
-          <TableRow>
-            <TableCell align="center" sx={{ color: "#0400CB" }}>Room Name</TableCell>
-            <TableCell align="center" sx={{ color: "#0400CB" }}>Room Number</TableCell>
-            <TableCell align="center" sx={{ color: "#0400CB" }}>Check In</TableCell>
-            <TableCell align="center" sx={{ color: "#0400CB" }}>Check Out</TableCell>
-            <TableCell align="center" sx={{ color: "#0400CB" }}>Set Available</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {filteredReservations.slice(startIndex, endIndex).map((reservation, index) => (
-            <TableRow key={index}>
-              <TableCell align="center" sx={{ backgroundColor: index % 2 === 0 ? '#FAFAFF' : '#EFEEFF' }}>
-                {reservation.room_name}
-              </TableCell>
-              <TableCell align="center" sx={{ backgroundColor: index % 2 === 0 ? '#FAFAFF' : '#EFEEFF' }}>
-                {reservation.room_number}
-              </TableCell>
-              <TableCell align="center" sx={{ backgroundColor: index % 2 === 0 ? '#FAFAFF' : '#EFEEFF' }}>
-                {dayjs(reservation.room_check_in).format('YYYY-MM-DD')}
-              </TableCell>
-              <TableCell align="center" sx={{ backgroundColor: index % 2 === 0 ? '#FAFAFF' : '#EFEEFF' }}>
-                {dayjs(reservation.room_check_out).format('YYYY-MM-DD')}
-              </TableCell>
-              <TableCell align="center" sx={{ backgroundColor: index % 2 === 0 ? '#FAFAFF' : '#EFEEFF' }}>
-                <Switch
-                  checked={disabledRooms.includes(reservation.room_number)}
-                  onChange={() => {
-                    handleSetAvailable(reservation.room_number, index)
-                  }
-                  }
-                  color="primary"
-                />
-              </TableCell>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+          <TableHead sx={{ backgroundColor: "#EFEEFF", borderBottom: "2px solid #9A98FE" }}>
+            <TableRow>
+              <TableCell align="center" sx={{ color: "#0400CB" }}>Room Name</TableCell>
+              <TableCell align="center" sx={{ color: "#0400CB" }}>Room Number</TableCell>
+              <TableCell align="center" sx={{ color: "#0400CB" }}>Check In</TableCell>
+              <TableCell align="center" sx={{ color: "#0400CB" }}>Check Out</TableCell>
+              <TableCell align="center" sx={{ color: "#0400CB" }}>Set Available</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <Pagination
-        count={Math.ceil(filteredReservations.length / rowsPerPage)}
-        page={currentPage}
-        onChange={handlePageChange}
-      />
-    </TableContainer>
-  
+          </TableHead>
+          <TableBody>
+            {filteredReservations.slice(startIndex, endIndex).map((reservation, index) => (
+              <TableRow key={index}>
+                <TableCell align="center" sx={{ backgroundColor: index % 2 === 0 ? '#FAFAFF' : '#EFEEFF' }}>
+                  {reservation.room_name}
+                </TableCell>
+                <TableCell align="center" sx={{ backgroundColor: index % 2 === 0 ? '#FAFAFF' : '#EFEEFF' }}>
+                  {reservation.room_number}
+                </TableCell>
+                <TableCell align="center" sx={{ backgroundColor: index % 2 === 0 ? '#FAFAFF' : '#EFEEFF' }}>
+                  {dayjs(reservation.room_check_in).format('YYYY-MM-DD')}
+                </TableCell>
+                <TableCell align="center" sx={{ backgroundColor: index % 2 === 0 ? '#FAFAFF' : '#EFEEFF' }}>
+                  {dayjs(reservation.room_check_out).format('YYYY-MM-DD')}
+                </TableCell>
+                <TableCell align="center" sx={{ backgroundColor: index % 2 === 0 ? '#FAFAFF' : '#EFEEFF' }}>
+                  <Switch
+                    checked={disabledRooms.includes(reservation.room_number)}
+                    onChange={() => {
+                      handleSetAvailable(reservation.room_number, index)
+                    }
+                    }
+                    color="primary"
+                  />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <Pagination
+          count={Math.ceil(filteredReservations.length / rowsPerPage)}
+          page={currentPage}
+          onChange={handlePageChange}
+        />
+      </TableContainer>
+
     </React.Fragment>
   );
 }

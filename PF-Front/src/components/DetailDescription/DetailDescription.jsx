@@ -1,13 +1,11 @@
+import * as React from "react";
 import { Grid, Typography, Card } from "@mui/material";
-import { LoadScript } from "@react-google-maps/api";
-import React from "react";
-const apiKey = "AIzaSyCv7ZMek1DLRWJ1NZbfA2-NfeOPMbEzH2M";
-import GoogleMap from "../../components/GoogleMap/GoogleMap";
 import { useSelector } from "react-redux";
 
-const DetailDescription = () => {
-  const room = useSelector((state) => state.types.types)
 
+const DetailDescription = () => {
+  const { name, room_type, price, room_description, facilities} = useSelector((state) => state.types.types)
+  
   return (
     <div>
       <Card
@@ -30,7 +28,7 @@ const DetailDescription = () => {
                 color: "#868688",
               }}
             >
-              {room.name}
+              {name}
             </Typography>
 
             <Typography
@@ -42,7 +40,7 @@ const DetailDescription = () => {
                 marginTop: "5px",
               }}
             >
-              {room.room_type}
+              {room_type}
             </Typography>
           </Grid>
 
@@ -60,7 +58,7 @@ const DetailDescription = () => {
                 color: "#0400CB",
               }}
             >
-              ${room.price}
+              ${price}
             </Typography>
 
             <Typography
@@ -107,7 +105,7 @@ const DetailDescription = () => {
                 color: "#C2C2C2",
               }}
             >
-              {room.room_description}
+              {room_description}
             </Typography>
             <Typography
               variant="h1"
@@ -123,7 +121,7 @@ const DetailDescription = () => {
 
             <Grid container spacing={1} style={{ marginTop: "0px" }}>
               <Grid item xs={12} sm={6}>
-                {room.facilities.map((facility, index) => (
+                {facilities.map((facility, index) => (
                   <Grid item key={index}>
                     <Typography
                       variant="p"
