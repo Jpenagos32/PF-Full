@@ -8,6 +8,7 @@ const {
 	validatePostPayments,
 } = require('../libraries/validators/paymentsValidator');
 const validationMessages = require('../libraries/validators/validationMessages');
+const getPayments = require('../controllers/PaymentsControllers/getPayments');
 
 paymentsRoutes.post(
 	'/',
@@ -17,5 +18,6 @@ paymentsRoutes.post(
 );
 paymentsRoutes.use('/success', successRoutes);
 paymentsRoutes.use('/failure', failureRoutes);
+paymentsRoutes.get("/", getPayments)
 
 module.exports = paymentsRoutes;

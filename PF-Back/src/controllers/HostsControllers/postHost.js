@@ -50,10 +50,26 @@ const postHost = async (req, res) => {
 				},
 			];
 
-			await Room.findOneAndUpdate(
-				{ room_number: room.room_number },
-				{ $set: { available: false } }
-			);
+			const checkoutDate = new Date(check_out_date);
+			const checkInDate = new Date(check_in_date);
+            const currentDate = new Date();
+            const twoDaysBeforeCheckIn = new Date(checkInDate);
+            twoDaysBeforeCheckIn.setDate(checkInDate.getDate() - 2);
+			
+
+           //con esta logica solo se setea no disponible la habitacion dos dias antes del check_in
+           if (currentDate >= twoDaysBeforeCheckIn && currentDate <= checkoutDate) {
+           await Room.findOneAndUpdate(
+           { room_number: room.room_number },
+           { $set: { available: false } }
+           );
+           }
+
+		//    await Room.findOneAndUpdate(
+		// 	{ room_number: room.room_number },
+		// 	{ $set: { available: false } }
+		//     );
+			
 			await createHost.save();
 
 			const hostNotification = {
