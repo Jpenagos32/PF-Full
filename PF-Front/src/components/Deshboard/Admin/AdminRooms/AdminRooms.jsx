@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Tabs, Tab, createTheme, Grid, Typography } from "@mui/material";
-import PutRooms from "./PutRooms/PutRooms";
+import PutRooms from "./PutRooms/PutRooms.jsx";
 import PostRooms from "./PostRooms/PostRooms";
+import DeleteRooms from "./DeleteRooms/DeleteRooms";
 
 const AdminRooms = () => {
     const [selectedTab, setSelectedTab] = useState(0);
@@ -26,17 +27,6 @@ const AdminRooms = () => {
             justifyContent="center"
             sx={{ width: "auto", backgroundColor: "#FAFAFF" }}>
             <div style={{ width: "100%" }}>
-                <Typography
-                    variant="h1"
-                    sx={{
-                        fontSize: "25px",
-                        fontWeight: "bold",
-                        color: "#0400CB",
-                        textAlign: "Start",
-                        margin: "20px",
-                    }}>
-                    Rooms Dashboard
-                </Typography>
                 <Tabs
                     value={selectedTab}
                     onChange={handleTabChange}
@@ -65,9 +55,21 @@ const AdminRooms = () => {
                             },
                         }}
                     />
+                    <Tab
+                        label="Delete Room"
+                        sx={{
+                            backgroundColor: "#F3F3F7",
+                            color: "red",
+                            "&.Mui-selected": {
+                                color: "#9A98FE",
+                                backgroundColor: "#EFEEFF",
+                            },
+                        }}
+                    />
                 </Tabs>
                 {selectedTab === 0 && <PostRooms />}
                 {selectedTab === 1 && <PutRooms />}
+                {selectedTab === 2 && <DeleteRooms />}
             </div>
         </Grid>
     );
