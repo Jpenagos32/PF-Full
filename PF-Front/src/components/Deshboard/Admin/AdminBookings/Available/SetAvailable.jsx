@@ -109,7 +109,7 @@ export default function SetAvailable() {
  onClose={handleAlertSeteadaClose} 
  anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
         <Alert severity="warning" onClose={handleAlertSeteadaClose}>
-          La habitación ya está seteada como disponible.
+        The room is already set as available
         </Alert>
       </Snackbar>
 
@@ -118,7 +118,7 @@ export default function SetAvailable() {
       autoHideDuration={3000} onClose={handleAlertSuccessClose} 
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
         <Alert severity="success" onClose={handleAlertSuccessClose}>
-          La habitación se ha actualizado correctamente.
+        The room has been updated successfully
         </Alert>
       </Snackbar>
 

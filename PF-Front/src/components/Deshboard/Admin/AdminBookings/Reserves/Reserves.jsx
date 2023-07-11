@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import axios from 'axios';
 import { InputAdornment, Pagination, Stack, TextField } from '@mui/material';
 import { Search } from '@mui/icons-material';
-
+import dayjs from "dayjs";
 
 
 export default function Reserves() {
@@ -17,25 +17,33 @@ export default function Reserves() {
     const [hostData, setHostData] = React.useState({ hosts: [] })
     const [currentPage, setCurrentPage] = React.useState(1);
     const [searchTerm, setSearchTerm] = React.useState("");
-    
 
-    const Page = 10;
-    const totalRows = hostData.hosts.reduce((total, host) => total + host.reservations.length, 0);
-    const totalPages = Math.ceil(totalRows / Page);
-  
+    const rowsPerPage = 3;
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    const paginatedHosts = hostData.hosts.slice(startIndex, endIndex);
+    const totalPages = Math.ceil(hostData.hosts.length / rowsPerPage);
+    // const totalRows = hostData.hosts.reduce((total, host) => total + host.reservations.length, 0);
+    // const totalPages = Math.ceil(totalRows / Page);
+
     const filterHosts = (event) => {
         const { value } = event.target;
-        const filteredHosts = hostData.hosts.map((host) => {
-          const matchingReservations = host.reservations.filter(
-            (reservation) =>
-              reservation.date_in_out.includes(value) ||
-              reservation.reservation_number.includes(value)
-          );
-          return { ...host, reservations: matchingReservations };
-        });
-        setHostData({ hosts: filteredHosts });
+        setSearchTerm(value);
+        if (value === "") {
+          getReservation();
+        } else {
+          const filteredHosts = hostData.hosts.filter((host) => {
+            const fullName = `${host.first_name} ${host.last_name}`.toLowerCase();
+            const searchValue = value.toLowerCase();
+            return fullName.includes(searchValue);
+          });
+          setHostData({ hosts: filteredHosts });
+          if (filteredHosts.length === 0 && currentPage > 1) {
+            setCurrentPage(1);
+          }
+        }
       };
-      
+    
     const getReservation = async () => {
         try {
             const response = await axios.get(`/hosts`)
@@ -51,15 +59,21 @@ export default function Reserves() {
     };
 
     React.useEffect(() => {
-        getReservation()
-    }, []);
+        getReservation();
+      }, []);
 
+      React.useEffect(() => {
+        if (searchTerm !== "" && currentPage > 1) {
+          setCurrentPage(1);
+        }
+      }, [searchTerm]);
+    
     return (
         <did>
             <TextField
                 id="standard-basic"
                 variant="standard"
-                label="Date In-Out #Reserves"
+                label="Search By Name"
                 value={searchTerm}
                 onChange={filterHosts}
                 InputProps={{
@@ -91,7 +105,7 @@ export default function Reserves() {
                     </TableHead>
                     <TableBody>
 
-                        {hostData.hosts.slice((currentPage - 1) * Page, currentPage * Page).map((row, index) => (
+                        {paginatedHosts.map((row, index) => (
 
                             <React.Fragment key={index}>
                                 {row.reservations.map((reservation, resIndex) => (
@@ -133,13 +147,13 @@ export default function Reserves() {
                                             {reservation.room_number}
                                         </TableCell>
                                         <TableCell align="right" sx={{ backgroundColor: index % 2 === 0 ? '#FAFAFF' : '#EFEEFF' }} >
-                                            {reservation.room_check_in}
+                                        {dayjs(reservation.room_check_in).format('YYYY-MM-DD')}
                                         </TableCell>
                                         <TableCell align="right" sx={{ backgroundColor: index % 2 === 0 ? '#FAFAFF' : '#EFEEFF' }} >
-                                            {reservation.room_check_out}
+                                        {dayjs(reservation.room_check_out).format('YYYY-MM-DD')}
                                         </TableCell>
                                         <TableCell align="right" sx={{ backgroundColor: index % 2 === 0 ? '#FAFAFF' : '#EFEEFF' }} >
-                                            {reservation._id}
+                                           # {reservation._id}
                                         </TableCell>
                                     </TableRow>
                                 ))}
@@ -148,11 +162,7 @@ export default function Reserves() {
                     </TableBody>
                 </Table>
                 <Stack sx={{ backgroundColor: "#F3F3F7", }}>
-                    <Pagination
-                        count={totalPages}
-                        page={currentPage}
-                        onChange={handlePageChange}
-                    />
+                <Pagination count={totalPages} page={currentPage} onChange={handlePageChange} />
                 </Stack>
             </TableContainer>
         </did>
