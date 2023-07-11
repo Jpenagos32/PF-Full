@@ -28,7 +28,7 @@ const Admin = () => {
             container
             justifyContent="center"
             sx={{ width: "auto", backgroundColor: "#FAFAFF" }}>
-            <div style={{ width: "80%", margin: "20px" }}>
+            <div style={{ width: "90%" }}>
                 <Typography
                     variant="h1"
                     sx={{
