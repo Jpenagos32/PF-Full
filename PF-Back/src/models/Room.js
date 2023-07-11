@@ -87,10 +87,10 @@ const roomSchema = new Schema({
 		maxlength: [500, 'Room description must be less than 500 chars'],
 	},
 	review_description: {
-		type: String
+		type: [String]
 	},
 	review_estrellas: {
-		type: Number
+		type: [Number]
 	},
 
 });

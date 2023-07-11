@@ -171,6 +171,14 @@ const validatePutRooms = [
 		// .toBoolean()
 		.isBoolean()
 		.withMessage('Available typeof must be boolean'),
+	body('review_description')
+		.optional()
+		.isArray()
+		.withMessage('review_description must be an array'),
+	body('review_estrellas')
+		.optional()
+		.isArray()
+		.withMessage('review_estrellas must be an array'),
 ];
 
 const validateDeleteRooms = [
