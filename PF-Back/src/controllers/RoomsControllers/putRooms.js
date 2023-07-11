@@ -17,8 +17,6 @@ const Room = require('../../models/Room');
 const putRooms = async (req, res) => {
 	try {
 		const { room_number } = req.body;
-		//console.log("numero de room por -> ",room_number);
-		//console.log("type of room_number -> ",typeof room_number);
 		if (!room_number) throw new Error('Must provide a valid room_number ');
 
 		const {
@@ -37,13 +35,9 @@ const putRooms = async (req, res) => {
 			review_estrellas,
 		} = req.body;
 
-		//console.log(" req.body -> ", req.body)
-
 		const query = {};
-		
 
 		const roomExists = await Room.findOne({ room_number });
-		//console.log("room encontrada->", roomExists);
 		if (!roomExists) {
 			return res.status(404).json({ error: 'Room not found' });
 		}
@@ -57,6 +51,23 @@ const putRooms = async (req, res) => {
 			query.facilities = facilitiesArray;
 		}
 
+		if (review_estrellas) {
+			let review_estrellasArray = [...roomExists.review_estrellas];
+
+			review_estrellas.forEach((estrella) => {
+				review_estrellasArray.push(estrella);
+			});
+			query.review_estrellas = review_estrellasArray;
+		}
+
+		if (review_description) {
+			let review_descriptionArray = [...roomExists.review_description];
+
+			review_description.forEach((review) => {
+				review_descriptionArray.push(review);
+			});
+			query.review_description = review_descriptionArray;
+		}
 
 		if (name) query.name = name;
 		if (price) query.price = price;
@@ -67,17 +78,13 @@ const putRooms = async (req, res) => {
 		if (bathroom2) query['image.bathroom2'] = bathroom2;
 		if (extra) query['image.extra'] = extra;
 		if (room_description) query.room_description = room_description;
-		if (available || available===false) query.available = available;
-		if (review_description) query.review_description = review_description;
-		if (review_estrellas) query.review_estrellas = review_estrellas;
+		if (available || available === false) query.available = available;
 
-		//console.log("objeto query -> ",query)
-
-			const updatedRoom = await Room.findOneAndUpdate(
-				{ room_number },
-				query,
-				{ new: true }
-			);
+		const updatedRoom = await Room.findOneAndUpdate(
+			{ room_number },
+			query,
+			{ new: true }
+		);
 
 		return res
 			.status(200)
