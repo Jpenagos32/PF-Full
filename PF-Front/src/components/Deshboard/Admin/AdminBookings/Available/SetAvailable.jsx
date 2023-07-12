@@ -130,7 +130,7 @@ export default function SetAvailable() {
               <TableCell align="center" sx={{ color: "#0400CB" }}>Room Number</TableCell>
               <TableCell align="center" sx={{ color: "#0400CB" }}>Check In</TableCell>
               <TableCell align="center" sx={{ color: "#0400CB" }}>Check Out</TableCell>
-              <TableCell align="center" sx={{ color: "#0400CB" }}>Set Available</TableCell>
+              {/* <TableCell align="center" sx={{ color: "#0400CB" }}>Set Available</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -148,7 +148,7 @@ export default function SetAvailable() {
                 <TableCell align="center" sx={{ backgroundColor: index % 2 === 0 ? '#FAFAFF' : '#EFEEFF' }}>
                   {dayjs(reservation.room_check_out).format('YYYY-MM-DD')}
                 </TableCell>
-                <TableCell align="center" sx={{ backgroundColor: index % 2 === 0 ? '#FAFAFF' : '#EFEEFF' }}>
+                {/* <TableCell align="center" sx={{ backgroundColor: index % 2 === 0 ? '#FAFAFF' : '#EFEEFF' }}>
                   <Switch
                     checked={disabledRooms.includes(reservation.room_number)}
                     onChange={() => {
@@ -157,7 +157,7 @@ export default function SetAvailable() {
                     }
                     color="primary"
                   />
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             ))}
           </TableBody>
