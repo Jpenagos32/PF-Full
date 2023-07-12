@@ -1,212 +1,64 @@
 import React, { useState } from "react";
-import { TextField, Button, Grid } from "@mui/material";
-import { useDropzone } from "react-dropzone";
+import { Tabs, Tab, createTheme, Grid, Typography } from "@mui/material";
+import PostHotel from "./PostHotel/PostHotel.jsx";
+import PutHotel from "./PutHotel/PutHotel";
 
-const AdminHotel = () => {
-    const [hotelName, setHotelName] = useState("");
-    const [hotelDescription, setHotelDescription] = useState("");
-    const [hotelLogo, setHotelLogo] = useState(null);
-    const [hotelFacade, setHotelFacade] = useState(null);
-    const [hotelLobby, setHotelLobby] = useState(null);
-    const [companyPolicies, setCompanyPolicies] = useState("");
+const AdminRooms = () => {
+    const [selectedTab, setSelectedTab] = useState(0);
 
-    const onDropLogo = (acceptedFiles) => {
-        setHotelLogo(acceptedFiles[0]);
+    const handleTabChange = (event, newValue) => {
+        setSelectedTab(newValue);
     };
-
-    const onDropFacade = (acceptedFiles) => {
-        setHotelFacade(acceptedFiles[0]);
-    };
-
-    const onDropLobby = (acceptedFiles) => {
-        setHotelLobby(acceptedFiles[0]);
-    };
-
-    const { getRootProps: getLogoRootProps, getInputProps: getLogoInputProps } =
-        useDropzone({ onDrop: onDropLogo });
-
-    const {
-        getRootProps: getFacadeRootProps,
-        getInputProps: getFacadeInputProps,
-    } = useDropzone({ onDrop: onDropFacade });
-
-    const {
-        getRootProps: getLobbyRootProps,
-        getInputProps: getLobbyInputProps,
-    } = useDropzone({ onDrop: onDropLobby });
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Aquí va la lógica para enviar los datos del formulario a firebase y a mongo
-    };
+    const theme = createTheme({
+        palette: {
+            primary: {
+                main: "#9A98FE",
+            },
+            text: {
+                primary: "#868688",
+            },
+        },
+    });
 
     return (
-        <form onSubmit={handleSubmit}>
-            <Grid
-                container
-                spacing={2}>
-                <Grid
-                    item
-                    xs={12}
-                    sm={12}
-                    md={6}
-                    lg={6}
-                    xl={6}>
-                    <TextField
-                        label="Hotel Name"
-                        value={hotelName}
-                        onChange={(e) => setHotelName(e.target.value)}
-                        variant="outlined"
-                        fullWidth
-                        margin="normal"
-                        required
-                        inputProps={{
-                            maxLength: 40,
-                        }}
+        <Grid
+            container
+            justifyContent="center"
+            sx={{ width: "auto", backgroundColor: "#FAFAFF" }}>
+            <div style={{ width: "100%" }}>
+                <Tabs
+                    value={selectedTab}
+                    onChange={handleTabChange}
+                    textColor="primary"
+                    indicatorColor="primary">
+                    <Tab
+                        label="Modify Hotel Data"
                         sx={{
-                            margin: "0.5rem",
+                            backgroundColor: "#F3F3F7",
+                            color: "#868688",
+                            "&.Mui-selected": {
+                                color: "#9A98FE",
+                                backgroundColor: "#EFEEFF",
+                            },
                         }}
                     />
-                    <TextField
-                        label="Hotel Description"
-                        value={hotelDescription}
-                        onChange={(e) => setHotelDescription(e.target.value)}
-                        variant="outlined"
-                        fullWidth
-                        margin="normal"
-                        required
-                        inputProps={{
-                            maxLength: 100,
-                        }}
+                    <Tab
+                        label="Create Hotel"
                         sx={{
-                            margin: "0.5rem",
+                            backgroundColor: "#F3F3F7",
+                            color: "#868688",
+                            "&.Mui-selected": {
+                                color: "#9A98FE",
+                                backgroundColor: "#EFEEFF",
+                            },
                         }}
                     />
-                    <TextField
-                        label="Company Policies"
-                        value={companyPolicies}
-                        onChange={(e) => setCompanyPolicies(e.target.value)}
-                        variant="outlined"
-                        fullWidth
-                        margin="normal"
-                        required
-                        inputProps={{
-                            maxLength: 100,
-                        }}
-                        sx={{
-                            margin: "0.5rem",
-                        }}
-                    />
-                </Grid>
-                <Grid
-                    item
-                    xs={12}
-                    sm={12}
-                    md={6}
-                    lg={6}
-                    xl={6}
-                    container
-                    direction="row"
-                    alignItems="center"
-                    spacing={1}>
-                    <div
-                        {...getLogoRootProps()}
-                        style={{
-                            margin: "0.5rem",
-                            minHeight: "100px",
-                            border: "2px dashed #9A98FE",
-                            padding: "1rem",
-                            borderRadius: "10px",
-                            cursor: "pointer",
-                            maxWidth: "15vw",
-                        }}>
-                        <input {...getLogoInputProps()} />
-                        {hotelLogo ? (
-                            <img
-                                src={URL.createObjectURL(hotelLogo)}
-                                alt="Hotel Logo"
-                                style={{
-                                    margin: "0.5rem",
-                                    maxWidth: "15vw",
-                                    maxHeight: "100px",
-                                }}
-                            />
-                        ) : (
-                            <p style={{ margin: 0 }}>
-                                Drag and drop the hotel logo image here, or
-                                click to select
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        {...getFacadeRootProps()}
-                        style={{
-                            margin: "0.5rem",
-                            minHeight: "100px",
-                            border: "2px dashed #9A98FE",
-                            padding: "1rem",
-                            borderRadius: "10px",
-                            cursor: "pointer",
-                            maxWidth: "15vw",
-                        }}>
-                        <input {...getFacadeInputProps()} />
-                        {hotelFacade ? (
-                            <img
-                                src={URL.createObjectURL(hotelFacade)}
-                                alt="Hotel Facade"
-                                style={{
-                                    margin: "0.5rem",
-                                    maxWidth: "15vw",
-                                    maxHeight: "100px",
-                                }}
-                            />
-                        ) : (
-                            <p style={{ margin: 0 }}>
-                                Drag and drop the hotel facade image here, or
-                                click to select
-                            </p>
-                        )}
-                    </div>
-                    <div
-                        {...getLobbyRootProps()}
-                        style={{
-                            margin: "0.5rem",
-                            minHeight: "100px",
-                            border: "2px dashed #9A98FE",
-                            padding: "1rem",
-                            borderRadius: "10px",
-                            cursor: "pointer",
-                            maxWidth: "15vw",
-                        }}>
-                        <input {...getLobbyInputProps()} />
-                        {hotelLobby ? (
-                            <img
-                                src={URL.createObjectURL(hotelLobby)}
-                                alt="Hotel Lobby"
-                                style={{
-                                    margin: "0.5rem",
-                                    maxWidth: "15vw",
-                                    maxHeight: "100px",
-                                }}
-                            />
-                        ) : (
-                            <p style={{ margin: 0 }}>
-                                Drag and drop the hotel lobby image here, or
-                                click to select
-                            </p>
-                        )}
-                    </div>
-                </Grid>
-            </Grid>
-            <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                sx={{ marginLeft: "47vw" }}>
-                Submit
-            </Button>
-        </form>
+                </Tabs>
+                {selectedTab === 1 && <PostHotel />}
+                {selectedTab === 0 && <PutHotel />}
+            </div>
+        </Grid>
     );
 };
 
-export default AdminHotel;
+export default AdminRooms;
