@@ -29,8 +29,8 @@ export default function SubTotal() {
   const [unavailableCheckOut, setUnavailableCheckOut] = React.useState([]);
   const [isSnackbarOpen, setIsSnackbarOpen] = React.useState(false);
 
-  console.log('esot imprimiendo el estado local de dates', unavailableCheckIn)
-  console.log('esot imprimiendo el estado local de dates', unavailableCheckOut)
+  // console.log('esot imprimiendo el estado local de dates', unavailableCheckIn)
+  // console.log('esot imprimiendo el estado local de dates', unavailableCheckOut)
 
   const secondDateMin = startDate ? startDate.add(1, "day") : null;
   const isSecondPickerDisabled = !startDate;
@@ -44,15 +44,15 @@ export default function SubTotal() {
 
   const checkDatesForBlock = () => {
     const roomNumHost = reservationData.filter((num) => num.room_number === room_number)
-    console.log('numero', roomNumHost)
-    console.log('room number host es igual:', roomNumHost)
+    // console.log('numero', roomNumHost)
+    // console.log('room number host es igual:', roomNumHost)
     const reservationDates = roomNumHost.map((reservation) => {
       return {
         checkInDate: dayjs(reservation.room_check_in),
         checkOutDate: dayjs(reservation.room_check_out)
       };
     });
-    console.log('fechas seteadas al formato:', reservationDates)
+    // console.log('fechas seteadas al formato:', reservationDates)
     const unavailableDatesStart = new Set();
     const unavailableDatesEnd = new Set();
 
@@ -62,8 +62,8 @@ export default function SubTotal() {
       unavailableDatesEnd.add(reservation.checkOutDate);
 
 
-      console.log('encontre las fechas', unavailableDatesStart)
-      console.log('Fechas encontradas:', unavailableDatesEnd);
+      // console.log('encontre las fechas', unavailableDatesStart)
+      // console.log('Fechas encontradas:', unavailableDatesEnd);
     });
 
     const checkIn = []
@@ -72,8 +72,8 @@ export default function SubTotal() {
     unavailableDatesStart.forEach((date) => checkIn.push(date))
     unavailableDatesEnd.forEach((date) => checkOut.push(date))
 
-    console.log('soy el array in', checkIn)
-    console.log('soy el array out', checkOut)
+    // console.log('soy el array in', checkIn)
+    // console.log('soy el array out', checkOut)
 
     setUnavailableCheckIn(checkIn);
     setUnavailableCheckOut(checkOut);
@@ -154,7 +154,7 @@ export default function SubTotal() {
     console.log('date dentro de function', date)
     let find = false
     unavailableCheckIn.forEach((i) => {
-      if (i.$D === date.$D && i.$M === date.$M + 1 && i.$y === date.$y ) {
+      if (i.$D === date.$D && i.$M + 1 === date.$M + 1 && i.$y === date.$y ) {
         find = true
       }
     })

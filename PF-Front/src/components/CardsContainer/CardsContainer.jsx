@@ -37,8 +37,6 @@ export default function CardsContainer() {
   const currentCards = roomsToShow
   ? roomsToShow.slice(indexOfFirstCard, indexOfLastCard)
   : [];
-
-  console.log("Contenido de curtCards:", cardsRooms);
   
   const totalPages = roomsToShow
     ? Math.ceil(roomsToShow.length / cardsPerPage)

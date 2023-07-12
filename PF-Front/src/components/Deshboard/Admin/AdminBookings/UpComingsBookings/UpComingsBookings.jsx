@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import axios from 'axios';
 import { Pagination, Snackbar, Switch, Alert } from '@mui/material';
 import dayjs from "dayjs";
-import { differenceInMonths, parseISO } from 'date-fns';
+import { differenceInDays, parseISO } from 'date-fns';
 
 
 export default function UpComingsBookings() {
@@ -29,14 +29,13 @@ export default function UpComingsBookings() {
     const roomNumbersRooms = roomsData.map(room => room.room_number);
     const roomNumbersHosts = hostData.hosts.flatMap(host => host.reservations.map(reservation => reservation.room_number));
 
+   
     const reservationData = hostData.hosts.flatMap((host) => host.reservations);
-
     const filteredReservations = reservationData.filter((reservation) => {
-        const checkOutDate = dayjs(reservation.room_check_out);
-        const currentDatePlusThreeMonths = dayjs().add(1, 'month').startOf('day');
-        return checkOutDate.isAfter(currentDatePlusThreeMonths, 'day');
-      });
-
+      const checkOutDate = parseISO(reservation.room_check_in);
+      const daysDifference = differenceInDays(checkOutDate, today);
+      return daysDifference >= 0 && daysDifference <= 1;
+    });
     const getReservation = async () => {
         try {
             const response = await axios.get(`/hosts`)
@@ -70,7 +69,7 @@ export default function UpComingsBookings() {
             try {
                 await axios.put(`/rooms`, {
                     room_number: roomNumber,
-                    available: true,
+                    available: false,
                 });
                 // Actualizar el estado disabledRooms con la nueva habitación seteada
                 setDisabledRooms((prevDisabledRooms) => [...prevDisabledRooms, roomNumber]);
