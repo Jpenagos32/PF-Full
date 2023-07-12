@@ -14,6 +14,11 @@ import {
     Snackbar,
     Alert,
     Box,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
     Stack,
 } from "@mui/material";
 import { useDropzone } from "react-dropzone";
@@ -22,7 +27,7 @@ import axios from "axios";
 import { app } from "../../../../../Firebase/Firebase.config";
 
 const PutRoomsBoard = ({ roomNum, props }) => {
-    const { available } = props;
+    const { available, active } = props;
     const [roomName, setRoomName] = useState("");
     const [roomType, setRoomType] = useState("");
     const [roomCapacity, setRoomCapacity] = useState(0);
@@ -36,9 +41,26 @@ const PutRoomsBoard = ({ roomNum, props }) => {
     const [roomPrice, setRoomPrice] = useState(0);
     const [openAlert, setOpenAlert] = useState(false);
     const [avai, setAvai] = useState(available);
-
+    const [acti, setActi] = useState(active);
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [confirmActi, setConfirmActi] = useState(false);
     const storage = getStorage(app);
+    const handleSwitchToggle = () => {
+        setActi(!acti);
+        setConfirmActi(!confirmActi);
+        setDialogOpen(true);
+        props.active = !acti;
+    };
 
+    const handleDialogConfirm = () => {
+        setActi(!acti);
+        setConfirmActi(!confirmActi);
+        setDialogOpen(false);
+    };
+
+    const handleDialogCancel = () => {
+        setDialogOpen(false);
+    };
     const uploadImage = async (file) => {
         const storageRef = ref(storage, file.name);
         await uploadBytes(storageRef, file);
@@ -105,6 +127,9 @@ const PutRoomsBoard = ({ roomNum, props }) => {
             if (avai !== available && avai !== undefined && avai !== null) {
                 updatedData.available = avai;
             }
+            if (acti !== active && acti !== undefined && acti !== null) {
+                updatedData.active = acti.toString();
+            }
             if (roomName !== "") {
                 updatedData.name = roomName;
             }
@@ -142,12 +167,13 @@ const PutRoomsBoard = ({ roomNum, props }) => {
                 updatedData.room_description = roomDescription;
             }
 
-            // Agrega las propiedades que se modificaron al objeto requestData
             const requestData = {
                 room_number: +roomNum,
-                available,
+                available: avai,
+                active: acti.toString(),
                 ...updatedData,
             };
+
             console.log(requestData);
             const response = await axios.put("/rooms", requestData);
 
@@ -166,6 +192,7 @@ const PutRoomsBoard = ({ roomNum, props }) => {
             setRoomNumber(roomNum);
             setRoomPrice(0);
             setAvai(available);
+            setActi(active);
 
             setOpenAlert(true);
         } catch (error) {
@@ -176,6 +203,7 @@ const PutRoomsBoard = ({ roomNum, props }) => {
     const handleCloseAlert = () => {
         setOpenAlert(false);
     };
+    const [openDialog, setOpenDialog] = useState(false);
 
     return (
         <Box>
@@ -206,27 +234,45 @@ const PutRoomsBoard = ({ roomNum, props }) => {
                             }}
                             sx={{ margin: "0.5rem" }}
                         />
-
-                        <FormControlLabel
-                            control={
-                                <Switch
-                                    checked={avai}
-                                    onChange={() => {
-                                        setAvai(!avai);
-                                        console.log(avai);
-                                    }}
-                                    color="primary"
-                                />
-                            }
-                            label={
-                                avai === true ? (
-                                    <span>Available</span>
-                                ) : (
-                                    <span>Not available</span>
-                                )
-                            }
-                            sx={{ marginBottom: "1rem" }}
-                        />
+                        <div>
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={avai}
+                                        onChange={() => {
+                                            setAvai(!avai);
+                                            console.log(avai);
+                                        }}
+                                        color="primary"
+                                    />
+                                }
+                                label={
+                                    avai === true ? (
+                                        <span>Available</span>
+                                    ) : (
+                                        <span>Not available</span>
+                                    )
+                                }
+                                sx={{ marginBottom: "1rem" }}
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={acti}
+                                        onChange={handleSwitchToggle}
+                                        color="secondary"
+                                    />
+                                }
+                                label={
+                                    acti === true ? (
+                                        <span>Active</span>
+                                    ) : (
+                                        <span>Not Active</span>
+                                    )
+                                }
+                                sx={{ marginBottom: "1rem" }}
+                            />
+                        </div>
                         <TextField
                             label="Room Name"
                             value={roomName}
@@ -548,15 +594,44 @@ const PutRoomsBoard = ({ roomNum, props }) => {
                         color: "#868688",
                         marginTop: "15px",
                         marginLeft: "200px",
-                        marginBottom : "50px",
+                        marginBottom: "50px",
                         backgroundColor: "#9A98FE",
                         "&:hover": {
-                          backgroundColor: "#c2c1fe",
+                            backgroundColor: "#c2c1fe",
                         },
-                      }}>
+                    }}>
                     Modify Room
                 </Button>
-            </form>
+            </form>{" "}
+            <Dialog
+                open={dialogOpen}
+                onClose={handleDialogCancel}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description">
+                <DialogTitle id="alert-dialog-title">
+                    {"Confirmar cambios"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        {confirmActi
+                            ? "By deactivating this room, it will be disabled throughout the website."
+                            : "By activating this room, it will be available to users throughout the website."}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        onClick={handleDialogCancel}
+                        color="primary">
+                        Cancelar
+                    </Button>
+                    <Button
+                        onClick={handleDialogConfirm}
+                        color="primary"
+                        autoFocus>
+                        Confirmar
+                    </Button>
+                </DialogActions>
+            </Dialog>
             <Snackbar
                 open={openAlert}
                 autoHideDuration={3000}

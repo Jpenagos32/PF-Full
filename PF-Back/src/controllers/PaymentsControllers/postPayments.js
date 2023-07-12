@@ -34,12 +34,12 @@ const postPayments = async (req, res) => {
 				},
 			],
 			back_urls: {
-				// success: 'http://localhost:3001/payments/success',
-				// failure: 'http://localhost:3001/payments/failure',
-				success:
-					'https://sunsetsandsdev.adaptable.app/payments/success',
-				failure:
-					'https://sunsetsandsdev.adaptable.app/payments/failure',
+				success: 'http://localhost:3001/payments/success',
+				failure: 'http://localhost:3001/payments/failure',
+				// success:
+				// 	'https://sunsetsandsdev.adaptable.app/payments/success',
+				// failure:
+				// 	'https://sunsetsandsdev.adaptable.app/payments/failure',
 			},
 		};
 
