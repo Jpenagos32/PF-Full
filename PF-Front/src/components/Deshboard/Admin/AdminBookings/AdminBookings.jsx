@@ -2,6 +2,7 @@ import * as React from 'react';
 import {  Tabs, Tab, createTheme, Card } from '@mui/material';
 import SetAvailable from './Available/SetAvailable';
 import Reserves from './Reserves/Reserves';
+import UpComingsBookings from './UpComingsBookings/UpComingsBookings';
 
 export default function AdminBookings() {
 
@@ -35,8 +36,8 @@ export default function AdminBookings() {
           borderRadius: '8px', 
           marginLeft: '15px'
         }}>
-          {/* <Tab
-            label="Upcomings Bookings"
+          <Tab
+            label="Upcomings Check_Ins"
             sx={{
               backgroundColor: "#F3F3F7",
               color: "#868688",
@@ -46,7 +47,7 @@ export default function AdminBookings() {
               },
               borderRadius: '8px'
             }}
-          /> */}
+          />
           <Tab
           label="Upcomings Check-Outs"
           sx={{
@@ -74,8 +75,10 @@ export default function AdminBookings() {
 
       </Tabs>
     
-      {selectedTab === 0 && <SetAvailable />}
-      {selectedTab === 1 && <Reserves/>}
+      {selectedTab === 0 && <UpComingsBookings/>}
+      {selectedTab === 1 && <SetAvailable />}
+      {selectedTab === 2 && <Reserves/>}
+      
    
     </div>
    </Card>

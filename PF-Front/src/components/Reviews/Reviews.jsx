@@ -8,7 +8,7 @@ import { fetchRoomsData } from "../../redux/actions/roomAction";
 export default function Reviews() {
 const dispatch = useDispatch()
   const rooms = useSelector((state) => state.rooms.rooms);
-  console.log(rooms)
+  
   // const calcularPromedio = () => {
   //   const suma = rooms.review_estrellas.reduce((total, valor) => total + valor, 0);
   //   const promedio = suma / rooms.review_estrellas.length;
