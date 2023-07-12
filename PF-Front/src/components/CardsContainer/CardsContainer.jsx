@@ -35,12 +35,15 @@ export default function CardsContainer() {
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
   const currentCards = roomsToShow
-    ? roomsToShow.slice(indexOfFirstCard, indexOfLastCard)
-    : [];
+  ? roomsToShow.slice(indexOfFirstCard, indexOfLastCard)
+  : [];
 
+  console.log("Contenido de curtCards:", cardsRooms);
+  
   const totalPages = roomsToShow
     ? Math.ceil(roomsToShow.length / cardsPerPage)
     : 0;
+
 
   useEffect(() => {
     setCurrentPage(1);
@@ -80,6 +83,8 @@ export default function CardsContainer() {
                       facilities={room.facilities}
                       room_type={room.room_type}
                       room_number={room.room_number}
+                      review_estrellas={room.review_estrellas}
+                    
                     />
                   </Grid>
                 );

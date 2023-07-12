@@ -10,14 +10,15 @@ import { setLoading } from "../../redux/slices/LodingSlice";
 import SearchBar from "../../components/BarOrder/SearchBar";
 
 
+
 const Home = () => {
   const dispatch = useDispatch();
 
+  
   useEffect(() => {
     dispatch(setLoading(true));
     dispatch(fetchRoomsData());
   }, [dispatch]);
-
   return (
     <Box sx={{ flexGrow: 1, backgroundColor: "#FAFAFF" }}>
       <Grid container spacing={2}>

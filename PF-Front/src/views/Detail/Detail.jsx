@@ -8,6 +8,7 @@ import LinearColor from "../../components/Loading/Linearcolor";
 import SubTotal from "../../components/SubTotal/SubTotal";
 import { setLoading } from "../../redux/slices/LodingSlice";
 import DetailDescription from "../../components/DetailDescription/DetailDescription";
+import Reviews from "../../components/Reviews/Reviews";
 
 export default function Detail() {
   const { room_number } = useParams();
