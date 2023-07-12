@@ -17,6 +17,7 @@ import axios from 'axios';
 import Success from "./components/PaymentsComponents/Sucess";
 import Rejected from "./components/PaymentsComponents/Rejected";
 axios.defaults.baseURL = "https://sunsetsandsdev.adaptable.app";
+// axios.defaults.baseURL = "http://localhost:3001";
 
 const App = () => {
   

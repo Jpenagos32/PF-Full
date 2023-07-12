@@ -66,32 +66,32 @@ const validatePostHost = [
 		.withMessage('The zip code field must have more than 3 characters. ')
 		.notEmpty()
 		.withMessage('Must provide a zip code'),
-	body('check_in_date')
-		.notEmpty()
-		.withMessage('Check in date cannot be empty')
-		.isDate()
-		.withMessage('Must provide a valid check in date')
-		.bail()
-		.custom((value, { req }) => {
-			const checkDate = new Date(value);
-			const actualDate = new Date();
+	// body('check_in_date')
+	// 	.notEmpty()
+	// 	.withMessage('Check in date cannot be empty')
+	// 	.isDate()
+	// 	.withMessage('Must provide a valid check in date')
+	// 	.bail()
+	// 	.custom((value, { req }) => {
+	// 		const checkDate = new Date(value);
+	// 		const actualDate = new Date();
 
-			if (checkDate.getDate() + 1 < actualDate.getDate()) {
-				throw new Error(
-					'The check in date must be equal or later than the actual date'
-				);
-			}
+	// 		if (checkDate.getDate() + 1 < actualDate.getDate()) {
+	// 			throw new Error(
+	// 				'The check in date must be equal or later than the actual date'
+	// 			);
+	// 		}
 
-			const checkOutDate = new Date(req.body.check_out_date);
+	// 		const checkOutDate = new Date(req.body.check_out_date);
 
-			if (checkOutDate < checkDate) {
-				throw new Error(
-					'The check-out date must be after the check-in date.'
-				);
-			}
+	// 		if (checkOutDate < checkDate) {
+	// 			throw new Error(
+	// 				'The check-out date must be after the check-in date.'
+	// 			);
+	// 		}
 
-			return true;
-		}),
+	// 		return true;
+	// 	}),
 
 	// !No eliminar, la solucion de antes es provisional
 	// .custom((value, { req }) => {
@@ -104,14 +104,14 @@ const validatePostHost = [
 	// 	}
 	// 	return true;
 	// }),
-	body('check_out_date')
-		.escape()
-		.notEmpty()
-		.withMessage('Check out date cannot be empty')
-		.isDate()
-		.withMessage('Must provide a valid check out date')
-		.isAfter()
-		.withMessage('The date must be later than the current date '),
+	// body('check_out_date')
+	// 	.escape()
+	// 	.notEmpty()
+	// 	.withMessage('Check out date cannot be empty')
+	// 	.isDate()
+	// 	.withMessage('Must provide a valid check out date')
+	// 	.isAfter()
+	// 	.withMessage('The date must be later than the current date '),
 	body('amount_of_people')
 		.escape()
 		.notEmpty()
