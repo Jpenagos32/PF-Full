@@ -41,6 +41,17 @@ const PutHotel = () => {
                 container
                 columnSpacing={2}
                 marginTop={"20px"}>
+                {" "}
+                <Grid
+                    marginTop={"2rem"}
+                    item
+                    xs={12}
+                    sm={12}
+                    md={12}
+                    lg={6}
+                    xl={6}>
+                    <PutHotelBoard props={hotelData} />
+                </Grid>
                 <Grid
                     marginTop={"2rem"}
                     item
@@ -242,16 +253,6 @@ const PutHotel = () => {
                             )}
                         </CardContent>
                     </Card>
-                </Grid>
-                <Grid
-                    marginTop={"2rem"}
-                    item
-                    xs={12}
-                    sm={12}
-                    md={12}
-                    lg={6}
-                    xl={6}>
-                    <PutHotelBoard props={hotelData} />
                 </Grid>
             </Grid>
         </Box>
