@@ -6,6 +6,7 @@ import CountryList from "react-select-country-list";
 import { useSelector } from "react-redux";
 import { DateContext } from "../../Context/DateContex";
 import { validation } from "./FormValidations";
+import CryptoJS from "crypto-js";
 
 const FormComponent = () => {
   const { startDate, endDate } = useContext(DateContext);
@@ -17,6 +18,7 @@ const FormComponent = () => {
   const amount_of_people = childNumber + adultNumber;
   const countryOptions = CountryList().getData();
   const room = useSelector((state) => state.types.types);
+  const secretKey = "mySecretKey";
 
   const [errors, setErrors] = useState({});
 
@@ -31,7 +33,6 @@ const FormComponent = () => {
     country: "",
     zipCode: "",
   });
-
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -48,6 +49,30 @@ const FormComponent = () => {
     }));
   };
 
+  const processReservations = async (response) => {
+    let reservations = [];
+
+    if (
+      response.data.createHost &&
+      response.data.createHost.reservations &&
+      Array.isArray(response.data.createHost.reservations)
+    ) {
+      reservations = response.data.createHost.reservations;
+    } else if (
+      response.data.hostUpdated &&
+      response.data.hostUpdated.reservations &&
+      Array.isArray(response.data.hostUpdated.reservations)
+    ) {
+      reservations = response.data.hostUpdated.reservations;
+    }
+
+    if (reservations.length > 0) {
+      const lastReservation = reservations[reservations.length - 1];
+      const lastReservationId = lastReservation._id;
+      return lastReservationId;
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -59,39 +84,68 @@ const FormComponent = () => {
       try {
         const PhoneNumber = +formData.phone;
 
-        const requestData = 
-            {
-              identification: formData.identification,
-              first_name : formData.firstName,
-              last_name: formData.lastName,
-              contact :{
-                email : formData.emailAddress,
-                phone : PhoneNumber,
-                address : formData.billingAddress,
-                country : formData.country.label,
-                city : formData.city,
-                zip_code : formData.zipCode
-              },
-              check_in_date : check_in_date,
-              check_out_date : check_out_date,
-              amount_of_people : amount_of_people,
-              type_of_guest : {
-                adult : adultNumber,
-                children : childNumber,
-                baby : 0,
-                pets : 0
-              },
-              room_number : room.room_number 
-            }
+        const requestData = {
+          identification: formData.identification,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          contact: {
+            email: formData.emailAddress,
+            phone: PhoneNumber,
+            address: formData.billingAddress,
+            country: formData.country.label,
+            city: formData.city,
+            zip_code: formData.zipCode,
+          },
+          check_in_date: check_in_date,
+          check_out_date: check_out_date,
+          amount_of_people: amount_of_people,
+          type_of_guest: {
+            adult: adultNumber,
+            children: childNumber,
+            baby: 0,
+            pets: 0,
+          },
+          room_number: room.room_number,
+        };
 
         const requestDataForPay = {
-          total : total,
+          total: total,
           identification: formData.identification,
-        }
-        
+        };
+
         const response = await axios.post("/hosts", requestData);
+        const reservationnumber = await processReservations(response);
+
+        const saveDataToLocalStorage = async () => {
+          const data = {
+            reservationnumber: reservationnumber,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            check_in_date: check_in_date,
+            check_out_date: check_out_date,
+            amount_of_people: amount_of_people,
+            room_number: room.room_number,
+            room_name: room.name,
+            image_bed: room.image.bed,
+            room_type: room.room_type,
+          };
+
+          // Convertir el objeto a una cadena JSON
+          const dataString = JSON.stringify(data);
+
+          // Encriptar los datos utilizando AES
+          const encryptedData = CryptoJS.AES.encrypt(
+            dataString,
+            secretKey
+          ).toString();
+
+          // Guardar los datos encriptados en el localStorage
+          localStorage.setItem("encryptedData", encryptedData);
+        };
 
         if (response.status === 200) {
+          await saveDataToLocalStorage(); // Esperar la finalización de la encriptación
+
           const responsePay = await axios.post("/payments", requestDataForPay);
           const paymentLink = responsePay.data.init_point;
 

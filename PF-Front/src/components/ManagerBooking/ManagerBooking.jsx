@@ -32,7 +32,7 @@ const ReservationInfo = ({ filteredHost, filteredBooking }) => {
         marginTop: "50px",
         marginLeft: {
           xs: "5%",
-          sm: "22%",
+          sm: "30%",
         },
         padding: "20px",
         paddingLeft: "25px",
