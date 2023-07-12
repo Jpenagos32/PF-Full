@@ -17,6 +17,7 @@ import { app } from "../../../../../Firebase/Firebase.config";
 const PutHotelBoard = ({ props }) => {
     const { translator, tourist_guide, niu } = props;
     const [hotelName, setHotelName] = useState("");
+    const [hotelCancelation, setHotelCancelation] = useState("");
     const [hotelNIU, setHotelNIU] = useState(niu);
     const [translatorChecked, setTranslatorChecked] = useState(
         translator || false
@@ -88,7 +89,7 @@ const PutHotelBoard = ({ props }) => {
     const [receptionImage, setReceptionImage] = useState(null);
     const [poolImage, setPoolImage] = useState(null);
     const [restaurantImage, setRestaurantImage] = useState(null);
-    const [meetingRoomImage, setMeetingRoomlImage] = useState(null);
+    const [meetingRoomImage, setMeetingRoomImage] = useState(null);
     const [barImage, setBarImage] = useState(null);
     const [logoImage, setLogoImage] = useState(null);
 
@@ -205,6 +206,13 @@ const PutHotelBoard = ({ props }) => {
             ) {
                 updatedData.name = hotelName;
             }
+            if (
+                hotelCancelation !== "" &&
+                hotelCancelation !== null &&
+                hotelCancelation !== undefined
+            ) {
+                updatedData.cancelation = hotelCancelation;
+            }
 
             if (translatorChecked !== translator) {
                 updatedData.translator = translatorChecked.toString();
@@ -311,6 +319,20 @@ const PutHotelBoard = ({ props }) => {
                             label="Hotel Name"
                             value={hotelName || ""}
                             onChange={(e) => setHotelName(e.target.value)}
+                            variant="outlined"
+                            fullWidth
+                            margin="normal"
+                            inputProps={{
+                                maxLength: 40,
+                            }}
+                            sx={{ margin: "0.5rem" }}
+                        />
+                        <TextField
+                            label="Hotel Policies"
+                            value={hotelCancelation || ""}
+                            onChange={(e) =>
+                                setHotelCancelation(e.target.value)
+                            }
                             variant="outlined"
                             fullWidth
                             margin="normal"

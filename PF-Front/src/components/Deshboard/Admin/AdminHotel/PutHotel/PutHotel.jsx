@@ -59,6 +59,10 @@ const PutHotel = () => {
                             <Typography variant="body1">
                                 NIU: {hotelData.niu}
                             </Typography>
+                            <br />{" "}
+                            <Typography variant="body1">
+                                Cancelation Policies: {hotelData.cancelation}
+                            </Typography>
                             <br />
                             <Typography variant="body1">
                                 Translator:{" "}
