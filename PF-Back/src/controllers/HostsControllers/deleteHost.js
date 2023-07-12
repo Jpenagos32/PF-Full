@@ -18,6 +18,7 @@ const deleteHost = async (req, res) => {
 	try {
 		const { id } = req.params;
 		const status = await Hosts.findOne({ identification: id });
+		console.log(status.active)
 		if (!status.active) {
 			return res
 				.status(200)
@@ -27,11 +28,13 @@ const deleteHost = async (req, res) => {
 			{ identification: id },
 			{ active: false }
 		);
-		if (host.length === 0) {
+		
+		if (!host) {
 			return res.status(404).json({ error: 'Huésped no encontrado' });
 		}
+		
 		const room = await Room.findOneAndUpdate(
-			{ room_number: host.room_details.room_number },
+			{ room_number: host.reservations[0].room_number},
 			{ available: true }
 		);
 		res.status(200).json({
