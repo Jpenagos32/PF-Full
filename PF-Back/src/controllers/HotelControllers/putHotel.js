@@ -11,26 +11,6 @@ cambiar la forma en que se reciben los datos debemos obtener las keys del objeto
 	1-putHotel= Metodo encargado de actualizar los datos básicos del Hotel.
 ===============================================================================================================================
 */
-/* 
-TODO se pueden actualizar los siguientes datos:
-- name
-- images.reception
-- images.pool
-- images.views.aerial
-- images.views.lake
-- images.views.garden
-- images.views.mountain
-- images.views.beach
-- images.views.city
-- images.restaurant
-- images.meeting_room
-- images.bar
-- images.logo
-- translator
-- tourist_guide
-
-*/
-
 const Hotel = require('../../models/Hotel');
 
 const putHotel = async (req, res) => {

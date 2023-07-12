@@ -179,6 +179,10 @@ const validatePutRooms = [
 		.optional()
 		.isArray()
 		.withMessage('review_estrellas must be an array'),
+	body('active')
+		.optional()
+		.isBoolean()
+		.withMessage('active must be a boolean'),
 ];
 
 const validateDeleteRooms = [
