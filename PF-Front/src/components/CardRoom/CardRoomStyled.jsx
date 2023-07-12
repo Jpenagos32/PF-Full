@@ -9,6 +9,7 @@ export const linkStyle = {
 
 export const StyledCardContent = styled(CardContent)`
   background-color: #ededed;
+  
 `;
 
 export const StyledDivider = styled(Divider)`
