@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 
-    adult: 0,
+    adult: 1,
     child: 0,
     persons: 0,
     numberooms: 1,

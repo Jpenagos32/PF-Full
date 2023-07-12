@@ -23,54 +23,66 @@ export default function SubTotal() {
   const { startDate, endDate, setDateRange } = React.useContext(DateContext);
   const { child, adult, numberooms, nights } = useSelector((state) => state.booking);
   const { price, room_number } = useSelector((state) => state.types.types);
+
   const [hostData, setHostData] = React.useState({ hosts: [] })
-  const [unavailableDates, setUnavailableDates] = React.useState(new Set());
+  const [unavailableCheckIn, setUnavailableCheckIn] = React.useState([]);
+  const [unavailableCheckOut, setUnavailableCheckOut] = React.useState([]);
   const [isSnackbarOpen, setIsSnackbarOpen] = React.useState(false);
-console.log(room_number)
+
+  console.log('esot imprimiendo el estado local de dates', unavailableCheckIn)
+  console.log('esot imprimiendo el estado local de dates', unavailableCheckOut)
+
   const secondDateMin = startDate ? startDate.add(1, "day") : null;
   const isSecondPickerDisabled = !startDate;
   const childNumber = +child;
   const adultNumber = +adult;
   const today = dayjs();
+ 
 
   const reservationData = hostData.hosts.flatMap((host) => host.reservations);
 
-const  convertDataHostIn = dayjs(reservationData.room_check_in).format('YYYY-MM-DD')
-const  convertDataHostOut = dayjs(reservationData.room_check_out).format('YYYY-MM-DD')
-console.log(convertDataHostOut)
-console.log(convertDataHostIn)
 
-  const checkAvailability = () => {
-    if (!startDate || !endDate) {
-      console.log("Start date or end date is not selected");
-      return;
-    }
-    const reservations = reservationData.filter((reservation) => {
-      const checkInDate = dayjs(reservation.room_check_in)?.startOf('day');
-      const checkOutDate = dayjs(reservation.room_check_out)?.startOf('day');
-      const selectedStartDate = startDate.startOf('day');
-      const selectedEndDate = endDate.startOf('day');
-      
-      return (
-        checkInDate?.isSame(selectedStartDate) &&
-        checkOutDate?.isSame(selectedEndDate)
-      );
+  const checkDatesForBlock = () => {
+    const roomNumHost = reservationData.filter((num) => num.room_number === room_number)
+    console.log('numero', roomNumHost)
+    console.log('room number host es igual:', roomNumHost)
+    const reservationDates = roomNumHost.map((reservation) => {
+      return {
+        checkInDate: dayjs(reservation.room_check_in),
+        checkOutDate: dayjs(reservation.room_check_out)
+      };
     });
-        console.log(reservations)
+    console.log('fechas seteadas al formato:', reservationDates)
+    const unavailableDatesStart = new Set();
+    const unavailableDatesEnd = new Set();
 
-    if (reservations.length > 0) {
-      const dates = reservations.map((reservation) => reservation.room_check_in);
-      setUnavailableDates(new Set(dates));
-      setIsSnackbarOpen(true);
-    } else {
-      setUnavailableDates(new Set());
-      setIsSnackbarOpen(false);
-    }
-  };
+
+    reservationDates.forEach((reservation) => {
+      unavailableDatesStart.add(reservation.checkInDate);
+      unavailableDatesEnd.add(reservation.checkOutDate);
+
+
+      console.log('encontre las fechas', unavailableDatesStart)
+      console.log('Fechas encontradas:', unavailableDatesEnd);
+    });
+
+    const checkIn = []
+    const checkOut = []
+
+    unavailableDatesStart.forEach((date) => checkIn.push(date))
+    unavailableDatesEnd.forEach((date) => checkOut.push(date))
+
+    console.log('soy el array in', checkIn)
+    console.log('soy el array out', checkOut)
+
+    setUnavailableCheckIn(checkIn);
+    setUnavailableCheckOut(checkOut);
+
+  }
 
   React.useEffect(() => {
-    checkAvailability();
-  }, [startDate, endDate]);
+    checkDatesForBlock()
+  }, [startDate, endDate, hostData.hosts]);
 
   const fetchHostData = async () => {
     try {
@@ -137,6 +149,32 @@ console.log(convertDataHostIn)
     return 0;
   };
 
+  const shouldDisableDateIn = (date) => {
+    
+    console.log('date dentro de function', date)
+    let find = false
+    unavailableCheckIn.forEach((i) => {
+      if (i.$D === date.$D && i.$M === date.$M + 1 && i.$y === date.$y ) {
+        find = true
+      }
+    })
+    console.log('soy find', find)
+    return find
+  };
+  
+  const shouldDisableDateout = (date) => {
+    
+    console.log('date dentro de function', date)
+    let find = false
+    unavailableCheckOut.forEach((i) => {
+      if (i.$D === date.$D && i.$M === date.$M + 1 && i.$y === date.$y ) {
+        find = true
+      }
+    })
+    console.log('soy find', find)
+    return find
+  };
+
   return (
     <div>
       <Snackbar
@@ -190,7 +228,7 @@ console.log(convertDataHostIn)
                 label="Check In"
                 value={startDate}
                 minDate={today}
-                shouldDisableDate={(date) => unavailableDates.has(date.format("YYYY-MM-DD"))}
+                shouldDisableDate={(date) => shouldDisableDateIn(date)}
                 onChange={handleStartDateChange}
               />
             </DemoContainer>
@@ -199,7 +237,7 @@ console.log(convertDataHostIn)
                 label="Check Out"
                 value={endDate}
                 minDate={secondDateMin}
-                shouldDisableDate={(date) => unavailableDates.has(date.format("YYYY-MM-DD"))}
+                shouldDisableDate={(date) => shouldDisableDateout(date)}
                 onChange={handleEndDateChange}
                 disabled={isSecondPickerDisabled}
               />
