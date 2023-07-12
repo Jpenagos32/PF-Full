@@ -33,6 +33,7 @@ const putRooms = async (req, res) => {
 			available,
 			review_description,
 			review_estrellas,
+			active,
 		} = req.body;
 
 		const query = {};
@@ -79,6 +80,7 @@ const putRooms = async (req, res) => {
 		if (extra) query['image.extra'] = extra;
 		if (room_description) query.room_description = room_description;
 		if (available || available === false) query.available = available;
+		if (active) query.active = active;
 
 		const updatedRoom = await Room.findOneAndUpdate(
 			{ room_number },

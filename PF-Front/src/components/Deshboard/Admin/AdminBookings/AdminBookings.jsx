@@ -3,7 +3,6 @@ import {  Tabs, Tab, createTheme, Card } from '@mui/material';
 import SetAvailable from './Available/SetAvailable';
 import Reserves from './Reserves/Reserves';
 
-
 export default function AdminBookings() {
 
   const [selectedTab, setSelectedTab] = React.useState(0);
@@ -36,9 +35,20 @@ export default function AdminBookings() {
           borderRadius: '8px', 
           marginLeft: '15px'
         }}>
-
+          {/* <Tab
+            label="Upcomings Bookings"
+            sx={{
+              backgroundColor: "#F3F3F7",
+              color: "#868688",
+              "&.Mui-selected": {
+                color: "#9A98FE",
+                backgroundColor: "#EFEEFF",
+              },
+              borderRadius: '8px'
+            }}
+          /> */}
           <Tab
-          label="Upcoming Check-Out"
+          label="Upcomings Check-Outs"
           sx={{
             backgroundColor: "#F3F3F7",
             color: "#868688",
@@ -50,7 +60,7 @@ export default function AdminBookings() {
           }}
         />
           <Tab
-          label="List Reserves"
+          label="Reserves List"
           sx={{
             backgroundColor: "#F3F3F7",
             color: "#868688",
@@ -63,11 +73,10 @@ export default function AdminBookings() {
         />
 
       </Tabs>
-
+    
       {selectedTab === 0 && <SetAvailable />}
       {selectedTab === 1 && <Reserves/>}
    
-
     </div>
    </Card>
   );

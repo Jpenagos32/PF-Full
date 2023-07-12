@@ -16,7 +16,7 @@ const RegisteredUsers = require('../../models/RegisteredUsers');
 
 const putRegisteredUsers = async (req, res) => {
 	try {
-		const { name, last_name, email, id } = req.body;
+		const { name, last_name, email, id, phone, billing_adress, city, zip_code, country } = req.body;
 		const query = {};
 		let userUpdated;
 
@@ -32,6 +32,12 @@ const putRegisteredUsers = async (req, res) => {
 			if (!email) throw new Error('Must provide an email or an id');
 			if (name) query.user_first_name = name;
 			if (last_name) query.user_last_name = last_name;
+			if (phone) query.phone = phone;
+			if (billing_adress) query.billing_adress = billing_adress;
+			if (city) query.city = city;
+			if (zip_code) query.zip_code = zip_code;
+			if (country) query.country = country;
+
 
 			userUpdated = await RegisteredUsers.findOneAndUpdate(
 				{

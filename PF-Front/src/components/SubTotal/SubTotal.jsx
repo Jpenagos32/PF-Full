@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { Card, Typography, Button, Grid, TextField } from "@mui/material";
+import * as React from "react";
+import { Card, Typography, Button, Grid, TextField, Snackbar, Alert } from "@mui/material";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -16,19 +16,72 @@ import {
 } from "../../redux/slices/bookingSlice";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 export default function SubTotal() {
   const dispatch = useDispatch();
-  const { startDate, endDate, setDateRange } = useContext(DateContext);
-  const { child, adult, numberooms, nights } = useSelector(
-    (state) => state.booking
-  );
-  const { price } = useSelector((state) => state.types.types);
-  const today = dayjs();
+  const { startDate, endDate, setDateRange } = React.useContext(DateContext);
+  const { child, adult, numberooms, nights } = useSelector((state) => state.booking);
+  const { price, room_number } = useSelector((state) => state.types.types);
+  const [hostData, setHostData] = React.useState({ hosts: [] })
+  const [unavailableDates, setUnavailableDates] = React.useState(new Set());
+  const [isSnackbarOpen, setIsSnackbarOpen] = React.useState(false);
+console.log(room_number)
   const secondDateMin = startDate ? startDate.add(1, "day") : null;
   const isSecondPickerDisabled = !startDate;
   const childNumber = +child;
   const adultNumber = +adult;
+  const today = dayjs();
+
+  const reservationData = hostData.hosts.flatMap((host) => host.reservations);
+
+const  convertDataHostIn = dayjs(reservationData.room_check_in).format('YYYY-MM-DD')
+const  convertDataHostOut = dayjs(reservationData.room_check_out).format('YYYY-MM-DD')
+console.log(convertDataHostOut)
+console.log(convertDataHostIn)
+
+  const checkAvailability = () => {
+    if (!startDate || !endDate) {
+      console.log("Start date or end date is not selected");
+      return;
+    }
+    const reservations = reservationData.filter((reservation) => {
+      const checkInDate = dayjs(reservation.room_check_in)?.startOf('day');
+      const checkOutDate = dayjs(reservation.room_check_out)?.startOf('day');
+      const selectedStartDate = startDate.startOf('day');
+      const selectedEndDate = endDate.startOf('day');
+      
+      return (
+        checkInDate?.isSame(selectedStartDate) &&
+        checkOutDate?.isSame(selectedEndDate)
+      );
+    });
+        console.log(reservations)
+
+    if (reservations.length > 0) {
+      const dates = reservations.map((reservation) => reservation.room_check_in);
+      setUnavailableDates(new Set(dates));
+      setIsSnackbarOpen(true);
+    } else {
+      setUnavailableDates(new Set());
+      setIsSnackbarOpen(false);
+    }
+  };
+
+  React.useEffect(() => {
+    checkAvailability();
+  }, [startDate, endDate]);
+
+  const fetchHostData = async () => {
+    try {
+      const response = await axios(`/hosts`);
+      const hostsData = response.data;
+      setHostData(hostsData);
+    } catch (error) {
+      console.error("Error al obtener los datos:", error)
+    }
+  }
+
 
   const subTotal = price * nights * numberooms * (childNumber + adultNumber);
   const handleStartDateChange = (date) => {
@@ -52,17 +105,22 @@ export default function SubTotal() {
     }
   };
 
-  const handleRoomsChange = (event) => {
-    const { value } = event.target;
-    if (value === "" || (Number(value) > 0 && !value.includes("-"))) {
-      dispatch(countRooms(value));
-    }
-  };
+  // const handleRoomsChange = (event) => {
+  //   const { value } = event.target;
+  //   if (value === "" || (Number(value) > 0 && !value.includes("-"))) {
+  //     dispatch(countRooms(value));
+  //   }
+  // };
+
   const handleTotaLClik = () => {
     dispatch(calculateTotal(subTotal));
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
+    fetchHostData()
+  }, []);
+
+  React.useEffect(() => {
     if (startDate && endDate) {
       const count = countSelectedDays();
       dispatch(countNights(count));
@@ -81,6 +139,15 @@ export default function SubTotal() {
 
   return (
     <div>
+      <Snackbar
+        open={isSnackbarOpen}
+        autoHideDuration={5000}
+        onClose={() => setIsSnackbarOpen(false)}
+      >
+        <Alert severity="warning">
+          Selected dates are not available.
+        </Alert>
+      </Snackbar>
       <Card
         elevation={0}
         sx={{
@@ -123,6 +190,7 @@ export default function SubTotal() {
                 label="Check In"
                 value={startDate}
                 minDate={today}
+                shouldDisableDate={(date) => unavailableDates.has(date.format("YYYY-MM-DD"))}
                 onChange={handleStartDateChange}
               />
             </DemoContainer>
@@ -131,6 +199,7 @@ export default function SubTotal() {
                 label="Check Out"
                 value={endDate}
                 minDate={secondDateMin}
+                shouldDisableDate={(date) => unavailableDates.has(date.format("YYYY-MM-DD"))}
                 onChange={handleEndDateChange}
                 disabled={isSecondPickerDisabled}
               />
