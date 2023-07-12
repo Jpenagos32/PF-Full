@@ -14,7 +14,6 @@ import SearchBar from "../../components/BarOrder/SearchBar";
 const Home = () => {
   const dispatch = useDispatch();
 
-  
   useEffect(() => {
     dispatch(setLoading(true));
     dispatch(fetchRoomsData());
