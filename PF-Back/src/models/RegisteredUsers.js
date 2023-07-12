@@ -27,22 +27,24 @@ const registeredUsers = new Schema({
 		required: false,
 		min: 5,
 	},
-	billing_adress: {
-		type: String,
-		required: false,
-	},
-	city: {
-		type: String,
-		required: false,
-	},
-	zip_code: {
-		type: String,
-		required: false,
-		min: 2,
-	},
-	country: {
-		type: String,
-		required: false,
+	billing: {
+		billing_adress: {
+			type: String,
+			required: false,
+		},
+		city: {
+			type: String,
+			required: false,
+		},
+		zip_code: {
+			type: String,
+			required: false,
+			min: 2,
+		},
+		country: {
+			type: String,
+			required: false,
+		},
 	},
 	user_type: {
 		type: [
