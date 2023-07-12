@@ -1,22 +1,22 @@
 const { query, body } = require('express-validator');
 
 const validatePostUsers = [
-	body('user_first_name')
-		.escape()
-		.notEmpty()
-		.withMessage('Must provide a name')
-		.isLength({ max: 50, min: 3 })
-		.withMessage(
-			'Name length must be lower than 50 and greater than 3 chars'
-		),
-	body('user_last_name')
-		.escape()
-		.notEmpty()
-		.withMessage('Must provide a last name')
-		.isLength({ max: 50, min: 3 })
-		.withMessage(
-			'Last name length must be lower than 50 and greater than 3 chars'
-		),
+	// body('user_first_name')
+	// 	.escape()
+	// 	.notEmpty()
+	// 	.withMessage('Must provide a name')
+	// 	.isLength({ max: 50, min: 3 })
+	// 	.withMessage(
+	// 		'Name length must be lower than 50 and greater than 3 chars'
+	// 	),
+	// body('user_last_name')
+	// 	.escape()
+	// 	.notEmpty()
+	// 	.withMessage('Must provide a last name')
+	// 	.isLength({ max: 50, min: 3 })
+	// 	.withMessage(
+	// 		'Last name length must be lower than 50 and greater than 3 chars'
+	// 	),
 	body('user_email')
 		.escape()
 		.notEmpty()
@@ -24,29 +24,29 @@ const validatePostUsers = [
 		.normalizeEmail()
 		.isEmail()
 		.withMessage('E-mail must be a valid E-mail'),
-	body('phone')
-		.notEmpty()
-		.withMessage('Must provide a phone number')
-		.isMobilePhone()
-		.withMessage('Must provide a valid phone number'),
-	body('billing.billing_adress')
-		.escape()
-		.notEmpty()
-		.withMessage('Must provide a billing address'),
-	body('billing.city')
-		.escape()
-		.notEmpty()
-		.withMessage('Must provide a city name'),
-	body('billing.zip_code')
-		.escape()
-		.notEmpty()
-		.withMessage('Must provide a zip code')
-		.isLength({ min: 2 })
-		.withMessage('Zip code length must be greater than 2 chars'),
-	body('billing.country')
-		.escape()
-		.notEmpty()
-		.withMessage('Must provide a Country name'),
+	// body('phone')
+	// 	.notEmpty()
+	// 	.withMessage('Must provide a phone number')
+	// 	.isMobilePhone()
+	// 	.withMessage('Must provide a valid phone number'),
+	// body('billing.billing_adress')
+	// 	.escape()
+	// 	.notEmpty()
+	// 	.withMessage('Must provide a billing address'),
+	// body('billing.city')
+	// 	.escape()
+	// 	.notEmpty()
+	// 	.withMessage('Must provide a city name'),
+	// body('billing.zip_code')
+	// 	.escape()
+	// 	.notEmpty()
+	// 	.withMessage('Must provide a zip code')
+	// 	.isLength({ min: 2 })
+	// 	.withMessage('Zip code length must be greater than 2 chars'),
+	// body('billing.country')
+	// 	.escape()
+	// 	.notEmpty()
+	// 	.withMessage('Must provide a Country name'),
 	body('user_type')
 		.notEmpty()
 		.withMessage('Field user type is required')
@@ -63,20 +63,20 @@ const validateGetUsers = [
 ];
 
 const validatePutUsers = [
-	body('name')
-		.optional()
-		.escape()
-		.isLength({ max: 50, min: 3 })
-		.withMessage(
-			'Name length must be lower than 50 and greater than 3 chars'
-		),
-	body('last_name')
-		.optional()
-		.escape()
-		.isLength({ max: 50, min: 3 })
-		.withMessage(
-			'Last Name length must be lower than 50 and greater than 3 chars'
-		),
+	// body('name')
+	// 	.optional()
+	// 	.escape()
+	// 	.isLength({ max: 50, min: 3 })
+	// 	.withMessage(
+	// 		'Name length must be lower than 50 and greater than 3 chars'
+	// 	),
+	// body('last_name')
+	// 	.optional()
+	// 	.escape()
+	// 	.isLength({ max: 50, min: 3 })
+	// 	.withMessage(
+	// 		'Last Name length must be lower than 50 and greater than 3 chars'
+	// 	),
 	body('email')
 		.if(body('id').isEmpty())
 		.notEmpty()
