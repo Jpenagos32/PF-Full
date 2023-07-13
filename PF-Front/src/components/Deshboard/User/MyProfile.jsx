@@ -124,30 +124,57 @@ const MyProfile = ({ userData }) => {
               >
                 Personal Information
               </Typography>
-              <Typography
-                variant="body1"
-                sx={{ marginBottom: 1, marginLeft: "10.7px" }}
-              >
-                First Name: {userData.user_first_name}
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{ marginBottom: 1, marginLeft: "10.7px" }}
-              >
-                Last Name: {userData.user_last_name}
-              </Typography>
+              {userData.user_first_name ? (
+                <Typography
+                  variant="body1"
+                  sx={{ marginBottom: 1, marginLeft: "10.7px" }}
+                >
+                  First Name: {userData.user_first_name}
+                </Typography>
+              ) : (
+                <Typography
+                  variant="body1"
+                  sx={{ marginBottom: 1, marginLeft: "10.7px" }}
+                >
+                  First Name: Edit Your Info in Settings
+                </Typography>
+              )}
+              {userData.user_last_name ? (
+                <Typography
+                  variant="body1"
+                  sx={{ marginBottom: 1, marginLeft: "10.7px" }}
+                >
+                  Last Name: {userData.user_last_name}
+                </Typography>
+              ) : (
+                <Typography
+                  variant="body1"
+                  sx={{ marginBottom: 1, marginLeft: "10.7px" }}
+                >
+                  Last Name: Edit Your Info in Settings
+                </Typography>
+              )}
               <Typography
                 variant="body1"
                 sx={{ marginBottom: 1, marginLeft: "10.7px" }}
               >
                 Email: {userData.user_email}
               </Typography>
-              <Typography
-                variant="body1"
-                sx={{ marginBottom: 1, marginLeft: "10.7px" }}
-              >
-                Phone: {userData.phone}
-              </Typography>
+              {userData.phone ? (
+                <Typography
+                  variant="body1"
+                  sx={{ marginBottom: 1, marginLeft: "10.7px" }}
+                >
+                  Phone Number: {userData.phone}
+                </Typography>
+              ) : (
+                <Typography
+                  variant="body1"
+                  sx={{ marginBottom: 1, marginLeft: "10.7px" }}
+                >
+                  Phone Number: Edit Your Info in Settings
+                </Typography>
+              )}
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography
@@ -161,18 +188,66 @@ const MyProfile = ({ userData }) => {
               >
                 Billing Information
               </Typography>
-              <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                Address: {userData.billing.billing_adress}
-              </Typography>
-              <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                City: {userData.billing.city}
-              </Typography>
-              <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                Zip Code: {userData.billing.zip_code}
-              </Typography>
-              <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                Country: {userData.billing.country}
-              </Typography>
+              {userData.billing && userData.billing.billing_adress ? (
+                <Typography
+                  variant="body1"
+                  sx={{ marginBottom: 1, marginLeft: "10.7px" }}
+                >
+                  Billing Address: {userData.billing.billing_adress}
+                </Typography>
+              ) : (
+                <Typography
+                  variant="body1"
+                  sx={{ marginBottom: 1, marginLeft: "10.7px" }}
+                >
+                  Billing Address: Edit Your Info in Settings
+                </Typography>
+              )}
+              {userData.billing && userData.billing.city ? (
+                <Typography
+                  variant="body1"
+                  sx={{ marginBottom: 1, marginLeft: "10.7px" }}
+                >
+                  City: {userData.billing.city}
+                </Typography>
+              ) : (
+                <Typography
+                  variant="body1"
+                  sx={{ marginBottom: 1, marginLeft: "10.7px" }}
+                >
+                  City: Edit Your Info in Settings
+                </Typography>
+              )}
+              {userData.billing && userData.billing.zip_code ? (
+                <Typography
+                  variant="body1"
+                  sx={{ marginBottom: 1, marginLeft: "10.7px" }}
+                >
+                  Zip Code: {userData.billing.zip_code}
+                </Typography>
+              ) : (
+                <Typography
+                  variant="body1"
+                  sx={{ marginBottom: 1, marginLeft: "10.7px" }}
+                >
+                  Zip Code: Edit Your Info in Settings
+                </Typography>
+              )}
+              {userData.billing && userData.billing.country ? (
+                <Typography
+                  variant="body1"
+                  sx={{ marginBottom: 1, marginLeft: "10.7px" }}
+                >
+                  Country: {userData.billing.country}
+                </Typography>
+              ) : (
+                <Typography
+                  variant="body1"
+                  sx={{ marginBottom: 1, marginLeft: "10.7px" }}
+                >
+                  Country: Edit Your Info in Settings
+                </Typography>
+              )}
             </Grid>
           </Grid>
         </Paper>
