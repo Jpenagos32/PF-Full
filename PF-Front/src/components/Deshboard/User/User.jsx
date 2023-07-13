@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Tabs, Tab, createTheme, Grid, Typography, Box } from "@mui/material";
 import MyProfile from "./MyProfile";
 import MyBookings from "./MyBookings";
+import Setting from "./Setting";
 
 const User = ({ userData }) => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -51,8 +52,8 @@ const User = ({ userData }) => {
           textColor="primary"
           indicatorColor="primary"
           sx={{
-            borderRadius : "5px",
-            width: "125%"
+            borderRadius: "5px",
+            width: "125%",
           }}
         >
           <Tab
@@ -77,12 +78,23 @@ const User = ({ userData }) => {
               },
             }}
           />
+          <Tab
+            label="Settings"
+            sx={{
+              backgroundColor: "#F3F3F7",
+              color: "#868688",
+              "&.Mui-selected": {
+                color: "#9A98FE",
+                backgroundColor: "#EFEEFF",
+              },
+            }}
+          />
         </Tabs>
-        {selectedTab === 0 && < MyProfile userData={userData} />}
+        {selectedTab === 0 && <MyProfile userData={userData} />}
         {selectedTab === 1 && <MyBookings userData={userData} />}
+        {selectedTab === 2 && <Setting userData={userData} />}
       </div>
     </Grid>
-    
   );
 };
 

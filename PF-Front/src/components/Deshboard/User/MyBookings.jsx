@@ -64,8 +64,8 @@ const MyBookings = ({ userData }) => {
 
     const data = {
       room_number: selectedRoom,
-      review_description: comment,
-      review_estrellas: ratingValue,
+      review_description: [comment],
+      review_estrellas: [ratingValue]
     };
 
     try {

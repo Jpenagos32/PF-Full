@@ -18,6 +18,7 @@ import {
 import { NavLink, useNavigate } from "react-router-dom";
 import { validation } from "./LoginValidation";
 import { setUser } from "../../redux/slices/authSlice";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -94,19 +95,38 @@ const Login = () => {
       const response = await signInWithPopup(auth, provider);
 
       let userEmail = "";
+      let emailAlreadyExists = false; // Variable para indicar si el correo electrónico está registrado
+
       if (response.operationType === "signIn") {
         userEmail = response.user.email;
 
-        const encryptedEmail = encryptData(userEmail, "secretKey");
-        localStorage.setItem("user", encryptedEmail);
+        // Verificar si el correo electrónico ya está registrado
+        const existingUserResponse = await axios.get("/users");
+        const existingUsers = existingUserResponse.data;
 
-        dispatch(setUser(encryptedEmail));
+        emailAlreadyExists = existingUsers.some(
+          (user) => user.user_email === userEmail
+        );
       }
+
+      if (!emailAlreadyExists) {
+        // Si el correo electrónico no está registrado, continuar con el proceso de registro
+        const apiResponse = await axios.post("/users", {
+          user_email: userEmail,
+          user_type: ["user"],
+        });
+      }
+
+      const encryptedEmail = encryptData(userEmail, "secretKey");
+      localStorage.setItem("user", encryptedEmail);
+
+      dispatch(setUser(encryptedEmail));
 
       setFormData({
         emailAddress: "",
         password: "",
       });
+
       setTimeout(() => {
         navigate("/myaccount");
       }, 1000);
