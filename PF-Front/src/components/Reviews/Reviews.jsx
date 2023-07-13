@@ -1,142 +1,67 @@
-import React from "react";
+import * as React from "react";
+import { Card, Grid, Rating, Typography } from "@mui/material";
+import { StyledStarBorderIcon, StyledStarIcon } from "../CardRoom/CardRoomStyled";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchRoomsData } from "../../redux/actions/roomAction";
 
-const reviews = () => {
-    return (
-        <div style={{ height: "13rem", overflowY: "scroll" }}>
-            <span style={{ margin: "2rem 1rem 2rem 1rem" }}>
-                <img
-                    src="https://img.freepik.com/free-photo/portrait-brunette-woman-with-curly-hair_273609-19744.jpg?size=626&ext=jpg"
-                    alt="foto"
-                    style={{
-                        width: "2.5rem",
-                        height: "2.5rem",
-                        borderRadius: "100%",
-                    }}
-                />
-                ⭐ ⭐ ⭐ ⭐ ⭐ Incredible! i loved it.
-            </span>
-            <br />
-            <span style={{ margin: "2rem 1rem 2rem 1rem" }}>
-                <img
-                    src="https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?size=626&ext=jpg"
-                    alt="foto"
-                    style={{
-                        width: "2.5rem",
-                        height: "2.5rem",
-                        borderRadius: "100%",
-                    }}
-                />
-                ⭐ ⭐ ⭐ ⭐ Such a lovely place.
-            </span>
-            <br />
-            <span style={{ margin: "2rem 1rem 2rem 1rem" }}>
-                <img
-                    src="https://img.freepik.com/free-photo/pretty-smiling-joyfully-female-with-fair-hair-dressed-casually-looking-with-satisfaction_176420-15187.jpg?size=626&ext=jpg"
-                    alt="foto"
-                    style={{
-                        width: "2.5rem",
-                        height: "2.5rem",
-                        borderRadius: "100%",
-                    }}
-                />
-                ⭐ ⭐ ⭐ ⭐ ⭐ See you next year!.
-            </span>
-            <br />
-            <span style={{ margin: "2rem 1rem 2rem 1rem" }}>
-                {" "}
-                <img
-                    src="https://img.freepik.com/free-photo/attractive-mixed-race-male-with-positive-smile-shows-white-teeth-keeps-hands-stomach-being-high-spirit-wears-white-shirt-rejoices-positive-moments-life-people-emotions-concept_273609-15527.jpg?size=626&ext=jpg"
-                    alt="foto"
-                    style={{
-                        width: "2.5rem",
-                        height: "2.5rem",
-                        borderRadius: "100%",
-                    }}
-                />
-                ⭐ ⭐ ⭐ Great!.
-            </span>
-            <br />
-            <span style={{ margin: "2rem 1rem 2rem 1rem" }}>
-                <img
-                    src="https://img.freepik.com/free-photo/close-up-smiley-woman-posing_23-2149069153.jpg?size=626&ext=jpg"
-                    alt="foto"
-                    style={{
-                        width: "2.5rem",
-                        height: "2.5rem",
-                        borderRadius: "100%",
-                    }}
-                />
-                ⭐ ⭐ ⭐ ⭐ we loved that garden tho.
-            </span>
-            <br />
-            <span style={{ margin: "2rem 1rem 2rem 1rem" }}>
-                <img
-                    src="https://img.freepik.com/free-photo/portrait-brunette-woman-with-curly-hair_273609-19744.jpg?size=626&ext=jpg"
-                    alt="foto"
-                    style={{
-                        width: "2.5rem",
-                        height: "2.5rem",
-                        borderRadius: "100%",
-                    }}
-                />
-                ⭐ ⭐ ⭐ ⭐ ⭐ Incredible! i loved it.
-            </span>
-            <br />
-            <span style={{ margin: "2rem 1rem 2rem 1rem" }}>
-                <img
-                    src="https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?size=626&ext=jpg"
-                    alt="foto"
-                    style={{
-                        width: "2.5rem",
-                        height: "2.5rem",
-                        borderRadius: "100%",
-                    }}
-                />
-                ⭐ ⭐ ⭐ ⭐ Such a lovely place.
-            </span>
-            <br />
-            <span style={{ margin: "2rem 1rem 2rem 1rem" }}>
-                <img
-                    src="https://img.freepik.com/free-photo/pretty-smiling-joyfully-female-with-fair-hair-dressed-casually-looking-with-satisfaction_176420-15187.jpg?size=626&ext=jpg"
-                    alt="foto"
-                    style={{
-                        width: "2.5rem",
-                        height: "2.5rem",
-                        borderRadius: "100%",
-                    }}
-                />
-                ⭐ ⭐ ⭐ ⭐ ⭐ See you next year!.
-            </span>
-            <br />
-            <span style={{ margin: "2rem 1rem 2rem 1rem" }}>
-                {" "}
-                <img
-                    src="https://img.freepik.com/free-photo/attractive-mixed-race-male-with-positive-smile-shows-white-teeth-keeps-hands-stomach-being-high-spirit-wears-white-shirt-rejoices-positive-moments-life-people-emotions-concept_273609-15527.jpg?size=626&ext=jpg"
-                    alt="foto"
-                    style={{
-                        width: "2.5rem",
-                        height: "2.5rem",
-                        borderRadius: "100%",
-                    }}
-                />
-                ⭐ ⭐ ⭐ Great!.
-            </span>
-            <br />
-            <span style={{ margin: "2rem 1rem 2rem 1rem" }}>
-                <img
-                    src="https://img.freepik.com/free-photo/close-up-smiley-woman-posing_23-2149069153.jpg?size=626&ext=jpg"
-                    alt="foto"
-                    style={{
-                        width: "2.5rem",
-                        height: "2.5rem",
-                        borderRadius: "100%",
-                    }}
-                />
-                ⭐ ⭐ ⭐ ⭐ we loved that garden tho.
-            </span>
-            <br />
-        </div>
-    );
+
+export default function Reviews() {
+const dispatch = useDispatch()
+  const rooms = useSelector((state) => state.rooms.rooms);
+  
+  // const calcularPromedio = () => {
+  //   const suma = rooms.review_estrellas.reduce((total, valor) => total + valor, 0);
+  //   const promedio = suma / rooms.review_estrellas.length;
+  //   return promedio;
+  // };
+
+  // const promedioEstrellas = calcularPromedio();
+  // console.log(promedioEstrellas)
+  React.useEffect(() => {
+    dispatch(fetchRoomsData());
+  }, [dispatch]);
+
+  return (
+    <React.Fragment>
+      <Card
+        elevation={0}
+        sx={{
+          backgroundColor: "transparent",
+          alignContent: "center",
+          padding: "15px",
+          marginBottom: "-22px",
+        }}
+      >
+        <Grid container spacing={4}>
+          <Grid item xs={0} md={8}>
+            <Rating
+              name="rating"
+              // value={promedioEstrellas}
+              readOnly
+              emptyIcon={<StyledStarBorderIcon />}
+              icon={<StyledStarIcon />}
+              size="large"
+              sx={{ fontSize: 15 }}
+            />
+          </Grid>
+          <Grid item xs={0} md={8}>
+            <Typography
+              variant="h1"
+              sx={{
+                fontSize: "20px",
+                fontWeight: "bold",
+                color: "#868688",
+                marginTop: "30px",
+                marginLeft: '45PX'
+              }}
+            >
+
+            </Typography>
+          </Grid>
+        </Grid>
+      </Card>
+    </React.Fragment>
+  );
 };
 
-export default reviews;
+

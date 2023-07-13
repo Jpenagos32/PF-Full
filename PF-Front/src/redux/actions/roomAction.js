@@ -12,7 +12,7 @@ export const fetchRoomsData = () => {
     try {
       await fakePromise();
       const response = await axios.get(
-        "https://pf-back-production-6a7d.up.railway.app/rooms"
+        "/rooms"
       );
       const roomsData = response.data;
       dispatch(fetchData(roomsData));

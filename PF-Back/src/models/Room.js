@@ -9,6 +9,10 @@ const roomSchema = new Schema({
 		required: true,
 		maxlength: 50,
 	},
+	active: {
+		type: Boolean,
+		default: true,
+	},
 	room_number: {
 		type: Number,
 		required: true,
@@ -85,6 +89,12 @@ const roomSchema = new Schema({
 		required: true,
 		minlength: [25, 'Room description must be greater than 25 chars'],
 		maxlength: [500, 'Room description must be less than 500 chars'],
+	},
+	review_description: {
+		type: [String],
+	},
+	review_estrellas: {
+		type: [Number],
 	},
 });
 

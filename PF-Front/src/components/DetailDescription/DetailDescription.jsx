@@ -1,135 +1,135 @@
-import { Grid, Typography, Card } from "@mui/material";
-import { LoadScript } from "@react-google-maps/api";
-import React from "react";
-const apiKey = "AIzaSyCv7ZMek1DLRWJ1NZbfA2-NfeOPMbEzH2M";
-import GoogleMap from "../../components/GoogleMap/GoogleMap";
+import * as React from "react";
+import { Grid, Typography, Card, Rating } from "@mui/material";
 import { useSelector } from "react-redux";
+import { StyledStarBorderIcon, StyledStarIcon } from "../CardRoom/CardRoomStyled";
+import styles from './Description.module.css'
+
 
 const DetailDescription = () => {
-  const room = useSelector((state) => state.types.types);
+  const { name, room_type, price, room_description, facilities, review_estrellas, review_description } = useSelector((state) => state.types.types)
 
   return (
-    <div>
-      <Card
-        sx={{
-          backgroundColor: "#EFEEFF",
-          height: "auto",
-          padding: "40px",
-          margin: "20px",
-          width: "890px",
-        }}
-      >
-        <Grid container spacing={2} style={{ padding: "10px" }}>
-          <Grid item xs={12} sm={7}>
-            <Typography
-              item
-              variant="h1"
-              sx={{
-                fontSize: "30px",
-                fontWeight: "bold",
-                color: "#868688",
-              }}
-            >
-              {room.name}
-            </Typography>
-
-            <Typography
-              item
-              variant="h1"
-              sx={{
-                fontSize: "20px",
-                color: "#868688",
-                marginTop: "5px",
-              }}
-            >
-              {room.room_type}
-            </Typography>
-          </Grid>
-
-          <Grid
-            item
-            xs={12}
-            sm={5}
-            sx={{ display: "flex", alignItems: "flex-end" }}
+    <Card
+      sx={{
+        backgroundColor: "#EFEEFF",
+        height: "auto",
+        marginLeft: '20px',
+        marginBottom: '30px'
+      }}
+    >
+      <Grid container spacing={2} style={{ padding: "20px", marginLeft: '20px' }}>
+        <Grid item xs={12} sm={7}>
+          <Typography item
+            variant="h1"
+            sx={{
+              fontSize: "30px",
+              fontWeight: "bold",
+              color: "#868688",
+            }}
           >
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: "35px",
-                fontWeight: "bold",
-                color: "#0400CB",
-              }}
-            >
-              ${room.price}
-            </Typography>
+            {name}
+          </Typography>
 
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: "15px",
-                fontWeight: "bold",
-                color: "#9A98FE",
-                marginTop: "20px",
-              }}
-            >
-              USD/NIGHT
-            </Typography>
-          </Grid>
+          <Typography item
+            variant="h1"
+            sx={{
+              fontSize: "20px",
+              color: "#868688",
+              marginTop: "5px",
+            }}
+          >
+            {room_type}
+          </Typography>
         </Grid>
 
-        <Grid
-          container
-          alignItems="flex-start"
-          style={{
-            marginTop: "20px",
-            borderTop: "1px solid",
-            marginBotton: "5px",
-            color: "#9A98FE",
-          }}
+        <Grid item
+          xs={12}
+          sm={5}
+          sx={{ display: "flex", alignItems: "flex-end" }}
         >
-          <Grid item xs={12} sm={8}>
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: "20px",
-                fontWeight: "bold",
-                color: "#0400CB",
-                marginTop: "20px",
-              }}
-            >
-              Description
-            </Typography>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "35px",
+              fontWeight: "bold",
+              color: "#0400CB",
+            }}
+          >
+            ${price}
+          </Typography>
 
-            <Typography
-              variant="p"
-              sx={{
-                fontSize: "16px",
-                color: "#C2C2C2",
-              }}
-            >
-              {room.room_description}
-            </Typography>
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: "20px",
-                fontWeight: "bold",
-                color: "#0400CB",
-                marginTop: "15px",
-              }}
-            >
-              Facilities
-            </Typography>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: "15px",
+              fontWeight: "bold",
+              color: "#9A98FE",
+              marginTop: "20px",
+            }}
+          >
+            USD/NIGHT
+          </Typography>
+        </Grid>
+      </Grid>
+      <Grid container
+        alignItems="flex-start"
+        style={{
 
-            <Grid container spacing={1} style={{ marginTop: "0px" }}>
-              <Grid item xs={12} sm={6}>
-                {room.facilities.map((facility, index) => (
-                  <Grid item key={index}>
+          borderTop: "1px solid",
+
+          color: "#9A98FE",
+        }}
+      >
+        <Grid container spacing={1} style={{ padding: "10px", margin: '20px', }}>
+          <Grid item xs={12} sm={7}>
+            <Grid item xs={12} sm={8} style={{ maxWidth: '80%' }}>
+              <Typography
+                variant="h1"
+                sx={{
+                  fontSize: "20px",
+                  fontWeight: "bold",
+                  color: "#0400CB",
+                  marginTop: '-20px',
+                  marginBottom: '7px',
+
+                }}
+              >
+                Description
+              </Typography>
+
+              <Typography
+                variant="p"
+                sx={{
+                  fontSize: "16px",
+                  color: "#C2C2C2",
+                }}
+              >
+                {room_description}
+              </Typography>
+
+
+              <Typography
+                variant="h1"
+                sx={{
+                  fontSize: "20px",
+                  fontWeight: "bold",
+                  color: "#0400CB",
+                  marginTop: "15px",
+                  marginBottom: '7px',
+                }}
+              >
+                Facilities
+              </Typography>
+              <Grid container spacing={0} style={{ marginTop: "0px" }}>
+                {facilities.map((facility, index) => (
+                  <Grid item xs={12} sm={4} key={index} style={{ display: "flex", alignItems: "center" }}>
                     <Typography
                       variant="p"
                       sx={{
+                        flexGrow: 1,
                         fontSize: "16px",
                         color: "#C2C2C2",
+                        marginTop: '0px'
                       }}
                     >
                       {facility}
@@ -139,7 +139,55 @@ const DetailDescription = () => {
               </Grid>
             </Grid>
 
+          </Grid>
+
+
+          <Grid item xs={12} sm={5}>
             <Typography
+              variant="h1"
+              sx={{
+                fontSize: "20px",
+                fontWeight: "bold",
+                color: "#0400CB",
+                marginTop: "-20px",
+                marginBottom: '10px',
+              }}
+            >
+              Reviews
+            </Typography>
+            {review_estrellas.length > 0 ? (
+              <div className={styles.scroll}>
+                <Grid container spacing={4}>
+                  <Grid item xs={6} sm={6}>
+                    {review_estrellas.map((rating, index) => (
+                      <Rating
+                        key={index}
+                        name={`rating-${index}`}
+                        value={rating}
+                        readOnly
+                        emptyIcon={<StyledStarBorderIcon />}
+                        icon={<StyledStarIcon />}
+                        size="large"
+                        sx={{ fontSize: 15 }}
+                      />
+                    ))}
+                  </Grid>
+                  <Grid item xs={6} md={6}>
+                    {review_description.map((comentario, index) => (
+                      <Typography key={index} variant="p">
+                        {comentario}
+                      </Typography>
+                    ))}
+                  </Grid>
+                </Grid>
+              </div>
+            ) : (
+              <Typography variant="p">
+                No reviews for this room. Be the first to make one.
+              </Typography>
+            )}
+          </Grid>
+          {/* <Typography
               variant="h1"
               sx={{
                 fontSize: "20px",
@@ -161,24 +209,13 @@ const DetailDescription = () => {
             >
               Please read and understand our cancellation policy prior to
               booking.
-            </Typography>
-          </Grid>
+            </Typography> */}
+        
+      </Grid>
 
-          <Grid
-            item
-            xs={12}
-            sm={4}
-            sx={{
-              padding: "15px",
-            }}
-          >
-            <LoadScript googleMapsApiKey={apiKey}>
-              <GoogleMap />
-            </LoadScript>
-          </Grid>
-        </Grid>
-      </Card>
-    </div>
+
+    </Grid>
+    </Card >
   );
 };
 

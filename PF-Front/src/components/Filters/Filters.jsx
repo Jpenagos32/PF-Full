@@ -12,20 +12,19 @@ import {
 } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { fetchData } from "../../redux/slices/roomSlice";
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
 
 export default function Filters() {
   const dispatch = useDispatch();
-
   const [selectedFilters, setSelectedFilters] = useState({});
 
   useEffect(() => {
-    const URL = "https://pf-back-production-6a7d.up.railway.app";
-    // console.log(selectedFilters);
     axios
-      .get(`${URL}/rooms`, { params: selectedFilters })
+      .get('/rooms', { params: selectedFilters })
       .then((response) => {
         const roomsData = response.data;
-        // console.log(roomsData);
         dispatch(fetchData(roomsData));
       })
       .catch((error) => {
@@ -127,7 +126,7 @@ export default function Filters() {
           onChange={handleFilterChange}
         />
 
-        <Typography id="type_room" level="body2" fontWeight="lg" mb={1}>
+        <Typography id="capa" level="body2" fontWeight="lg" mb={1}>
           Capacity
         </Typography>
         <RadioGroup

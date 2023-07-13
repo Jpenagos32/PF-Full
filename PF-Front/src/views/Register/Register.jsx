@@ -12,14 +12,11 @@ import {
 } from "@mui/material";
 import Select from "react-select";
 import CountryList from "react-select-country-list";
-import { auth, firestore } from "../../Firebase/Firebase.config";
+import { auth } from "../../Firebase/Firebase.config";
 import {
-  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   sendEmailVerification,
-  signInWithPopup,
 } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
 import { validation } from "./RegisterValidation";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -31,7 +28,17 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [showPasswordRequirements, setShowPasswordRequirements] =
+    useState(false);
   const [openAlert, setOpenAlert] = useState(false);
+
+  const handlePasswordFocus = () => {
+    setShowPasswordRequirements(true);
+  };
+
+  const handlePasswordBlur = () => {
+    setShowPasswordRequirements(false);
+  };
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -62,6 +69,11 @@ const Register = () => {
     }));
   };
 
+  const encryptData = (text, secretKey) => {
+    const encodedText = btoa(text);
+    return encodedText;
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -85,12 +97,12 @@ const Register = () => {
         } = formData;
 
         // Realizar solicitud POST a la API
-        const apiResponse = await axios.post("https://pf-back-production-6a7d.up.railway.app/users", {
+        const apiResponse = await axios.post("/users", {
           user_first_name: firstName,
           user_last_name: lastName,
           user_email: emailAddress,
-          // user_type: ["user"],
-          user_type: ["admin"],
+          user_type: ["user"],
+          //user_type: ["admin"],
           phone: phone,
           billing: {
             billing_adress: billingAddress,
@@ -128,6 +140,11 @@ const Register = () => {
           setOpenAlert(true);
           await sendEmailVerification(user);
 
+          const encryptedEmail = encryptData(emailAddress, "secretKey");
+          localStorage.setItem("user", encryptedEmail);
+
+          dispatch(setUser(encryptedEmail));
+
           // Restablecer el formulario
           setFormData({
             firstName: "",
@@ -141,7 +158,7 @@ const Register = () => {
             zipCode: "",
           });
           setTimeout(() => {
-            navigate("/home");
+            navigate("/myaccount");
           }, 4000);
         } else {
           console.log("Registro fallido en la API");
@@ -149,24 +166,6 @@ const Register = () => {
       } catch (error) {
         console.error("Error de registro:", error);
       }
-    }
-  };
-
-  const handleGoogleSignIn = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      const response = await signInWithPopup(auth, provider);
-
-      let userEmail = "";
-      if (response.operationType === "signIn") {
-        userEmail = response.user.email;
-        dispatch(setUser(userEmail));
-
-        localStorage.setItem("user", userEmail);
-        navigate("/myaccount");
-      }
-    } catch (error) {
-      console.log("Error al iniciar sesión con Google:", error);
     }
   };
 
@@ -182,7 +181,8 @@ const Register = () => {
           sm: 500,
         },
         margin: "0 auto",
-        marginTop: "10px",
+        marginTop: "30px",
+        marginBottom: "10px",
         padding: "40px",
         paddingLeft: "40px",
         border: "1px solid #ccc",
@@ -244,12 +244,31 @@ const Register = () => {
               label="Password"
               value={formData.password}
               onChange={handleChange}
+              onFocus={handlePasswordFocus}
+              onBlur={handlePasswordBlur}
               required
               fullWidth
               type="password"
               error={!!errors.password}
               helperText={errors.password}
             />
+            {showPasswordRequirements && (
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                sx={{ marginTop: "8px" }}
+              >
+                Password Requirements::
+                {/* Aquí puedes listar los requisitos de la contraseña */}
+                <ul>
+                  <li>Password Must Be 6 to 15 Characters</li>
+                  <li>Have at least one Special Character</li>
+                  <li>Have at least one capital letter</li>
+                  <li>Have at least one lowercase letter</li>
+                  <li>Have at least one number</li>
+                </ul>
+              </Typography>
+            )}
           </Grid>
           <Grid item xs={11.8}>
             <TextField
@@ -305,7 +324,10 @@ const Register = () => {
                 name="country"
                 value={
                   formData.country
-                    ? { value: formData.country, label: formData.country }
+                    ? {
+                        value: formData.country,
+                        label: formData.country,
+                      }
                     : null
                 } // Establecer el valor con un objeto en el formato { value: "código", label: "nombre" }
                 onChange={handleCountryChange}
@@ -324,7 +346,7 @@ const Register = () => {
             )}
           </Grid>
         </Grid>
-        <Box sx={{ textAlign: "center", marginTop: "20px" }}>
+        <Box sx={{ textAlign: "center", marginTop: "10px" }}>
           <Grid>
             <Button
               type="submit"
@@ -332,7 +354,7 @@ const Register = () => {
               color="primary"
               style={{
                 marginRight: "18px",
-                marginBottom: "15px",
+                marginBottom: "-30px",
                 borderRadius: "20px",
               }}
               sx={{
@@ -343,27 +365,6 @@ const Register = () => {
               }}
             >
               SIGN UP
-            </Button>
-          </Grid>
-          <Grid>
-            <Button
-              type="button"
-              onClick={handleGoogleSignIn}
-              variant="contained"
-              sx={{
-                backgroundColor: "#9A98FE",
-                borderRadius: "20px",
-                "&:hover": {
-                  backgroundColor: "#c2c1fe",
-                },
-              }}
-            >
-              <img
-                src="https://i.ibb.co/tbN3WSH/pngwing-com.png"
-                alt="logogoogle"
-                style={{ width: "24px", height: "24px", marginRight: "8px" }}
-              />
-              CONTINUE with google
             </Button>
           </Grid>
         </Box>

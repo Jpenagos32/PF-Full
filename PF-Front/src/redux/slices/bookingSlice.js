@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 
-    adult: 0,
+    adult: 1,
     child: 0,
     persons: 0,
-    numberooms: 0,
+    numberooms: 1,
     nights: 0,
     total: 0,
     startDate: null,

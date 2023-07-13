@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  Grid,
+  Snackbar,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useDispatch } from "react-redux";
 import { auth } from "../../Firebase/Firebase.config";
 import {
@@ -10,15 +18,22 @@ import {
 import { NavLink, useNavigate } from "react-router-dom";
 import { validation } from "./LoginValidation";
 import { setUser } from "../../redux/slices/authSlice";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
+
+  const encryptData = (text, secretKey) => {
+    const encodedText = btoa(text);
+    return encodedText;
+  };
 
   const [formData, setFormData] = useState({
     emailAddress: "",
     password: "",
   });
 
+  const [errorOpen, setErrorOpen] = useState(false);
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
 
@@ -28,6 +43,10 @@ const Login = () => {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const handleCloseAlert = () => {
+    setErrorOpen(false);
   };
 
   const handleSubmit = async (event) => {
@@ -49,10 +68,12 @@ const Login = () => {
 
         if (response.operationType === "signIn") {
           userEmail = response.user.email;
-          dispatch(setUser(userEmail));
-        }
 
-        localStorage.setItem("user", userEmail);
+          const encryptedEmail = encryptData(userEmail, "secretKey");
+          localStorage.setItem("user", encryptedEmail);
+
+          dispatch(setUser(encryptedEmail));
+        }
 
         setFormData({
           emailAddress: "",
@@ -62,7 +83,8 @@ const Login = () => {
           navigate("/myaccount");
         }, 1000);
       } catch (error) {
-        console.log("Error al iniciar sesión:", error);
+        console.error("Error To sign In:", error);
+        setErrorOpen(true);
       }
     }
   };
@@ -73,16 +95,41 @@ const Login = () => {
       const response = await signInWithPopup(auth, provider);
 
       let userEmail = "";
+      let emailAlreadyExists = false; // Variable para indicar si el correo electrónico está registrado
+
       if (response.operationType === "signIn") {
         userEmail = response.user.email;
-        dispatch(setUser(userEmail));
 
-        localStorage.setItem("user", userEmail);
-        setTimeout(() => {
-          navigate("/myaccount");
-        }, 1000);
-        console.log(response)
+        // Verificar si el correo electrónico ya está registrado
+        const existingUserResponse = await axios.get("/users");
+        const existingUsers = existingUserResponse.data;
+
+        emailAlreadyExists = existingUsers.some(
+          (user) => user.user_email === userEmail
+        );
       }
+
+      if (!emailAlreadyExists) {
+        // Si el correo electrónico no está registrado, continuar con el proceso de registro
+        const apiResponse = await axios.post("/users", {
+          user_email: userEmail,
+          user_type: ["user"],
+        });
+      }
+
+      const encryptedEmail = encryptData(userEmail, "secretKey");
+      localStorage.setItem("user", encryptedEmail);
+
+      dispatch(setUser(encryptedEmail));
+
+      setFormData({
+        emailAddress: "",
+        password: "",
+      });
+
+      setTimeout(() => {
+        navigate("/myaccount");
+      }, 1000);
     } catch (error) {
       console.log("Error al iniciar sesión con Google:", error);
     }
@@ -200,6 +247,21 @@ const Login = () => {
             </Button>
           </Grid>
         </Box>
+        <Snackbar
+          open={errorOpen}
+          autoHideDuration={5000}
+          onClose={handleCloseAlert}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          style={{ marginTop: "60px" }}
+        >
+          <Alert
+            onClose={handleCloseAlert}
+            severity="error"
+            sx={{ width: "80%", backgroundColor: "#f55d60" }}
+          >
+            Error To Sign In , Check Your Email And Password!
+          </Alert>
+        </Snackbar>
       </form>
     </Box>
   );

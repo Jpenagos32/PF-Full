@@ -13,6 +13,11 @@ import MyAccount from "./views/MyAccount/MyAccount";
 import { useEffect } from "react";
 import { setUser } from "./redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios';
+import Success from "./components/PaymentsComponents/Sucess";
+import Rejected from "./components/PaymentsComponents/Rejected";
+axios.defaults.baseURL = "https://sunsetsandsdev.adaptable.app";
+// axios.defaults.baseURL = "http://localhost:3001";
 
 const App = () => {
   
@@ -35,13 +40,15 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/home" element={<Home />} />
-          <Route exact path="/detail/:room_type" element={<Detail />} />
+          <Route exact path="/detail/:room_number" element={<Detail />} />
           <Route path="/pay" element={<Pay />} />
           <Route path="/signin" element={<Login />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/ResetPassword" element={<ResetPassword />} />
-          <Route path="/managerBooking" element={<ManagerBooking />} /> *
-          <Route path="/myaccount" element={<MyAccount />} /> *
+          <Route path="/managerBooking" element={<ManagerBooking />} /> 
+          <Route path="/myaccount" element={<MyAccount />} /> 
+          <Route path="/success" element={<Success />} /> 
+          <Route path="/rejected" element={<Rejected />} /> 
           <Route path="*" element={<Error />} /> *
         </Routes>
       </section>

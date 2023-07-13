@@ -16,11 +16,13 @@ const RegisteredUsers = require('../../models/RegisteredUsers');
 
 const deleteRegisteredUsers = async (req, res) => {
 	try {
-		const { email } = req.body;
+		const { email } = req.query;
 
 		if (!email) throw new Error('Must provide an email to delete user');
 
-		const deletedUser = await RegisteredUsers.findOneAndDelete(email);
+		const deletedUser = await RegisteredUsers.findOneAndDelete({
+			user_email: email,
+		});
 
 		if (!deletedUser)
 			return res.status(404).json({ error: 'User not found' });

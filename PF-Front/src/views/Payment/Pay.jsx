@@ -7,13 +7,15 @@ export default function PayView() {
   return (
 
     <Grid container
-      rowSpacing={2}
-      
+      spacing={5} 
+      sx={{
+        backgroundColor: "#FAFAFF"
+      }}
     >
-      <Grid item sm={12} md={7}>
+      <Grid item sm={12} md={6}>
         <FormComponent />
       </Grid>
-      <Grid item sm={12} md={5}>
+      <Grid item sm={12} md={6}>
         <PayResume />
       </Grid>
     </Grid>

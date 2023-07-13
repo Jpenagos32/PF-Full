@@ -5,17 +5,22 @@ import Select from "react-select";
 import CountryList from "react-select-country-list";
 import { useSelector } from "react-redux";
 import { DateContext } from "../../Context/DateContex";
+import { validation } from "./FormValidations";
+import CryptoJS from "crypto-js";
 
 const FormComponent = () => {
   const { startDate, endDate } = useContext(DateContext);
-  const { child, adult ,total} = useSelector((state) => state.booking);
+  const { child, adult, total } = useSelector((state) => state.booking);
   const check_in_date = startDate ? startDate.format("YYYY-MM-DD") : "";
   const check_out_date = endDate ? endDate.format("YYYY-MM-DD") : "";
   const childNumber = +child;
   const adultNumber = +adult;
   const amount_of_people = childNumber + adultNumber;
   const countryOptions = CountryList().getData();
-  const room = useSelector((state) => state.types.types.room_type);
+  const room = useSelector((state) => state.types.types);
+  const secretKey = "mySecretKey";
+
+  const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -44,67 +49,125 @@ const FormComponent = () => {
     }));
   };
 
-  const handleSubmit = async (event) => {
-    const PhoneNumber = +formData.phone;
-    event.preventDefault();
+  const processReservations = async (response) => {
+    let reservations = [];
 
-    const requestData = {
-      identification: formData.identification,
-      first_name: formData.firstName,
-      last_name: formData.lastName,
-      contact: {
-        email: formData.emailAddress,
-        phone: PhoneNumber,
-        address: formData.billingAddress,
-        country: formData.country.label,
-        city: formData.city,
-        zip_code: formData.zipCode,
-      },
-      check_in_date: check_in_date,
-      check_out_date: check_out_date,
-      amount_of_people: amount_of_people,
-      type_of_guest: {
-        adult: adultNumber,
-        children: childNumber,
-        baby: 0,
-        pets: 0,
-      },
-      room_type: room,
-    };
-
-    const requestDataForPay = {
-      identification: formData.identification,
-      total : total
-    };
-
-    try {
-      const response = await axios.post(
-        "https://pf-back-production-6a7d.up.railway.app/hosts",
-        requestData
-      );
-      if (response.status === 200) {
-        const response = await axios.post(
-          "https://pf-back-production-6a7d.up.railway.app/payments",
-          requestDataForPay
-        );
-        const paymentLink = response.data.init_point;
-        window.location.href = paymentLink;
-      }
-    } catch (error) {
-      console.log("Error al realizar la solicitud:", error);
+    if (
+      response.data.createHost &&
+      response.data.createHost.reservations &&
+      Array.isArray(response.data.createHost.reservations)
+    ) {
+      reservations = response.data.createHost.reservations;
+    } else if (
+      response.data.hostUpdated &&
+      response.data.hostUpdated.reservations &&
+      Array.isArray(response.data.hostUpdated.reservations)
+    ) {
+      reservations = response.data.hostUpdated.reservations;
     }
 
-    setFormData({
-      firstName: "",
-      lastName: "",
-      emailAddress: "",
-      phone: "",
-      billingAddress: "",
-      identification: "",
-      city: "",
-      country: "",
-      zipCode: "",
-    });
+    if (reservations.length > 0) {
+      const lastReservation = reservations[reservations.length - 1];
+      const lastReservationId = lastReservation._id;
+      return lastReservationId;
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // Validar el formulario
+    const validationErrors = validation(formData);
+    setErrors(validationErrors);
+    // Comprobar si hay errores
+    if (Object.keys(validationErrors).length === 0) {
+      try {
+        const PhoneNumber = +formData.phone;
+
+        const requestData = {
+          identification: formData.identification,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          contact: {
+            email: formData.emailAddress,
+            phone: PhoneNumber,
+            address: formData.billingAddress,
+            country: formData.country.label,
+            city: formData.city,
+            zip_code: formData.zipCode,
+          },
+          check_in_date: check_in_date,
+          check_out_date: check_out_date,
+          amount_of_people: amount_of_people,
+          type_of_guest: {
+            adult: adultNumber,
+            children: childNumber,
+            baby: 0,
+            pets: 0,
+          },
+          room_number: room.room_number,
+        };
+
+        const requestDataForPay = {
+          total: total,
+          identification: formData.identification,
+        };
+
+        const response = await axios.post("/hosts", requestData);
+        const reservationnumber = await processReservations(response);
+
+        const saveDataToLocalStorage = async () => {
+          const data = {
+            reservationnumber: reservationnumber,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            check_in_date: check_in_date,
+            check_out_date: check_out_date,
+            amount_of_people: amount_of_people,
+            room_number: room.room_number,
+            room_name: room.name,
+            image_bed: room.image.bed,
+            room_type: room.room_type,
+          };
+
+          // Convertir el objeto a una cadena JSON
+          const dataString = JSON.stringify(data);
+
+          // Encriptar los datos utilizando AES
+          const encryptedData = CryptoJS.AES.encrypt(
+            dataString,
+            secretKey
+          ).toString();
+
+          // Guardar los datos encriptados en el localStorage
+          localStorage.setItem("encryptedData", encryptedData);
+        };
+
+        if (response.status === 200) {
+          await saveDataToLocalStorage(); // Esperar la finalización de la encriptación
+
+          const responsePay = await axios.post("/payments", requestDataForPay);
+          const paymentLink = responsePay.data.init_point;
+
+          setFormData({
+            firstName: "",
+            lastName: "",
+            emailAddress: "",
+            phone: "",
+            billingAddress: "",
+            identification: "",
+            city: "",
+            country: "",
+            zipCode: "",
+          });
+          window.location.href = paymentLink;
+        }
+      } catch (error) {
+        console.log("Error al realizar la solicitud:", error);
+      }
+    } else {
+      console.log("Errores de validación:", validationErrors);
+    }
   };
 
   return (
@@ -130,6 +193,8 @@ const FormComponent = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.firstName}
+              helperText={errors.firstName}
             />
           </Grid>
           <Grid item xs={12} sm={5.9}>
@@ -140,6 +205,8 @@ const FormComponent = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.lastName}
+              helperText={errors.lastName}
             />
           </Grid>
           <Grid item xs={5.9}>
@@ -150,16 +217,20 @@ const FormComponent = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.phone}
+              helperText={errors.phone}
             />
           </Grid>
           <Grid item xs={5.9}>
             <TextField
               name="identification"
-              label="Identification"
+              label="Identity card Number or DNI number"
               value={formData.identification}
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.identification}
+              helperText={errors.identification}
             />
           </Grid>
           <Grid item xs={11.8}>
@@ -170,6 +241,8 @@ const FormComponent = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.emailAddress}
+              helperText={errors.emailAddress}
             />
           </Grid>
           <Grid item xs={11.8}>
@@ -180,6 +253,8 @@ const FormComponent = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.billingAddress}
+              helperText={errors.billingAddress}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -190,6 +265,8 @@ const FormComponent = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.city}
+              helperText={errors.city}
             />
           </Grid>
           <Grid item xs={5.8}>
@@ -200,6 +277,8 @@ const FormComponent = () => {
               onChange={handleChange}
               required
               fullWidth
+              error={!!errors.zipCode}
+              helperText={errors.zipCode}
             />
           </Grid>
           <Grid item xs={10} sm={11.8}>
@@ -211,6 +290,8 @@ const FormComponent = () => {
                 options={countryOptions}
                 placeholder="Country"
                 required
+                error={!!errors.country}
+                helperText={errors.country}
               />
             </FormControl>
           </Grid>

@@ -6,8 +6,8 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 export default function DetailGallery() {
-  const room = useSelector((state) => state.types.types.image);
 
+  const room = useSelector((state) => state.types.types.image)
   const images = room && room ? room : {};
   const imageKeys = Object.keys(images);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);

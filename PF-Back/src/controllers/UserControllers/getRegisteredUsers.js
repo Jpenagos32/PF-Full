@@ -16,16 +16,20 @@ const RegisteredUsers = require('../../models/RegisteredUsers');
 
 const getRegisteredUsers = async (req, res) => {
 	try {
-		const { email } = req.body;
+		const { email } = req.query;
 		const regexEmail = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
 		let userFound;
 
 		if (!email) {
 			userFound = await RegisteredUsers.find();
+			if (!userFound)
+				return res.status(404).json({ error: 'No users in database' });
 		} else {
 			if (!regexEmail.test(email))
 				throw new Error('Must provide a valid email');
 			userFound = await RegisteredUsers.findOne({ user_email: email });
+			if (!userFound)
+				return res.status(404).json({ error: 'User not found' });
 		}
 
 		return res.status(201).json(userFound);

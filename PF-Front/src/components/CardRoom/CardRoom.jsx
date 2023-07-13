@@ -33,25 +33,39 @@ import {
 
 export default function CardRoom({
   facilities,
-  room_type,
+  room_number,
   image,
   name,
-  capacity,
   price,
+  review_estrellas,
 }) {
+
+
+  const calcularPromedio = () => {
+    const suma = review_estrellas.reduce((total, valor) => total + valor, 0);
+    const promedio = suma / review_estrellas.length;
+    return promedio;
+  };
+
+  const promedioEstrellas = calcularPromedio();
+
   return (
     <Grid
       container
       spacing={2}
       sx={{
-        marginTop: "8px",
-        marginBottom: { xs: "-15px", sm: "-30px", md: "-70px" },
+        marginTop: "20px",
+        marginBottom: {
+          xs: "-15px", sm: "-30px", md: "-70px",
+        },
       }}
     >
       <Grid item xs={12}>
-        <Link to={`/detail/${room_type}`} style={linkStyle}>
+        <Link to={`/detail/${room_number}`} style={linkStyle}>
           <Card
             sx={{
+              backgroundColor: '#ededed',
+              height: "500px",
               transition: "0.2s",
               "&:hover": {
                 transform: "scale(1.05)",
@@ -75,15 +89,15 @@ export default function CardRoom({
                       <StyleNameTypography variant="h5">
                         {name}
                       </StyleNameTypography>
-                      {/* <Rating
+                      <Rating
                         name="rating"
-                        value={capacity}
+                        value={promedioEstrellas}
                         readOnly
                         emptyIcon={<StyledStarBorderIcon />}
                         icon={<StyledStarIcon />}
                         size="large"
                         sx={{ fontSize: 15 }}
-                      /> */}
+                      />
                     </Grid>
                   </Grid>
                   <Grid item xs={12}>
@@ -94,9 +108,7 @@ export default function CardRoom({
                   </Grid>
                 </Grid>
                 <StyledDivider />
-
                 <StyleTypography sx={{ mt: 1.5 }}>Facilities</StyleTypography>
-
                 {facilities.map((facility, index) => (
                   <StyleFacilitiesTypography key={index}>
                     {facility}

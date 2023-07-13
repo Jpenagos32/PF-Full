@@ -49,7 +49,7 @@ const NavBar = () => {
     if (openDrawer) {
       timer = setTimeout(() => {
         setOpenDrawer(false);
-      }, 2000);
+      }, 10000);
     }
     return () => clearTimeout(timer);
   }, [openDrawer]);
@@ -70,6 +70,7 @@ const NavBar = () => {
   const handleLogout = () => {
     logout();
     navigate("/home");
+    handleDrawerClose();
   };
 
   return (
@@ -106,7 +107,7 @@ const NavBar = () => {
           hideBackdrop: true,
         }}
         sx={{
-          zIndex: 0,
+          zIndex: 999,
           ".MuiDrawer-paper": {
             width: "300px",
             height: "200px",
@@ -174,6 +175,7 @@ const NavBar = () => {
                 }}
                 component={NavLink}
                 to="/signup"
+                onClick={handleDrawerClose}
               >
                 <ListItemText
                   primary="Register"
@@ -194,6 +196,7 @@ const NavBar = () => {
                 }}
                 component={NavLink}
                 to="/managerbooking"
+                onClick={handleDrawerClose}
               >
                 <ListItemText
                   primary="Manage Your Booking"
@@ -219,6 +222,7 @@ const NavBar = () => {
                 }}
                 component={NavLink}
                 to="/myaccount"
+                onClick={handleDrawerClose}
               >
                 <ListItemText
                   primary="My Account"

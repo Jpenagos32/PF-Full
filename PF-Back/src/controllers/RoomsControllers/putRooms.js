@@ -16,9 +16,8 @@ const Room = require('../../models/Room');
 
 const putRooms = async (req, res) => {
 	try {
-		const { room_number } = req.query;
-
-		if (!room_number) throw new Error('Must provide a valir room_number ');
+		const { room_number } = req.body;
+		if (!room_number) throw new Error('Must provide a valid room_number ');
 
 		const {
 			name,
@@ -30,6 +29,11 @@ const putRooms = async (req, res) => {
 			bathroom2,
 			extra,
 			room_description,
+			facilities,
+			available,
+			review_description,
+			review_estrellas,
+			active,
 		} = req.body;
 
 		const query = {};
@@ -37,6 +41,33 @@ const putRooms = async (req, res) => {
 		const roomExists = await Room.findOne({ room_number });
 		if (!roomExists) {
 			return res.status(404).json({ error: 'Room not found' });
+		}
+
+		if (facilities) {
+			let facilitiesArray = ['Wifi', 'Room Service'];
+
+			facilities.forEach((facility) => {
+				facilitiesArray.push(facility);
+			});
+			query.facilities = facilitiesArray;
+		}
+
+		if (review_estrellas) {
+			let review_estrellasArray = [...roomExists.review_estrellas];
+
+			review_estrellas.forEach((estrella) => {
+				review_estrellasArray.push(estrella);
+			});
+			query.review_estrellas = review_estrellasArray;
+		}
+
+		if (review_description) {
+			let review_descriptionArray = [...roomExists.review_description];
+
+			review_description.forEach((review) => {
+				review_descriptionArray.push(review);
+			});
+			query.review_description = review_descriptionArray;
 		}
 
 		if (name) query.name = name;
@@ -48,6 +79,8 @@ const putRooms = async (req, res) => {
 		if (bathroom2) query['image.bathroom2'] = bathroom2;
 		if (extra) query['image.extra'] = extra;
 		if (room_description) query.room_description = room_description;
+		if (available || available === false) query.available = available;
+		if (active) query.active = active;
 
 		const updatedRoom = await Room.findOneAndUpdate(
 			{ room_number },

@@ -10,7 +10,7 @@ const Gallery = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(
-                    "https://pf-back-production-6a7d.up.railway.app/hotel"
+                    '/hotel'
                 );
                 const responseData = response.data;
                 const imageUrls = getImgUrls(responseData[0]);
