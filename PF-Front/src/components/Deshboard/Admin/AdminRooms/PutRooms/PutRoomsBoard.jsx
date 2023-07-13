@@ -53,7 +53,6 @@ const PutRoomsBoard = ({ roomNum, props }) => {
     };
 
     const handleDialogConfirm = () => {
-        setActi(!acti);
         setConfirmActi(!confirmActi);
         setDialogOpen(false);
     };
@@ -248,14 +247,19 @@ const PutRoomsBoard = ({ roomNum, props }) => {
                                 }
                                 label={
                                     avai === true ? (
-                                        <span>Available</span>
+                                        <span>Remove Room from Home page</span>
                                     ) : (
-                                        <span>Not available</span>
+                                        <span>Show Room on Home Page</span>
                                     )
                                 }
-                                sx={{ marginBottom: "1rem" }}
+                                sx={{
+                                    borderRadius: "10px",
+                                    backgroundColor: "#FFCDD2",
+                                    margin: "1rem",
+                                    paddingRight: "1rem",
+                                }}
                             />
-                            <FormControlLabel
+                            {/* <FormControlLabel
                                 control={
                                     <Switch
                                         checked={acti}
@@ -264,14 +268,14 @@ const PutRoomsBoard = ({ roomNum, props }) => {
                                     />
                                 }
                                 label={
-                                    acti === true ? (
+                                    acti ? (
                                         <span>Active</span>
                                     ) : (
                                         <span>Not Active</span>
                                     )
                                 }
                                 sx={{ marginBottom: "1rem" }}
-                            />
+                            /> */}
                         </div>
                         <TextField
                             label="Room Name"
@@ -613,7 +617,7 @@ const PutRoomsBoard = ({ roomNum, props }) => {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        {confirmActi
+                        {acti
                             ? "By deactivating this room, it will be disabled throughout the website."
                             : "By activating this room, it will be available to users throughout the website."}
                     </DialogContentText>
